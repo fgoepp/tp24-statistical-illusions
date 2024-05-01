@@ -1,0 +1,47 @@
+Product ID	Product Name	"Opening Stock"	"Purchase/Stock in"	"Number of Units Sold"	"Hand-In-Stock"	"Cost Price Per Unit (USD)"	"Cost Price Total (USD)"
+P101	Laptop	50	20	10	60	1200	72000
+P102	Monitor	40	15	5	50	500	25000
+P103	Keyboard	60	25	15	70	50	3500
+P104	Headphones	30	10	3	37	100	3700
+P105	Smartphone	70	30	20	80	900	72000
+P106	Tablet	45	18	8	55	700	38500
+P107	Router	55	22	12	65	150	9750
+P108	External Hard Drive	25	12	5	32	200	6400
+P109	Wireless Earbuds	35	15	7	43	80	3440
+P110	Webcam	40	20	10	50	60	3000
+P111	Desk Chair	20	8	3	25	150	3750
+P112	Desk Lamp	30	15	7	38	30	1140
+P113	USB Flash Drive	50	25	12	63	20	1260
+P114	Ethernet Cable	60	30	15	75	10	750
+P115	Power Strip	40	20	8	52	25	1300
+P116	Wireless Mouse	35	15	5	45	40	1800
+P117	Gaming Keyboard	25	10	4	31	100	3100
+P118	Gaming Mouse	30	12	6	36	80	2880
+P119	Gaming Headset	20	8	3	25	120	3000
+P120	Gaming Chair	15	6	2	19	200	3800
+P121	Gaming Monitor	25	10	4	29	400	11600
+P122	Graphics Card	40	18	9	49	600	29400
+P123	CPU	30	15	7	38	350	13300
+P124	Motherboard	25	12	5	32	200	6400
+P125	RAM	50	22	11	61	80	4880
+P126	SSD	45	20	8	57	120	6840
+P127	HDD	60	25	12	73	60	4380
+P128	Power Supply	35	15	6	44	100	4400
+P129	PC Case	40	18	9	49	80	3920
+P130	CPU Cooler	30	12	4	34	50	1700
+P131	Monitor Stand	25	10	3	28	30	840
+P132	Mouse Pad	50	20	8	58	10	580
+P133	Thermal Paste	40	15	5	50	5	250
+P134	Cable Management Kit	30	12	4	34	15	510
+P135	WiFi Adapter	20	8	3	23	20	460
+P136	External DVD Drive	15	6	2	17	50	850
+P137	Printer Cable	25	10	4	29	5	145
+P138	Keyboard Cleaner	40	18	9	49	8	392
+P139	Laptop Cooling Pad	30	15	6	39	20	780
+P140	USB Hub	35	12	4	31	15	465
+P141	Anti-Glare Screen Protector	25	8	3	28	10	280
+P142	USB-C Adapter	20	10	4	24	15	360
+P143	Laptop Sleeve	30	12	5	37	20	740
+P144	Wireless Charger	40	18	7	51	30	1530
+P145	USB-C Cable	50	20	9	61	8	488
+P146	Gaming Desk	25	10	3	28	150	4200
