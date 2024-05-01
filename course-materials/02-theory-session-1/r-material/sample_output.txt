@@ -1,0 +1,16 @@
+"Product.ID"	"Product.Name"	"Opening.Stock"	"Purchase.Stock.in"	"Number.of.Units.Sold"	"Hand.In.Stock"	"Cost.Price.Per.Unit..USD."	"Cost.Price.Total..USD."
+"1"	"P101"	"Laptop"	50	20	10	60	1200	72000
+"2"	"P102"	"Monitor"	40	15	5	50	500	25000
+"5"	"P105"	"Smartphone"	70	30	20	80	900	72000
+"6"	"P106"	"Tablet"	45	18	8	55	700	38500
+"7"	"P107"	"Router"	55	22	12	65	150	9750
+"8"	"P108"	"External Hard Drive"	25	12	5	32	200	6400
+"11"	"P111"	"Desk Chair"	20	8	3	25	150	3750
+"19"	"P119"	"Gaming Headset"	20	8	3	25	120	3000
+"20"	"P120"	"Gaming Chair"	15	6	2	19	200	3800
+"21"	"P121"	"Gaming Monitor"	25	10	4	29	400	11600
+"22"	"P122"	"Graphics Card"	40	18	9	49	600	29400
+"23"	"P123"	"CPU"	30	15	7	38	350	13300
+"24"	"P124"	"Motherboard"	25	12	5	32	200	6400
+"26"	"P126"	"SSD"	45	20	8	57	120	6840
+"46"	"P146"	"Gaming Desk"	25	10	3	28	150	4200
