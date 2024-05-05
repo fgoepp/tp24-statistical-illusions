@@ -1,0 +1,21 @@
+Shiny installieren:
+
+- Im RStudio Terminal shiny unf bslib installieren -> install.packages("shiny"), install.packages("bslib")
+
+- in jeder app.R Datei muss shiny mitdem Befehl  library(shiny) importiert werden. Dasselbe gilt für bslib mit library(bslib)
+ (bslib ist notwendig für die UI Layouts)
+
+- jede ShinyApp besteht aus drei Teilen: 
+	* UI object -> Layout und Aussehen der App
+	* server function -> zuständig für die Logik des Programms
+	* Aufruf shinyApp Funktion -> kreiert ShinyApp Instanz von UI/server Paar
+
+- jede App, also auch app.R Datei,  befindet sich in einem Verzeichnis "myapp/", wobei "myapp" den Namen der App darstellt
+
+- App wird gestartet mithilfe von runApp("path/to/myapp") Befehl
+
+
+HAUSAUFGABE: Erstelle eine App, die eine einfache Normalverteilung in Form eines Histogramms generiert und die anhand der Anzahl der Beobachtungen
+verändert werden kann. Diese Anzahl soll mithilfe eines Widgets an der page_sidebar anpassbar sein.
+
+
