@@ -1,8 +1,7 @@
-# Load necessary libraries
 library(shiny)
 library(shinydashboard)
 
-# Load modules
+# Load module code
 source("monty_hall_module.R")
 source("two_child_module.R")
 
@@ -85,9 +84,50 @@ landing_ui <- fluidPage(
   )
 )
 
+# Define UI for main dashboard
+dashboard_ui <- dashboardPage(
+  dashboardHeader(title = "Statistical Illusions"),
+  dashboardSidebar(
+    sidebarMenu(
+      menuItem("Home", tabName = "home"),
+      menuItem("Monty Hall", tabName = "monty_hall"),
+      menuItem("Two Child Problem", tabName = "two_child_problem"),
+      menuItem("Other Problem", tabName = "other_problem")
+    )
+  ),
+  dashboardBody(
+    tabsetPanel(
+      # Home tab
+      tabPanel("Home",
+               fluidRow(
+                 column(12, 
+                        h2("Welcome to Statistical Illusions!"),
+                        p("This app allows you to explore various statistical illusions through interactive simulations.")
+                 )
+               )
+      ),
+      
+      # Monty Hall tab
+      tabPanel("Monty Hall",
+               monty_hall_ui("monty_hall_module")  # Call Monty Hall module UI function
+      ),
+      
+      # Two Child Problem tab
+      tabPanel("Two Child Problem",
+               two_child_problem_ui("two_child_problem_module")  # Call Two Child Problem module UI function
+      ),
+      
+      # Other Problem tab
+      tabPanel("Other Problem",
+               # UI content for other problem tab
+      )
+    )
+  )
+)
+
 # Define server logic
 server <- function(input, output, session) {
-  # Initialize output for landing page
+  # Initialize UI with landing page
   output$ui <- renderUI({
     landing_ui
   })
@@ -95,165 +135,27 @@ server <- function(input, output, session) {
   # Observe event for button clicks on landing page
   observeEvent(input$monty_hall_btn, {
     output$ui <- renderUI({
-      dashboardPage(
-        dashboardHeader(title = "Statistical Illusions"),
-        dashboardSidebar(
-          sidebarMenu(
-            menuItem("Home", tabName = "home"),
-            menuItem("Monty Hall", tabName = "monty_hall"),
-            menuItem("Two Child Problem", tabName = "two_child_problem"),
-            menuItem("Other Problem", tabName = "other_problem")
-          )
-        ),
-        dashboardBody(
-          tabItems(
-            # Home tab
-            tabItem(tabName = "home",
-                    fluidRow(
-                      column(12, 
-                             h2("Welcome to Statistical Illusions!"),
-                             p("This app allows you to explore various statistical illusions through interactive simulations.")
-                      )
-                    )
-            ),
-            
-            # Monty Hall tab
-            tabItem(tabName = "monty_hall",
-                    callModule(monty_hall_server, "monty_hall_ui")
-            ),
-            
-            # Two Child Problem tab
-            tabItem(tabName = "two_child_problem",
-                    callModule(two_child_server, "two_child_ui")
-            ),
-            
-            # Other Problem tab
-            tabItem(tabName = "other_problem",
-                    fluidRow(
-                      column(12,
-                             h2("Other Problem"),
-                             p("Content for the other problem tab goes here.")
-                      )
-                    )
-            )
-          )
-        )
-      )
+      dashboard_ui
     })
   })
   
   observeEvent(input$two_child_btn, {
     output$ui <- renderUI({
-      dashboardPage(
-        dashboardHeader(title = "Statistical Illusions"),
-        dashboardSidebar(
-          sidebarMenu(
-            menuItem("Home", tabName = "home"),
-            menuItem("Monty Hall", tabName = "monty_hall"),
-            menuItem("Two Child Problem", tabName = "two_child_problem"),
-            menuItem("Other Problem", tabName = "other_problem")
-          )
-        ),
-        dashboardBody(
-          tabItems(
-            # Home tab
-            tabItem(tabName = "home",
-                    fluidRow(
-                      column(12, 
-                             h2("Welcome to Statistical Illusions!"),
-                             p("This app allows you to explore various statistical illusions through interactive simulations.")
-                      )
-                    )
-            ),
-            
-            # Monty Hall tab
-            tabItem(tabName = "monty_hall",
-                    fluidRow(
-                      column(12,
-                             h2("Monty Hall Problem"),
-                             # Add your shiny app content for Monty Hall problem here
-                      )
-                    )
-            ),
-            
-            # Two Child Problem tab
-            tabItem(tabName = "two_child_problem",
-                    callModule(two_child_server, "two_child_ui")
-            ),
-            
-            # Other Problem tab
-            tabItem(tabName = "other_problem",
-                    fluidRow(
-                      column(12,
-                             h2("Other Problem"),
-                             p("Content for the other problem tab goes here.")
-                      )
-                    )
-            )
-          )
-        )
-      )
+      dashboard_ui
     })
   })
   
   observeEvent(input$other_btn, {
     output$ui <- renderUI({
-      dashboardPage(
-        dashboardHeader(title = "Statistical Illusions"),
-        dashboardSidebar(
-          sidebarMenu(
-            menuItem("Home", tabName = "home"),
-            menuItem("Monty Hall", tabName = "monty_hall"),
-            menuItem("Two Child Problem", tabName = "two_child_problem"),
-            menuItem("Other Problem", tabName = "other_problem")
-          )
-        ),
-        dashboardBody(
-          tabItems(
-            # Home tab
-            tabItem(tabName = "home",
-                    fluidRow(
-                      column(12, 
-                             h2("Welcome to Statistical Illusions!"),
-                             p("This app allows you to explore various statistical illusions through interactive simulations.")
-                      )
-                    )
-            ),
-            
-            # Monty Hall tab
-            tabItem(tabName = "monty_hall",
-                    fluidRow(
-                      column(12,
-                             h2("Monty Hall Problem"),
-                             # Add your shiny app content for Monty Hall problem here
-                      )
-                    )
-            ),
-            
-            # Two Child Problem tab
-            tabItem(tabName = "two_child_problem",
-                    fluidRow(
-                      column(12,
-                             h2("Two Child Problem"),
-                             # Add your shiny app content for Two Child Problem here
-                      )
-                    )
-            ),
-            
-            # Other Problem tab
-            tabItem(tabName = "other_problem",
-                    fluidRow(
-                      column(12,
-                             h2("Other Problem"),
-                             p("Content for the other problem tab goes here.")
-                      )
-                    )
-            )
-          )
-        )
-      )
+      dashboard_ui
     })
   })
+  
+  # Call Monty Hall module server logic
+  callModule(monty_hall_server, "monty_hall_module")
+  
+  # Call Two Child Problem module server logic
+  callModule(two_child_problem_server, "two_child_problem_module")
 }
 
 # Run the application
