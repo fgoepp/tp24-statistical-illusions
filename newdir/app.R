@@ -114,7 +114,7 @@ dashboard_ui <- dashboardPage(
       
       # Two Child Problem tab
       tabPanel("Two Child Problem",
-               two_child_problem_ui("two_child_problem_module")  # Call Two Child Problem module UI function
+               two_child_ui("two_child_module")  # Call Two Child Problem module UI function
       ),
       
       # Other Problem tab
@@ -155,7 +155,7 @@ server <- function(input, output, session) {
   callModule(monty_hall_server, "monty_hall_module")
   
   # Call Two Child Problem module server logic
-  callModule(two_child_problem_server, "two_child_problem_module")
+  callModule(two_child_server, "two_child_module")
 }
 
 # Run the application
