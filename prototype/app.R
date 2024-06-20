@@ -18,8 +18,8 @@ ui <- dashboardPage(
     sidebarMenu(
       menuItem("Home", tabName = "home", icon = icon("home")),
       menuItem("App 1", tabName = "app1", icon = icon("bar-chart")),
-      menuItem("App 2", tabName = "app2", icon = icon("line-chart")),
-      menuItem("App 3", tabName = "app3", icon = icon("pie-chart"))
+      menuItem("App 2", tabName = "app2", icon = icon("bar-chart")),
+      menuItem("App 3", tabName = "app3", icon = icon("bar-chart"))
     )
   ),
   dashboardBody(
@@ -41,4 +41,3 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui, server)
-
