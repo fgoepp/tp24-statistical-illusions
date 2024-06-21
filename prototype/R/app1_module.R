@@ -91,7 +91,7 @@ app1Server <- function(id) {
     output$admissionsPlot <- renderPlot({
       ggplot(total_data, aes(x = Gender, y = AdmissionRate, fill = Gender)) +
         geom_bar(stat = "identity", position = "dodge", width = 0.7) +
-        scale_fill_manual(values = c("blue", "red")) +
+        scale_fill_manual(values = c("red", "blue")) +
         labs(title = "Admissions By Gender", x = "Gender", 
              y = "Admission Rate") +
         theme_minimal() +
@@ -114,7 +114,7 @@ app1Server <- function(id) {
       ggplot(department_data, aes(x = Department, y = AdmissionRate, 
                                   fill = Gender)) +
         geom_bar(stat = "identity", position = "dodge", width = 0.7) +
-        scale_fill_manual(values = c("blue", "red")) +
+        scale_fill_manual(values = c("red", "blue")) +
         labs(title = "Admissions By Gender In Departments", x = "Department", 
              y = "Admission Rate") +
         theme_minimal() +
