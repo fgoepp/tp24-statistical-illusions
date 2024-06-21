@@ -1,23 +1,69 @@
-# app1_module.R
+library(shiny)
+library(ggplot2)
+library(dplyr)
+library(DT)
+
 
 app1UI <- function(id) {
   ns <- NS(id)
   tagList(
-    h2("Simpson's Paradox"),
-    p("This app demonstrates Simpson's Paradox using SAT scores and 
-      teacher salaries."),
+    tags$head(
+      tags$style(HTML("
+        .table-bordered th, .table-bordered td {
+          border: 1px solid black !important;
+        }
+        .card {
+          border: 1px solid #dddddd;
+          border-radius: 15px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          padding: 15px;
+          margin-bottom: 20px;
+          background-color: #ffffff;
+        }
+      "))
+    ),
     fluidRow(
-      box(width = 12, title = "Controls", status = "primary", 
-          solidHeader = TRUE, sliderInput(ns("integer"), 
-          "Adjust Salaries and Scores", min = 0, max = 1, value = 0.5)
+      column(12, 
+             h3("Simpson's Paradox"),
+             p("Simpson's Paradox occurs when a trend that appears in different 
+        groups of data disappears or reverses when these groups are combined. 
+        In this example, aggregated data might show one trend, while the 
+        disaggregated data by department shows a different trend. 
+        This phenomenon can obscure the real relationships between variables.")
       )
     ),
     fluidRow(
-      box(width = 6, title = "SAT Data", status = "primary", solidHeader = TRUE,
-          tableOutput(ns("SAT1"))
+      column(12, 
+             checkboxInput(ns("showDepartments"), 
+                           "Show Admissions by Department", FALSE)
+      )
+    ),
+    fluidRow(
+      column(6,
+             div(class = "card",
+                 plotOutput(ns("admissionsPlot"))
+             ),
+             div(class = "card", 
+                 conditionalPanel(
+                   condition = paste0("input['", ns("showDepartments"), 
+                                      "'] == true"),
+                   plotOutput(ns("departmentPlot"))
+                 )
+             )
       ),
-      box(width = 6, title = "SAT vs. Salary Plot", status = "primary", 
-          solidHeader = TRUE, plotlyOutput(ns("plot2"))
+      column(6,
+             div(class = "card", 
+                 h4("Admissions By Gender"),
+                 uiOutput(ns("dataTableTotal"))
+             ),
+             div(class = "card", 
+                 conditionalPanel(
+                   condition = paste0("input['", ns("showDepartments"), 
+                                      "'] == true"),
+                   h4("Admissions By Gender In Departments"),
+                   uiOutput(ns("dataTableDepartment"))
+                 )
+             )
       )
     )
   )
@@ -25,54 +71,109 @@ app1UI <- function(id) {
 
 app1Server <- function(id) {
   moduleServer(id, function(input, output, session) {
-    # load the data
-    load("./data/SAT_2010.rda")
+    ns <- session$ns
     
-    # Render the SAT table
-    output$SAT1 <- renderTable({
-      SAT_2010[c(5,20,21,30,38,39,16,23,27,34,42,49), c(1,4,8,9)]
+    #  path to data  FIX ABSOULUTE PATH
+    total_data_path <- "data/total_admissions.csv"
+    department_data_path <- "data/department_admissions.csv"
+    
+    # check if files exist before reading
+    if (!file.exists(total_data_path)) {
+      stop("File not found: ", total_data_path)
+    }
+    if (!file.exists(department_data_path)) {
+      stop("File not found: ", department_data_path)
+    }
+    
+    total_data <- read.csv(total_data_path)
+    department_data <- read.csv(department_data_path)
+    
+    output$admissionsPlot <- renderPlot({
+      ggplot(total_data, aes(x = Gender, y = AdmissionRate, fill = Gender)) +
+        geom_bar(stat = "identity", position = "dodge", width = 0.7) +
+        scale_fill_manual(values = c("blue", "red")) +
+        labs(title = "Admissions By Gender", x = "Gender", 
+             y = "Admission Rate") +
+        theme_minimal() +
+        theme(
+          plot.title = element_text(size = 16, face = "bold"),
+          axis.title = element_text(size = 14),
+          axis.text = element_text(size = 12),
+          legend.position = "none",
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          panel.background = element_blank(),
+          plot.background = element_rect(fill = "#f0f0f0", color = NA, 
+                                         size = 1, linetype = "solid"),
+          panel.border = element_rect(fill = NA, color = "black", 
+                                      size = 1, linetype = "solid")
+        )
     })
     
-    # render the plot
-    output$plot2 <- renderPlotly({
-      SAT_2010_plot2 <- SAT_2010[c(5,20,21,30,38,39,16,23,27,34,42,49),] %>%
-        mutate(SAT_grp = ifelse(sat_pct <= 27, "Low SAT Participation State", 
-                                "High SAT Participation State"))
-      
-      integer <- 8714 - input$integer * 8714
-      
-      low <- which(SAT_2010_plot2$salary <= 55051)
-      high <- which(SAT_2010_plot2$salary > 55051)
-      SAT_2010_plot2[low, ]$salary <- SAT_2010_plot2[low, ]$salary + integer
-      SAT_2010_plot2[low, ]$total <- SAT_2010_plot2[low, ]$total + 
-        (integer * -0.01417)
-      
-      SAT_2010_plot2[high, ]$salary <- SAT_2010_plot2[high, ]$salary - integer
-      SAT_2010_plot2[high, ]$total <- SAT_2010_plot2[high, ]$total - 
-        (integer * -0.01417)
-      
-      p <- ggplot(data = SAT_2010_plot2, 
-                  aes(salary, total, col = SAT_grp, label = state)) +
-                  geom_smooth(method = "lm", se = FALSE) +
-                  labs(x = "Teachers' Salaries", y = "SAT Scores") +
-                  geom_point(aes(text = paste("State:", state, "\n",
-                                    "New Salary:", salary, "\n",
-                                    "New SAT Score:", total, "\n",
-                                    "", SAT_grp)), size = 3, pch = 21)
-      
-      pp <- p + geom_smooth(method = "lm", se = FALSE, color = "black", 
-                            linetype = "longdash", lwd = 1.5) +
-        scale_colour_manual(name = '', values = 
-                              c('Low SAT Participation State' = 'red', 
-                                'High SAT Participation State' = 'blue',
-                                'black' = 'black')) + theme_bw() +
-        theme(axis.title.x = element_text(face = "bold"),
-              axis.title.y = element_text(face = "bold"),
-              panel.background = element_blank(),
-              legend.position = "none",
-              axis.line = element_line(color = 'black'))
-      
-      ggplotly(pp, tooltip = "text") %>% config(displayModeBar = FALSE)
+    output$departmentPlot <- renderPlot({
+      ggplot(department_data, aes(x = Department, y = AdmissionRate, 
+                                  fill = Gender)) +
+        geom_bar(stat = "identity", position = "dodge", width = 0.7) +
+        scale_fill_manual(values = c("blue", "red")) +
+        labs(title = "Admissions By Gender In Departments", x = "Department", 
+             y = "Admission Rate") +
+        theme_minimal() +
+        theme(
+          plot.title = element_text(size = 16, face = "bold"),
+          axis.title = element_text(size = 14),
+          axis.text = element_text(size = 12),
+          legend.position = "top",
+          legend.title = element_blank(),
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          panel.background = element_blank(),
+          plot.background = element_rect(fill = "#f0f0f0", color = NA, 
+                                         size = 1, linetype = "solid"),
+          panel.border = element_rect(fill = NA, color = "black", 
+                                      size = 1, linetype = "solid")
+        )
+    })
+    
+    output$dataTableTotal <- renderUI({
+      tags$table(
+        class = "table table-bordered",
+        tags$thead(
+          tags$tr(
+            tags$th("Gender"),
+            tags$th("Admission Rate")
+          )
+        ),
+        tags$tbody(
+          lapply(1:nrow(total_data), function(i) {
+            tags$tr(
+              tags$td(total_data$Gender[i]),
+              tags$td(total_data$AdmissionRate[i])
+            )
+          })
+        )
+      )
+    })
+    
+    output$dataTableDepartment <- renderUI({
+      tags$table(
+        class = "table table-bordered",
+        tags$thead(
+          tags$tr(
+            tags$th("Department"),
+            tags$th("Gender"),
+            tags$th("Admission Rate")
+          )
+        ),
+        tags$tbody(
+          lapply(1:nrow(department_data), function(i) {
+            tags$tr(
+              tags$td(department_data$Department[i]),
+              tags$td(department_data$Gender[i]),
+              tags$td(department_data$AdmissionRate[i])
+            )
+          })
+        )
+      )
     })
   })
 }
