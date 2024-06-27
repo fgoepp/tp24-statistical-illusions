@@ -39,3 +39,19 @@ Click "Run App" in the top-right corner of the RStudio script editor.
 
 To add your own statistical illusion to the Shiny App, follow these steps:
 ...
+
+Current file structure
+prototype
+    ├── R
+    │   ├── app1_module.R
+    │   ├── app2_module.R
+    │   ├── app3_module.R
+    │   ├── app4_module.R
+    │   ├── home_module.R
+    │   ├── monty_hall_module.R
+    │   └── two_child_module.R
+    ├── app.R
+    └── data
+        ├── department_admissions.csv
+        ├── exercise_data.csv
+        └── total_admissions.csv
