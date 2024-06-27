@@ -41,6 +41,8 @@ To add your own statistical illusion to the Shiny App, follow these steps:
 ...
 
 Current file structure
+
+```
 prototype
     ├── R
     │   ├── app1_module.R
