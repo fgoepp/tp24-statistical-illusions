@@ -4,6 +4,7 @@ library(ggplot2)
 library(shinyBS)
 library(plotly)
 library(dplyr)
+library(styler)
 
 # source module files
 source("R/home_module.R")
