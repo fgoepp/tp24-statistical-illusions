@@ -4,6 +4,7 @@ library(ggplot2)
 library(shinyBS)
 library(plotly)
 library(dplyr)
+library(styler)
 
 # source module files
 source("R/home_module.R")
@@ -14,11 +15,11 @@ source("R/app4_module.R")
 
 # main UI
 ui <- dashboardPage(
-  dashboardHeader(title = "Shiny Apps Dashboard"),
+  dashboardHeader(title = "Statistical Illusions"),
   dashboardSidebar(
     sidebarMenu(
       menuItem("Home", tabName = "home", icon = icon("home")),
-      menuItem("App 1", tabName = "app1", icon = icon("bar-chart")),
+      menuItem("Simpson's Paradox", tabName = "app1", icon = icon("bar-chart")),
       menuItem("App 2", tabName = "app2", icon = icon("line-chart")),
       menuItem("App 3", tabName = "app3", icon = icon("pie-chart")),
       menuItem("St. Petersburg Paradox", tabName = "app4", 
