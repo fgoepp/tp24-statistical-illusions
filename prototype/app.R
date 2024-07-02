@@ -9,7 +9,7 @@ library(dplyr)
 source("R/home_module.R")
 source("R/app1_module.R")
 source("R/app2_module.R")
-source("R/app3_module.R")
+source("R/app3_module.R") #the two child problem
 source("R/app4_module.R")
 
 # main UI
@@ -20,7 +20,8 @@ ui <- dashboardPage(
       menuItem("Home", tabName = "home", icon = icon("home")),
       menuItem("App 1", tabName = "app1", icon = icon("bar-chart")),
       menuItem("App 2", tabName = "app2", icon = icon("line-chart")),
-      menuItem("App 3", tabName = "app3", icon = icon("pie-chart")),
+      menuItem("The two child problem", tabName = "app3", 
+               icon = icon("pie-chart")),
       menuItem("St. Petersburg Paradox", tabName = "app4", 
                icon = icon("piggy-bank"))
     )
