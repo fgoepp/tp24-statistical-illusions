@@ -2,19 +2,32 @@ library(styler)
 app2UI <- function(id) {
   ns <- NS(id)
   tagList(
+    withMathJax(),
     h2("Monty Hall Problem"),
-    p("The Monty Hall problem is a well known probability puzzle based on a game
-    show scenario.A contestant is presented with three doors, behind one of
+    fluidRow(
+      # introduction
+      box(
+        title = "Introduction",
+        status = "primary",
+        solidHeader = TRUE,
+        collapsible = FALSE,
+        collapsed = FALSE,
+        width = 12,
+        p("The Monty Hall problem is a well known probability puzzle based on a
+    game show scenario.A contestant is presented with three doors, behind one of
     which is a car (the prize) and behind the other two, goats(blank). After the
     contestant picks a door, the host(Monty Hall), who knows what's behind all
     the doors, opens one of the remaining doors to reveal a goat. The contestant
     is then given the option to stick with their original choice or switch to
     the other unopened door.Surprisingly, switching doors increases the
-    contestant's chances of winning the car from 1/3 to 2/3."),
-    fluidRow(
+    contestant's chances of winning the car from 1/3 to 2/3.")
+      ),
+      # first "diagramm"
       box(
-        width = 12, title = "App 2 Content", status = "primary",
+        title = "Plot 1",
+        status = "primary",
         solidHeader = TRUE,
+        width = 12,
         sliderInput(ns("num_doors"),
           "Number of doors:",
           min = 3,
@@ -26,10 +39,14 @@ app2UI <- function(id) {
         uiOutput(ns("door_selection")),
         verbatimTextOutput(ns("result")),
       ),
+      # second "diagramm"
       box(
-        width = 12, title = "App 2 Content", status = "primary",
+        title = "Plot 2",
+        status = "primary",
         solidHeader = TRUE,
-        # second diagramm
+        width = 12,
+        collapsible = TRUE,
+        collapsed = TRUE,
         sliderInput(ns("min_num_doors"),
           "Minimum Number of doors:",
           min = 3,
@@ -47,6 +64,43 @@ app2UI <- function(id) {
           ticks = TRUE
         ),
         plotOutput(ns("win_plot"))
+      ),
+      # Historical Background
+      box(
+        title = "Historical Background",
+        status = "primary",
+        solidHeader = TRUE,
+        collapsible = TRUE,
+        collapsed = TRUE,
+        width = 12,
+        p("The Monty Hall problem gained widespread attention in 1990 when
+          Marilyn vos Savant, a columnist for Parade magazine, addressed it in
+          her column Ask Marilyn. Her solution, which recommended always
+          switching doors, sparked controversy and debate among readers,
+          including many mathematicians and statisticians. Despite initial
+          skepticism, vos Savant's explanation was correct and is now a
+          well-known example used to illustrate the counterintuitive nature of
+          probability and conditional probability.")
+      ),
+      # Mathematical Background
+      box(
+        title = "Mathematical Background",
+        status = "primary",
+        solidHeader = TRUE,
+        collapsible = TRUE,
+        collapsed = TRUE,
+        width = 12,
+        p("")
+      ),
+      # references
+      box(
+        title = "References",
+        status = "primary",
+        solidHeader = TRUE,
+        collapsible = TRUE,
+        collapsed = TRUE,
+        width = 12,
+        p("")
       )
     )
   )
