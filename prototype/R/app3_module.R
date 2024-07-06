@@ -5,110 +5,121 @@ library(shinyBS)
 
 app3UI <- function(id) {
   ns <- NS(id)
+  question1 <- "QUESTION1: At least one of them is a boy. What is the probability that both children are boys?"
+  question2 <- "QUESTION2: The older child is a boy. What is the probability that both children are boys?"
   tagList(
     h2("the Two Children Problem"),
+    p(
+      "The Two Children Problem is a classic puzzle in probability theory that
+        shows how tricky statistical thinking can be. It usually comes as a set
+        of two simple questions that, despite their simplicity, challenge our everyday
+        intuition and reveal how complex probability can be. By looking at the relationship
+        between what we know and the possible outcomes, the Two Children Problem becomes
+        a fascinating exercise in logical thinking and understanding statistics."
+    ),
+    "The problem is as follows:",
+    p(
+      "Imagine youre speaking with someone.
+        They tell you that they that they have
+        two children. The two questions then are the following:"
+    ),
+    p(
+      HTML("*if least one of the two children is a boy. What is the probability that both children are boys? <br>
+           *if the older child is a boy. What is the probability that both children are boys?")
+    ),
     fluidRow(
       box(
         width = 12, title = "The visualization", status = "primary", collapsible = TRUE,
         solidHeader = TRUE,
+        fluidRow(
+          column(12, selectInput(
+            inputId = ns("dropdown_menu"),
+            label = NULL,
+            choices = list(
+              question1,
+              question2,
+              "Problem 3"
+            ),
+            selected = "At least one of them is a boy. What is the probability that both children are boys?"
+          )),
+          column(12, "Now these two questions seem easy enough! but ofcourse the devil is in the details. try and solve the questions yourself", style = "margin-bottom: 20px;"),
+          conditionalPanel(
+            condition = sprintf("input['%s'] == 'QUESTION1: At least one of them is a boy. What is the probability that both children are boys?'", ns("dropdown_menu")),
+            fluidRow(
+              style = "margin-left: 20px;",
+              column(
+                3,
+                img(src = "BB.png", width = "100%"),
+                tags$p("")
+              ),
+              column(
+                3,
+                img(src = "GG-crossed.png", width = "75%"),
+                tags$p("is crossed out because there should be atleast one boy!")
+              ),
+              column(
+                3,
+                img(src = "Bg.png", width = "100%"),
+                tags$p("")
+              ),
+              column(
+                3,
+                img(src = "Gb.png", width = "65%"),
+                tags$p("")
+              )
+            )
+          ),
+          conditionalPanel(
+            condition = sprintf("input['%s'] == 'QUESTION2: The older child is a boy. What is the probability that both children are boys?'", ns("dropdown_menu")),
+            fluidRow(
+              style = "margin-left: 20px;",
+              column(
+                3,
+                img(src = "BB.png", width = "100%"),
+                tags$p("")
+              ),
+              column(
+                3,
+                img(src = "GG-crossed.png", width = "75%"),
+                tags$p("is crossed out because the oldest child should be a boy!")
+              ),
+              column(
+                3,
+                img(src = "Bg.png", width = "100%"),
+                tags$p("")
+              ),
+              column(
+                3,
+                img(src = "Gb-crossed.png", width = "65%"),
+                tags$p("is crossed out because the oldest child should be a boy!")
+              )
+            )
+          ),
+          fluidRow(
+            column(
+              8,
+              style = "margin-left: 10px;",
+              actionButton(inputId = ns("show_answer"), label = "Show Answer"),
+              textInput(inputId = ns("guess_probability"), label = "Guess the Probability", placeholder = "Enter a number"),
+              actionButton(inputId = ns("submit_guess"), label = "Submit")
+            )
+          ),
           fluidRow(
             column(
               12,
-              p("here's how the problem goes:"),
-              p(
-                "Imagine youre speaking with someone. They tell you that they that they have",
-                tags$span("two", style = "color: blue; font-weight: bold;"), "children. Then they ask you:"
-              )
-            ),
-            column(12, selectInput(
-              inputId = ns("dropdown_menu"),
-              label = NULL,
-              choices = list(
-                "QUESTION1: At least one of them is a boy. What is the probability that both children are boys?",
-                "QUESTION2: The older child is a boy. What is the probability that both children are boys?",
-                "Problem 3"
-              ),
-              selected = "At least one of them is a boy. What is the probability that both children are boys?"
-            )),
-            column(12, "Now these two questions seem easy enough! but ofcourse the devil is in the details. try and solve the questions yourself", style = "margin-bottom: 20px;"),
-            conditionalPanel(
-              condition = sprintf("input['%s'] == 'QUESTION1: At least one of them is a boy. What is the probability that both children are boys?'", ns("dropdown_menu")),
-              fluidRow(
-                style = "margin-left: 20px;",
-                column(
-                  3,
-                  img(src = "BB.png", width = "100%"),
-                  tags$p("")
-                ),
-                column(
-                  3,
-                  img(src = "GG-crossed.png", width = "75%"),
-                  tags$p("is crossed out because there should be atleast one boy!")
-                ),
-                column(
-                  3,
-                  img(src = "Bg.png", width = "100%"),
-                  tags$p("")
-                ),
-                column(
-                  3,
-                  img(src = "Gb.png", width = "65%"),
-                  tags$p("")
-                )
-              )
-            ),
-            conditionalPanel(
-              condition = sprintf("input['%s'] == 'QUESTION2: The older child is a boy. What is the probability that both children are boys?'", ns("dropdown_menu")),
-              fluidRow(
-                style = "margin-left: 20px;",
-                column(
-                  3,
-                  img(src = "BB.png", width = "100%"),
-                  tags$p("")
-                ),
-                column(
-                  3,
-                  img(src = "GG-crossed.png", width = "75%"),
-                  tags$p("is crossed out because the oldest child should be a boy!")
-                ),
-                column(
-                  3,
-                  img(src = "Bg.png", width = "100%"),
-                  tags$p("")
-                ),
-                column(
-                  3,
-                  img(src = "Gb-crossed.png", width = "65%"),
-                  tags$p("is crossed out because the oldest child should be a boy!")
-                )
-              )
-            ),
-            fluidRow(
-              column(
-                8,
-                style = "margin-left: 10px;",
-                actionButton(inputId = ns("show_answer"), label = "Show Answer"),
-                textInput(inputId = ns("guess_probability"), label = "Guess the Probability", placeholder = "Enter a number"),
-                actionButton(inputId = ns("submit_guess"), label = "Submit")
-              )
-            ),
-            fluidRow(
-              column(
-                12,
-                p(" Hopefully you have already clicked on the 'show_answer' answer button and seen the conflicting views
+              p(" Hopefully you have already clicked on the 'show_answer' answer button and seen the conflicting views
                   regarding the two questions, and this is exactly the first lesson we can learn from the two children problem.
                   Namely the fact that when formulating a problem, we have to make sure that we are as excat and clear as possible
                   and that the smallest room for interpetaion can lead to the problem having sometimes vastly different answers. This highlights the
                   importance of", tags$span("clarity and Accuracy ", style = "color: purple; font-weight: bold;"), "in probabilty and math", style = "margin-top: 20px; margin-left: 20px;"),
-                p("Now just to be clear ;) we assume the pure mathematics meaning of the phrase 'one of them'. meaning that the expression equals to
+              p("Now just to be clear ;) we assume the pure mathematics meaning of the phrase 'one of them'. meaning that the expression equals to
                   'atleast one of them' and also again using our mathematics approach, because it isn't explicitly mentioned in QUESTION1 that we have seen the child that is a boy,
                   we assume that truly is by chance atleast one of them a boy.", style = "margin-left: 20px;") # TODO add context and text appropriate for the tuesday and no info variant!!
-              )
             )
           )
         )
       )
-    ,
+    ),
     fluidRow(
       box(
         width = 12, title = "Historical background", status = "primary", collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
