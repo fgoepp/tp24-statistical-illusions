@@ -11,13 +11,6 @@ app3UI <- function(id) {
       box(
         width = 12, title = "The visualization", status = "primary", collapsible = TRUE,
         solidHeader = TRUE,
-        layout_sidebar(
-          sidebar = sidebar(
-            tags$p("The two children problem, also known as the boy or girl paradox, is a well-known issue in probability theory. Its initial formulation dates back to October 1959, when it was published by Martin Gardner in the 'Mathematical Games' column in Scientific American, an American popular science magazine."),
-            tags$p("Martin Gardner was an American writer known for his work in popular mathematics and science, as well as his interests in magic and scientific skepticism. The problem consists of two seemingly simple questions that have sparked significant controversy and debate among scientists. Since its introduction, many have shared their interpretations and even created variations of this problem."),
-            tags$p("The fact that different solutions for this problem persist today underscores its intriguing nature and lasting impact. It has significantly contributed to our understanding of mathematics, statistics, and, to some extent, our own cognitive processes.")
-          ),
-          sidebar_width = 3,
           fluidRow(
             column(
               12,
@@ -41,6 +34,7 @@ app3UI <- function(id) {
             conditionalPanel(
               condition = sprintf("input['%s'] == 'QUESTION1: At least one of them is a boy. What is the probability that both children are boys?'", ns("dropdown_menu")),
               fluidRow(
+                style = "margin-left: 20px;",
                 column(
                   3,
                   img(src = "BB.png", width = "100%"),
@@ -66,6 +60,7 @@ app3UI <- function(id) {
             conditionalPanel(
               condition = sprintf("input['%s'] == 'QUESTION2: The older child is a boy. What is the probability that both children are boys?'", ns("dropdown_menu")),
               fluidRow(
+                style = "margin-left: 20px;",
                 column(
                   3,
                   img(src = "BB.png", width = "100%"),
@@ -90,7 +85,8 @@ app3UI <- function(id) {
             ),
             fluidRow(
               column(
-                12,
+                8,
+                style = "margin-left: 10px;",
                 actionButton(inputId = ns("show_answer"), label = "Show Answer"),
                 textInput(inputId = ns("guess_probability"), label = "Guess the Probability", placeholder = "Enter a number"),
                 actionButton(inputId = ns("submit_guess"), label = "Submit")
@@ -106,10 +102,20 @@ app3UI <- function(id) {
                   importance of", tags$span("clarity and Accuracy ", style = "color: purple; font-weight: bold;"), "in probabilty and math", style = "margin-top: 20px; margin-left: 20px;"),
                 p("Now just to be clear ;) we assume the pure mathematics meaning of the phrase 'one of them'. meaning that the expression equals to
                   'atleast one of them' and also again using our mathematics approach, because it isn't explicitly mentioned in QUESTION1 that we have seen the child that is a boy,
-                  we assume that truly is by chance atleast one of them a boy.", style = "margin-left: 20px;") #TODO add context and text appropriate for the tuesday and no info variant!!
+                  we assume that truly is by chance atleast one of them a boy.", style = "margin-left: 20px;") # TODO add context and text appropriate for the tuesday and no info variant!!
               )
             )
           )
+        )
+      )
+    ,
+    fluidRow(
+      box(
+        width = 12, title = "Historical background", status = "primary", collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
+        p(
+          tags$p("The two children problem, also known as the boy or girl paradox, is a well-known issue in probability theory. Its initial formulation dates back to October 1959, when it was published by Martin Gardner in the 'Mathematical Games' column in Scientific American, an American popular science magazine."),
+          tags$p("Martin Gardner was an American writer known for his work in popular mathematics and science, as well as his interests in magic and scientific skepticism. The problem consists of two seemingly simple questions that have sparked significant controversy and debate among scientists. Since its introduction, many have shared their interpretations and even created variations of this problem."),
+          tags$p("The fact that different solutions for this problem persist today underscores its intriguing nature and lasting impact. It has significantly contributed to our understanding of mathematics, statistics, and, to some extent, our own cognitive processes.")
         )
       )
     ),
@@ -120,14 +126,16 @@ app3UI <- function(id) {
         fluidRow(
           column(
             12,
-            p("in this section we will see another side of the two children problem, namely a peculiar pattern which arises from the level of",
-              tags$span("obscurity", style = "color: purple; font-weight: bold;"), "and", 
-              tags$span("certainty ", style = "color: purple; font-weight: bold;"), "of our expresion."),
+            p(
+              "in this section we will see another side of the two children problem, namely a peculiar pattern which arises from the level of",
+              tags$span("obscurity", style = "color: purple; font-weight: bold;"), "and",
+              tags$span("certainty ", style = "color: purple; font-weight: bold;"), "of our expresion."
+            ),
             p("The more information we give in our QUESTION, the higher the chance that our two children are boys. You can see in the graph below
               that probability of two childs being boys is highest when we have the most amount of information, namely in QUESTION2 (we KNOW which child is the boy, namely the oldest. It
               is almost like we know one of the children completely). In the case of QUESTION1 we lost a bit of information by stating 'atleast one of'
-              and that decreases our probability. In the case of the variant we see that Tuesday boy varient add a bit more information on top of QUESTION1 by 
-              stating that the boy is born on a tuesday. this is reflected in the graph and we see that we have a higher probability than Question1 but seeing as we are still not as certain 
+              and that decreases our probability. In the case of the variant we see that Tuesday boy varient add a bit more information on top of QUESTION1 by
+              stating that the boy is born on a tuesday. this is reflected in the graph and we see that we have a higher probability than Question1 but seeing as we are still not as certain
               as QUESTION2, our probabilty is inbetween the two. Finally the worst case scenario is when we have no information at all. AKA the second variant where we simply calculate the probabilty
               of two children being boys without any additional information."),
             p("now you can use the slider to change the number of children we have and to calculate the probabilty of ALL of children being boys and see that the pattern doesn't change!"),
@@ -205,9 +213,10 @@ app3Server <- function(id) {
     observeEvent(input$submit_guess, {
       # Check if the guessed probability matches the answer
       option <- input$dropdown_menu
-      answer_one <- list("1/3", "1 / 3", "1/ 3", "1 /3", "one third", "0.33", "0.3", "0.333")
-      answer_two <- list("1/2", "1 / 2", "1/ 2", "1 /2", "half", "0.5")
+      answer_one <- list("1/3", "0.33", "0.3", "0.333")
+      answer_two <- list("1/2", "0.5")
       guess <- input$guess_probability
+      guess <- gsub("\\s+", "", guess)
       if (!is.null(guess) && guess != "" && !is.na(guess)) {
         if (((guess %in% answer_one) && option == "QUESTION1: At least one of them is a boy. What is the probability that both children are boys?") ||
           ((guess %in% answer_two) && option == "QUESTION2: The older child is a boy. What is the probability that both children are boys?")) {
