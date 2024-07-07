@@ -27,6 +27,7 @@ app3UI <- function(id) {
       HTML("*if least one of the two children is a boy. What is the probability that both children are boys? <br>
            *if the older child is a boy. What is the probability that both children are boys?")
     ),
+    # =========== BOX NR. 1 ===========
     fluidRow(
       box(
         width = 12, title = "The visualization", status = "primary", collapsible = TRUE,
@@ -120,6 +121,15 @@ app3UI <- function(id) {
         )
       )
     ),
+    # =========== BOX NR. 2 ===========
+    fluidRow(
+      box(
+        width = 12, title = "Variations", status = "primary", collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
+        column(width = 6, card(card_header("card1"))),
+        column(width = 6, card(card_header("card2")))
+      )
+    ),
+    # =========== BOX NR. 3 ===========
     fluidRow(
       box(
         width = 12, title = "Historical background", status = "primary", collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
@@ -156,6 +166,7 @@ app3UI <- function(id) {
           column(6, plotlyOutput(ns("line_plot")))
         )
       ),
+      # =========== REFRENCES ===========
       column(6, style = "margin-top: 0px;", bsCollapse(
         bsCollapsePanel(
           HTML(paste(strrep("&nbsp;", 27), "References")),
