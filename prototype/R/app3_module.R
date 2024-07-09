@@ -5,7 +5,7 @@ library(shinyBS)
 
 app3UI <- function(id) {
   ns <- NS(id)
-  question1 <- "QUESTION1: At least one of them is a boy. What is the probability that both children are boys?"
+  question1 <- "QUESTION1: At least one of them is a boy. What is the probability that both children are boys?" #TODO replace all questions with variables and refactor 
   question2 <- "QUESTION2: The older child is a boy. What is the probability that both children are boys?"
   tagList(
     h2("the Two Children Problem"),
@@ -121,7 +121,7 @@ app3UI <- function(id) {
         )
       )
     ),
-    # =========== BOX NR. 2 ===========
+    # =========== BOX NR. 2 =========== #TODO finish the box
     fluidRow(
       box(
         width = 12, title = "Variations", status = "primary", collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
