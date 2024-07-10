@@ -3,10 +3,11 @@ library(bslib)
 library(plotly)
 library(shinyBS)
 
+question1 <- "QUESTION1: At least one of them is a boy. What is the probability that both children are boys?" #TODO replace all questions with variables and refactor 
+question2 <- "QUESTION2: The older child is a boy. What is the probability that both children are boys?"
+
 app3UI <- function(id) {
   ns <- NS(id)
-  question1 <- "QUESTION1: At least one of them is a boy. What is the probability that both children are boys?" #TODO replace all questions with variables and refactor 
-  question2 <- "QUESTION2: The older child is a boy. What is the probability that both children are boys?"
   tagList(
     h2("the Two Children Problem"),
     p(
@@ -38,14 +39,13 @@ app3UI <- function(id) {
             label = NULL,
             choices = list(
               question1,
-              question2,
-              "Problem 3"
+              question2
             ),
-            selected = "At least one of them is a boy. What is the probability that both children are boys?"
+            selected = question1
           )),
           column(12, "Now these two questions seem easy enough! but ofcourse the devil is in the details. try and solve the questions yourself", style = "margin-bottom: 20px;"),
           conditionalPanel(
-            condition = sprintf("input['%s'] == 'QUESTION1: At least one of them is a boy. What is the probability that both children are boys?'", ns("dropdown_menu")),
+            condition = sprintf("input['%s'] == '%s'", ns("dropdown_menu"), question1),
             fluidRow(
               style = "margin-left: 20px;",
               column(
@@ -71,7 +71,7 @@ app3UI <- function(id) {
             )
           ),
           conditionalPanel(
-            condition = sprintf("input['%s'] == 'QUESTION2: The older child is a boy. What is the probability that both children are boys?'", ns("dropdown_menu")),
+            condition = sprintf("input['%s'] == '%s'", ns("dropdown_menu"), question2),
             fluidRow(
               style = "margin-left: 20px;",
               column(
@@ -187,7 +187,6 @@ app3UI <- function(id) {
 app3Server <- function(id) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
-
     observeEvent(input$dropdown_menu, {
       option <- input$dropdown_menu
       if (!is.null(option) && !is.na(option)) {
@@ -208,7 +207,7 @@ app3Server <- function(id) {
       # Display the answer based on the selected option
       option <- input$dropdown_menu
       if (!is.null(option) && !is.na(option)) {
-        if (option == "QUESTION1: At least one of them is a boy. What is the probability that both children are boys?") {
+        if (option == question1) {
           showModal(modalDialog(
             title = "Answer",
             p("1/3 => but why?? now in the visualization you can see the valid combinations of two children. we have in total three
@@ -219,7 +218,7 @@ app3Server <- function(id) {
               in which case some could even say that in a day to day conversation, if we are told that Mr. Jones has two kids and one of them is a boy, well then the other one is a girl! obviously if the other one was a boy
               as well then they would have simply said that 'they have two boys' from the get go. So therefor the probability that Mr.Jones has two boys is zero!!")
           ))
-        } else if (option == "QUESTION2: The older child is a boy. What is the probability that both children are boys?") {
+        } else if (option == question2) {
           showModal(modalDialog(
             title = "Answer",
             p("1/2 => but why?? now in the visualization you can see the valid combinations of two children. we have in total two
@@ -240,8 +239,8 @@ app3Server <- function(id) {
       guess <- input$guess_probability
       guess <- gsub("\\s+", "", guess)
       if (!is.null(guess) && guess != "" && !is.na(guess)) {
-        if (((guess %in% answer_one) && option == "QUESTION1: At least one of them is a boy. What is the probability that both children are boys?") ||
-          ((guess %in% answer_two) && option == "QUESTION2: The older child is a boy. What is the probability that both children are boys?")) {
+        if (((guess %in% answer_one) && option == question1) ||
+          ((guess %in% answer_two) && option == question2)) {
           showModal(modalDialog(
             title = "Result",
             "Yes, correct!"
