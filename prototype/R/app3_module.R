@@ -3,13 +3,13 @@ library(bslib)
 library(plotly)
 library(shinyBS)
 
-question1 <- "QUESTION1: At least one of them is a boy. What is the probability that both children are boys?" #TODO replace all questions with variables and refactor 
+question1 <- "QUESTION1: At least one of them is a boy. What is the probability that both children are boys?"  
 question2 <- "QUESTION2: The older child is a boy. What is the probability that both children are boys?"
-
+question3 <- "QUESTION3: At least one of them is a boy and born on a tuesday. What is the probability that both children are boys?"
 app3UI <- function(id) {
   ns <- NS(id)
   tagList(
-    h2("the Two Children Problem"),
+    h1("the Two Children Problem"),
     p(
       "The Two Children Problem is a classic puzzle in probability theory that
         shows how tricky statistical thinking can be. It usually comes as a set
@@ -25,8 +25,8 @@ app3UI <- function(id) {
         two children. The two questions then are the following:"
     ),
     p(
-      HTML("*if least one of the two children is a boy. What is the probability that both children are boys? <br>
-           *if the older child is a boy. What is the probability that both children are boys?")
+      HTML("*if least one of the two children is a boy. What is the probability that both children are boys?* <br>
+           *if the older child is a boy. What is the probability that both children are boys?*")
     ),
     # =========== BOX NR. 1 ===========
     fluidRow(
@@ -113,20 +113,39 @@ app3UI <- function(id) {
                   Namely the fact that when formulating a problem, we have to make sure that we are as excat and clear as possible
                   and that the smallest room for interpetaion can lead to the problem having sometimes vastly different answers. This highlights the
                   importance of", tags$span("clarity and Accuracy ", style = "color: purple; font-weight: bold;"), "in probabilty and math", style = "margin-top: 20px; margin-left: 20px;"),
-              p("Now just to be clear ;) we assume the pure mathematics meaning of the phrase 'one of them'. meaning that the expression equals to
-                  'atleast one of them' and also again using our mathematics approach, because it isn't explicitly mentioned in QUESTION1 that we have seen the child that is a boy,
-                  we assume that truly is by chance atleast one of them a boy.", style = "margin-left: 20px;") # TODO add context and text appropriate for the tuesday and no info variant!!
+              p("Now just to be clear ;) we assume the pure mathematical meaning of the phrase 'one of them'. meaning that the expression equals to
+                  'atleast one of them' and also again using our mathematical approach, because it isn't explicitly mentioned in QUESTION1 that we have seen the child that is a boy,
+                  we assume that truly is by chance atleast one of them a boy.", style = "margin-left: 20px;") 
             )
           )
         )
       )
     ),
     # =========== BOX NR. 2 =========== #TODO finish the box
+    h2("The Tuesdayboy variation"),
+    p(HTML("The Tuesdayboy Problem is an interesting variation and extention of the 
+    classic problem. It introduces a third question to our setup namely:<br>
+    Just like before a person has two children then <br>
+           *if least one of the two children is a boy. What is the probability that both children are boys?*")),
     fluidRow(
       box(
-        width = 12, title = "Variations", status = "primary", collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
-        column(width = 6, card(card_header("card1"))),
-        column(width = 6, card(card_header("card2")))
+        width = 12, title = "The Tuesdayboy variation", status = "primary", 
+        collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
+        checkboxInput(ns("show_gif"), "show_gif", TRUE),
+        conditionalPanel(
+          condition = sprintf("input['%s'] == true", ns("show_gif")),
+          img(src = "tuesdayboy.gif", width = "100%"),
+          tags$p("...")
+        ),
+        conditionalPanel(
+          condition = sprintf("input['%s'] == false", ns("show_gif")),
+          img(src = "tuesdayboy.JPG", width = "100%"),
+          tags$p("...")
+        ),
+        column(
+          3,
+          "hello"
+        )
       )
     ),
     # =========== BOX NR. 3 ===========
