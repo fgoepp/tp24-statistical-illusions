@@ -60,22 +60,22 @@ app3UI <- function(id) {
               style = "margin-left: 20px;",
               column(
                 3,
-                img(src = "BB.png", width = "100%"),
+                img(src = "/two_children/BB.png", width = "100%"),
                 tags$p("")
               ),
               column(
                 3,
-                img(src = "GG-crossed.png", width = "75%"),
+                img(src = "/two_children/GG-crossed.png", width = "75%"),
                 tags$p("is crossed out because there should be atleast one boy!")
               ),
               column(
                 3,
-                img(src = "Bg.png", width = "100%"),
+                img(src = "/two_children/Bg.png", width = "100%"),
                 tags$p("")
               ),
               column(
                 3,
-                img(src = "Gb.png", width = "65%"),
+                img(src = "/two_children/Gb.png", width = "65%"),
                 tags$p("")
               )
             )
@@ -86,22 +86,22 @@ app3UI <- function(id) {
               style = "margin-left: 20px;",
               column(
                 3,
-                img(src = "BB.png", width = "100%"),
+                img(src = "/two_children/BB.png", width = "100%"),
                 tags$p("")
               ),
               column(
                 3,
-                img(src = "GG-crossed.png", width = "75%"),
+                img(src = "/two_children/GG-crossed.png", width = "75%"),
                 tags$p("is crossed out because the oldest child should be a boy!")
               ),
               column(
                 3,
-                img(src = "Bg.png", width = "100%"),
+                img(src = "/two_children/Bg.png", width = "100%"),
                 tags$p("")
               ),
               column(
                 3,
-                img(src = "Gb-crossed.png", width = "65%"),
+                img(src = "/two_children/Gb-crossed.png", width = "65%"),
                 tags$p("is crossed out because the oldest child should be a boy!")
               )
             )
@@ -165,11 +165,11 @@ app3UI <- function(id) {
         checkboxInput(ns("show_gif"), "show Gif (uncheck to see still image)", TRUE),
         conditionalPanel(
           condition = sprintf("input['%s'] == true", ns("show_gif")),
-          img(src = "tuesdayboy.gif", width = "90%")
+          img(src = "/two_children/tuesdayboy.gif", width = "90%")
         ),
         conditionalPanel(
           condition = sprintf("input['%s'] == false", ns("show_gif")),
-          img(src = "tuesdayboy.JPG", width = "90%")
+          img(src = "/two_children/tuesdayboy.JPG", width = "90%")
         ),
         column(
           12,
