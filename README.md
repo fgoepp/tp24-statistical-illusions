@@ -28,7 +28,7 @@ Navigate to the project directory:
 Install required R packages:
 
 
-`install.packages(c("shiny", "ggplot2", "dplyr"))`
+`install.packages(c("shiny", "ggplot2", "dplyr", "plotly", "shinyBS", "shinydashboard", "styler", "DT", "bslib"))`
 
 **Running the App:**
 
@@ -37,23 +37,38 @@ Click "Run App" in the top-right corner of the RStudio script editor.
 
 # 4. Adding New Statistical Illusions
 
-To add your own statistical illusion to the Shiny App, follow these steps:
-...
+https://github.com/fgoepp/tp24-statistical-illusions/wiki/Add-your-own-illusion
 
-Current file structure
+# Current file structure
 
 ```
-prototype
-    ├── R
-    │   ├── app1_module.R
-    │   ├── app2_module.R
-    │   ├── app3_module.R
-    │   ├── app4_module.R
-    │   ├── home_module.R
-    │   ├── monty_hall_module.R
-    │   └── two_child_module.R
-    ├── app.R
-    └── data
-        ├── department_admissions.csv
-        ├── exercise_data.csv
-        └── total_admissions.csv
+.
+├── app.R
+├── data
+│   └── simpsons_paradox
+│       ├── department_admissions.csv
+│       ├── exercise_data.csv
+│       └── total_admissions.csv
+├── modules
+│   ├── app1_module.R
+│   ├── app2_module.R
+│   ├── app3_module.R
+│   ├── app4_module.R
+│   ├── home_module.R
+│   ├── monty_hall_module.R
+│   └── two_child_module.R
+└── www
+    └── two_children
+        ├── BB.png
+        ├── Bg.png
+        ├── GG-crossed.png
+        ├── GG.png
+        ├── Gb-crossed.png
+        ├── Gb.png
+        ├── male.png
+        ├── man.png
+        ├── small_man.png
+        ├── small_woman.png
+        ├── tuesdayboy.JPG
+        ├── tuesdayboy.gif
+        └── woman.png
