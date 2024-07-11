@@ -39,7 +39,7 @@ Click "Run App" in the top-right corner of the RStudio script editor.
 
 https://github.com/fgoepp/tp24-statistical-illusions/wiki/Add-your-own-illusion
 
-Current file structure
+# Current file structure
 
 ```
 .
