@@ -165,7 +165,7 @@ app3UI <- function(id) {
         checkboxInput(ns("show_gif"), "show Gif (uncheck to see still image)", TRUE),
         conditionalPanel(
           condition = sprintf("input['%s'] == true", ns("show_gif")),
-          img(src = "tuesdayboy.gif", width = "90%")
+          img(src = "/two_children/tuesdayboy.gif", width = "90%")
         ),
         conditionalPanel(
           condition = sprintf("input['%s'] == false", ns("show_gif")),
