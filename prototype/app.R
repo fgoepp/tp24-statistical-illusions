@@ -7,11 +7,11 @@ library(dplyr)
 library(styler)
 
 # source module files
-source("R/home_module.R")
-source("R/app1_module.R")
-source("R/app2_module.R")
-source("R/app3_module.R") #the two child problem
-source("R/app4_module.R")
+source("modules/home_module.R")
+source("modules/app1_module.R") # simpsons paradox
+source("modules/app2_module.R") # monty hall problem
+source("modules/app3_module.R") # the two child problem
+source("modules/app4_module.R") # st. petersburg paradox
 
 # main UI
 ui <- dashboardPage(

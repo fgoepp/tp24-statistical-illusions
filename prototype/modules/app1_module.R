@@ -193,9 +193,9 @@ app1Server <- function(id) {
     ns <- session$ns
 
     # read data files
-    total_data <- read.csv("./data/total_admissions.csv")
-    department_data <- read.csv("./data/department_admissions.csv")
-    exercise_data <- read.csv("./data/exercise_data.csv")
+    total_data <- read.csv("./data/simpsons_paradox/total_admissions.csv")
+    department_data <- read.csv("./data/simpsons_paradox/department_admissions.csv")
+    exercise_data <- read.csv("./data/simpsons_paradox/exercise_data.csv")
 
     # round data points to one decimal place
     exercise_data <- exercise_data %>%
