@@ -20,13 +20,20 @@ ui <- dashboardPage(
     sidebarMenu(
       menuItem("Home", tabName = "home", icon = icon("home")),
       menuItem("Simpson's Paradox", tabName = "app1", icon = icon("bar-chart")),
-      menuItem("App 2", tabName = "app2", icon = icon("line-chart")),
-      menuItem("App 3", tabName = "app3", icon = icon("pie-chart")),
+      menuItem("Monty Hall Problem", tabName = "app2", 
+               icon = icon("line-chart")),
+      menuItem("Two Children Problem", tabName = "app3", icon = 
+                 icon("pie-chart")),
       menuItem("St. Petersburg Paradox", tabName = "app4", 
                icon = icon("piggy-bank"))
     )
   ),
   dashboardBody(
+    tags$head(
+      tags$link(rel = "stylesheet", 
+                href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/
+                5.15.4/css/all.min.css")
+    ),
     tabItems(
       tabItem(tabName = "home", homeUI("home")),
       tabItem(tabName = "app1", app1UI("app1")),
