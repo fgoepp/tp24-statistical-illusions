@@ -177,7 +177,8 @@ app1UI <- function(id) {
         width = 4,
         p(HTML("<a href=https://math.bme.hu/~marib/bsmeur/simpson.pdf>
                Original paper by Simpson</a>")),
-        p(HTML("<a href=https://web.cs.ucla.edu/~kaoru/primer-complete-2019.pdf>Glymour et al. </a>")),
+        p(HTML("<a href=https://web.cs.ucla.edu/~kaoru/primer-complete-2019.pdf>
+               Glymour et al. </a>")),
         p(HTML("<a href=https://setosa.io/simpsons/>Setosa</a>")),
         p(HTML("<a href=https://en.wikipedia.org/wiki/Simpson%27s_paradox>
                Wikipedia</a>")),
