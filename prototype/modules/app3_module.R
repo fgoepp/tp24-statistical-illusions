@@ -52,60 +52,9 @@ app3UI <- function(id) {
           )),
           column(12, "Now these two questions seem easy enough! but ofcourse the
                  devil is in the details. try and solve the questions yourself",
-            style = "margin-bottom: 20px;"
+                 style = "margin-bottom: 20px;"
           ),
-          conditionalPanel(
-            condition = sprintf("input['%s'] == '%s'", ns("dropdown_menu"), question1),
-            fluidRow(
-              style = "margin-left: 20px;",
-              column(
-                3,
-                img(src = "/two_children/BB.png", width = "100%"),
-                tags$p("")
-              ),
-              column(
-                3,
-                img(src = "/two_children/GG-crossed.png", width = "75%"),
-                tags$p("is crossed out because there should be atleast one boy!")
-              ),
-              column(
-                3,
-                img(src = "/two_children/Bg.png", width = "100%"),
-                tags$p("")
-              ),
-              column(
-                3,
-                img(src = "/two_children/Gb.png", width = "65%"),
-                tags$p("")
-              )
-            )
-          ),
-          conditionalPanel(
-            condition = sprintf("input['%s'] == '%s'", ns("dropdown_menu"), question2),
-            fluidRow(
-              style = "margin-left: 20px;",
-              column(
-                3,
-                img(src = "/two_children/BB.png", width = "100%"),
-                tags$p("")
-              ),
-              column(
-                3,
-                img(src = "/two_children/GG-crossed.png", width = "75%"),
-                tags$p("is crossed out because the oldest child should be a boy!")
-              ),
-              column(
-                3,
-                img(src = "/two_children/Bg.png", width = "100%"),
-                tags$p("")
-              ),
-              column(
-                3,
-                img(src = "/two_children/Gb-crossed.png", width = "65%"),
-                tags$p("is crossed out because the oldest child should be a boy!")
-              )
-            )
-          ),
+          column(12, uiOutput(ns("classic_images"))),
           fluidRow(
             column(
               8,
@@ -132,7 +81,7 @@ app3UI <- function(id) {
               problem having sometimes vastly different answers. This highlights the
               importance of",
                 tags$span("clarity,  Accuracy and interpretation ",
-                  style = "color: purple; font-weight: bold;"
+                          style = "color: purple; font-weight: bold;"
                 ),
                 "in probabilty and math.",
                 style = "margin-top: 20px; margin-left: 20px;"
@@ -163,20 +112,13 @@ app3UI <- function(id) {
         width = 12, title = "The Tuesdayboy variation", status = "primary",
         collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
         checkboxInput(ns("show_gif"), "show Gif (uncheck to see still image)", TRUE),
-        conditionalPanel(
-          condition = sprintf("input['%s'] == true", ns("show_gif")),
-          img(src = "/two_children/tuesdayboy.gif", width = "90%")
-        ),
-        conditionalPanel(
-          condition = sprintf("input['%s'] == false", ns("show_gif")),
-          img(src = "/two_children/tuesdayboy.JPG", width = "90%")
-        ),
+        uiOutput(ns("gif_ui")),
         column(
           12,
           p("The illustration helps showcase the possible valid combinations
             (atleast one boy born on a tuesday) with blue squares and from those
             the combinations we're looking for (all n children being boys) with
-            green squares."),
+            green squares.", style = "margin-top: 10px;"),
           p(
             "The importance of being",
             tags$span("accurate and exact", style = "color: purple; font-weight: bold;"),
@@ -205,7 +147,7 @@ app3UI <- function(id) {
             ),
             p(
               "The more", tags$span("information",
-                style = "color: purple; font-weight: bold;"
+                                    style = "color: purple; font-weight: bold;"
               ), "we give in our QUESTION,
               the higher the chance that our two children are boys. You can see in
               the graph below that probability of two childs being boys is highest
@@ -228,8 +170,8 @@ app3UI <- function(id) {
               and see that the pattern doesn't change!")
           ),
           column(12,
-            sliderInput(ns("n_children"), "Number of children:", min = 2, max = 10, value = 2, width = "70%"),
-            style = "margin-left: 180px; margin-top:30px;"
+                 sliderInput(ns("n_children"), "Number of children:", min = 2, max = 10, value = 2, width = "70%"),
+                 style = "margin-left: 180px; margin-top:30px;"
           ),
           column(12, plotlyOutput(ns("bar_plot"), width = "80%"), style = "margin-left: 100px;")
         )
@@ -257,36 +199,36 @@ app3UI <- function(id) {
                1- now normally for n children we have \\(\\ 2^n\\) combinations
                (2 becausewe are concidering a child being either a boy or a girl) but in
                addition we know that atleast one child is a boy, which eliminates
-               the combination where all children are girls which gives us 
-               \\(\\ 2^n - 1\\) combinations. seeing as we're looking for the 
-               case that all children are boys, and that leaves us with only one 
-               case then the probability is: 
+               the combination where all children are girls which gives us
+               \\(\\ 2^n - 1\\) combinations. seeing as we're looking for the
+               case that all children are boys, and that leaves us with only one
+               case then the probability is:
                $$\\frac{1}{2^n - 1} $$ <br>
 
-               2- now because the OLDEST child is a boy, it is determined that the 
+               2- now because the OLDEST child is a boy, it is determined that the
                oldest child has 1 possibility (being a boy) which leaves the other
-               n-1 children to be either girls or boys giving us \\(\\ 2^{n-1}\\) 
-               combinations and with again one desired combination (where all children 
+               n-1 children to be either girls or boys giving us \\(\\ 2^{n-1}\\)
+               combinations and with again one desired combination (where all children
                are boys) we get the probability of: $$\\frac{1}{2^{n - 1}} $$<br>
 
                3- in this case we treat (gender + 7 days of the week) as a one entity
-               in order to easier solve this problem. first let's take a look at our 
-               sought out combinations: <br> 
-               'all children being boys and atleast one born on tuesday' which 
-               we can calculate via its compliment: 
+               in order to easier solve this problem. first let's take a look at our
+               sought out combinations: <br>
+               'all children being boys and atleast one born on tuesday' which
+               we can calculate via its compliment:
                all boys - all boys and no boy born on a tuesday = \\(\\ 7^n - 6^n\\).
                in the first term we have 7 because we're looing for 1 gender (boy)
-               and 7 days:\\(\\ 1\\cdot7\\) and in the second one we have 1 
+               and 7 days:\\(\\ 1\\cdot7\\) and in the second one we have 1
                gender and 6 days (no tuesday):\\(\\ 1\\cdot6\\).<br>
-               
+
                now lets take a look at all combinations which is n children with
                atleast one boy on a tuesday. again let's use the compliment:
                everyone - everyone except boys on tuesday = \\(\\ 14^n - 13^n\\).
-               in the first term we have 14 because we're concidering two genders 
-               and 7 days: \\(\\ 2\\cdot7\\). in the second term we have 13 because 
-               we're concidering no boys on tuesdays meaning that girls and 7 days 
+               in the first term we have 14 because we're concidering two genders
+               and 7 days: \\(\\ 2\\cdot7\\). in the second term we have 13 because
+               we're concidering no boys on tuesdays meaning that girls and 7 days
                (7 possibilities) and boys and 6 days (6 possibilities) and together:
-               \\(\\ 1\\cdot7 + 1\\cdot6 = 13\\). in total the desired combination over 
+               \\(\\ 1\\cdot7 + 1\\cdot6 = 13\\). in total the desired combination over
                the entire combinations gives us the probability of:
                $$\\frac{7^n - 6^n}{14^n - 13^n} $$<br>
 
@@ -338,22 +280,59 @@ app3UI <- function(id) {
 app3Server <- function(id) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
-    observeEvent(input$dropdown_menu, {
+    
+    output$classic_images <- renderUI({
       option <- input$dropdown_menu
-      if (!is.null(option) && !is.na(option)) {
-        if (option == "(zumindest) eines der") {
-          print("Option 1 was selected.")
-          # Perform action for option 1
-        } else if (option == "das älteste") {
-          print("Option 2 was selected.")
-          # Perform action for option 2
-        } else if (option == "Problem 3") {
-          print("Option 3 was selected.")
-          # Perform action for option 3
-        }
+      if (option == question1) {
+        fluidRow(
+          style = "margin-left: 20px;",
+          column(3, img(src = "BB.png", width = "100%"), tags$p("")),
+          column(
+            3, img(src = "GG-crossed.png", width = "75%"),
+            tags$p("is crossed out because there should be atleast one boy!")
+          ),
+          column(3, img(src = "Bg.png", width = "100%"), tags$p("")),
+          column(3, img(src = "Gb.png", width = "65%"), tags$p(""))
+        )
+      } else if (option == question2) {
+        fluidRow(
+          style = "margin-left: 20px;",
+          column(3, img(src = "BB.png", width = "100%"), tags$p("")),
+          column(
+            3, img(src = "GG-crossed.png", width = "75%"),
+            tags$p("is crossed out because the oldest child should be a boy!")
+          ),
+          column(3, img(src = "Bg.png", width = "100%"), tags$p("")),
+          column(
+            3, img(src = "Gb-crossed.png", width = "65%"),
+            tags$p("is crossed out because the oldest child should be a boy!")
+          )
+        )
       }
     })
-
+    output$gif_ui <- renderUI({
+      if (input$show_gif) {
+        img(src = "tuesdayboy.gif", width = "90%")
+      } else {
+        img(src = "tuesdayboy.JPG", width = "90%")
+      }
+    })
+    # observeEvent(input$dropdown_menu, {
+    #   option <- input$dropdown_menu
+    #   if (!is.null(option) && !is.na(option)) {
+    #     if (option == "(zumindest) eines der") {
+    #       print("Option 1 was selected.")
+    #       # Perform action for option 1
+    #     } else if (option == "das älteste") {
+    #       print("Option 2 was selected.")
+    #       # Perform action for option 2
+    #     } else if (option == "Problem 3") {
+    #       print("Option 3 was selected.")
+    #       # Perform action for option 3
+    #     }
+    #   }
+    # })
+    
     observeEvent(input$show_answer, {
       # Display the answer based on the selected option
       option <- input$dropdown_menu
@@ -361,10 +340,11 @@ app3Server <- function(id) {
         if (option == question1) {
           showModal(modalDialog(
             title = "Answer",
-            p("1/3 => but why?? now in the visualization you can see the
+            p(HTML("1/3 <br>
+            but why?? now in the visualization you can see the
             valid combinations of two children. we have in total three
             valid combinations, of which we want only one combination ->
-              giving us a probability of 1/3. "),
+              giving us a probability of 1/3. ")),
             p("but wait a lot of people have argued that the probability
             is actually 1/2. if we assume that the phrase 'atleast
               one of them is a boy' hints that during our conversation, we have
@@ -382,21 +362,24 @@ app3Server <- function(id) {
         } else if (option == question2) {
           showModal(modalDialog(
             title = "Answer",
-            p("1/2 => but why?? now in the visualization you can see the valid
+            p(
+              HTML("1/2 <br>
+            but why?? now in the visualization you can see the valid
             combinations of two children. we have in total two
             valid combinations, of which we want only one combination -> giving
               us a probability of 1/2"),
-            p("but wait in this case some people could say that in a day to day
+              p("but wait in this case some people could say that in a day to day
             conversation, if we are told that Mr. Jones has two kids and one of
             them is a boy, well then the other one is a girl! obviously if the
             other one was a boy as well then they would have simply said that
               'they have two boys' from the get go. So therefor the probability
               that Mr.Jones has two boys is zero!!")
+            )
           ))
         }
       }
-    }) 
-
+    })
+    
     observeEvent(input$submit_guess, {
       # Check if the guessed probability matches the answer
       option <- input$dropdown_menu
@@ -406,15 +389,15 @@ app3Server <- function(id) {
       guess <- gsub("\\s+", "", guess)
       if (!is.null(guess) && guess != "" && !is.na(guess)) {
         if (((guess %in% answer_one) && option == question1) ||
-          ((guess %in% answer_two) && option == question2)) {
+            ((guess %in% answer_two) && option == question2)) {
           showModal(modalDialog(
             title = "Result",
-            "Yes, correct!"
+            "Yup, you got it!"
           ))
         } else {
           showModal(modalDialog(
             title = "Result",
-            "No, try again!"
+            "not quite right, try again!"
           ))
         }
       } else {
@@ -424,7 +407,7 @@ app3Server <- function(id) {
         ))
       }
     })
-
+    
     plot_data <- reactive({
       n <- input$n_children
       data.frame(
@@ -443,14 +426,14 @@ app3Server <- function(id) {
         )
       )
     })
-
+    
     output$bar_plot <- renderPlotly({
       colors <- c("green", "blue", "orange", "purple")
       data <- plot_data()
       plot_ly(data,
-        x = ~Case, y = ~Probability, type = "bar", text = ~ paste("Probability:", Probability),
-        hoverinfo = "text",
-        marker = list(color = colors)
+              x = ~Case, y = ~Probability, type = "bar", text = ~ paste("Probability:", Probability),
+              hoverinfo = "text",
+              marker = list(color = colors)
       ) %>%
         layout(
           title = "Bar Plot of Probabilities",
