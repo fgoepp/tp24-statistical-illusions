@@ -54,58 +54,59 @@ app3UI <- function(id) {
                  devil is in the details. try and solve the questions yourself",
             style = "margin-bottom: 20px;"
           ),
-          conditionalPanel(
-            condition = sprintf("input['%s'] == '%s'", ns("dropdown_menu"), question1),
-            fluidRow(
-              style = "margin-left: 20px;",
-              column(
-                3,
-                img(src = "BB.png", width = "100%"),
-                tags$p("")
-              ),
-              column(
-                3,
-                img(src = "GG-crossed.png", width = "75%"),
-                tags$p("is crossed out because there should be atleast one boy!")
-              ),
-              column(
-                3,
-                img(src = "Bg.png", width = "100%"),
-                tags$p("")
-              ),
-              column(
-                3,
-                img(src = "Gb.png", width = "65%"),
-                tags$p("")
-              )
-            )
-          ),
-          conditionalPanel(
-            condition = sprintf("input['%s'] == '%s'", ns("dropdown_menu"), question2),
-            fluidRow(
-              style = "margin-left: 20px;",
-              column(
-                3,
-                img(src = "BB.png", width = "100%"),
-                tags$p("")
-              ),
-              column(
-                3,
-                img(src = "GG-crossed.png", width = "75%"),
-                tags$p("is crossed out because the oldest child should be a boy!")
-              ),
-              column(
-                3,
-                img(src = "Bg.png", width = "100%"),
-                tags$p("")
-              ),
-              column(
-                3,
-                img(src = "Gb-crossed.png", width = "65%"),
-                tags$p("is crossed out because the oldest child should be a boy!")
-              )
-            )
-          ),
+          column(12, uiOutput(ns("classic_images"))),
+          # conditionalPanel(
+          #   condition = sprintf("input['%s'] == '%s'", ns("dropdown_menu"), question1),
+          #   fluidRow(
+          #     style = "margin-left: 20px;",
+          #     column(
+          #       3,
+          #       img(src = "BB.png", width = "100%"),
+          #       tags$p("")
+          #     ),
+          #     column(
+          #       3,
+          #       img(src = "GG-crossed.png", width = "75%"),
+          #       tags$p("is crossed out because there should be atleast one boy!")
+          #     ),
+          #     column(
+          #       3,
+          #       img(src = "Bg.png", width = "100%"),
+          #       tags$p("")
+          #     ),
+          #     column(
+          #       3,
+          #       img(src = "Gb.png", width = "65%"),
+          #       tags$p("")
+          #     )
+          #   )
+          # ),
+          # conditionalPanel(
+          #   condition = sprintf("input['%s'] == '%s'", ns("dropdown_menu"), question2),
+          #   fluidRow(
+          #     style = "margin-left: 20px;",
+          #     column(
+          #       3,
+          #       img(src = "BB.png", width = "100%"),
+          #       tags$p("")
+          #     ),
+          #     column(
+          #       3,
+          #       img(src = "GG-crossed.png", width = "75%"),
+          #       tags$p("is crossed out because the oldest child should be a boy!")
+          #     ),
+          #     column(
+          #       3,
+          #       img(src = "Bg.png", width = "100%"),
+          #       tags$p("")
+          #     ),
+          #     column(
+          #       3,
+          #       img(src = "Gb-crossed.png", width = "65%"),
+          #       tags$p("is crossed out because the oldest child should be a boy!")
+          #     )
+          #   )
+          # ),
           fluidRow(
             column(
               8,
@@ -163,20 +164,13 @@ app3UI <- function(id) {
         width = 12, title = "The Tuesdayboy variation", status = "primary",
         collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
         checkboxInput(ns("show_gif"), "show Gif (uncheck to see still image)", TRUE),
-        conditionalPanel(
-          condition = sprintf("input['%s'] == true", ns("show_gif")),
-          img(src = "tuesdayboy.gif", width = "90%")
-        ),
-        conditionalPanel(
-          condition = sprintf("input['%s'] == false", ns("show_gif")),
-          img(src = "tuesdayboy.JPG", width = "90%")
-        ),
+        uiOutput(ns("gif_ui")),
         column(
           12,
           p("The illustration helps showcase the possible valid combinations
             (atleast one boy born on a tuesday) with blue squares and from those
             the combinations we're looking for (all n children being boys) with
-            green squares."),
+            green squares.", style = "margin-top: 10px;"),
           p(
             "The importance of being",
             tags$span("accurate and exact", style = "color: purple; font-weight: bold;"),
@@ -338,21 +332,52 @@ app3UI <- function(id) {
 app3Server <- function(id) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
-    observeEvent(input$dropdown_menu, {
+    
+    output$classic_images <- renderUI({
       option <- input$dropdown_menu
-      if (!is.null(option) && !is.na(option)) {
-        if (option == "(zumindest) eines der") {
-          print("Option 1 was selected.")
-          # Perform action for option 1
-        } else if (option == "das älteste") {
-          print("Option 2 was selected.")
-          # Perform action for option 2
-        } else if (option == "Problem 3") {
-          print("Option 3 was selected.")
-          # Perform action for option 3
-        }
+      if (option == question1) {
+        fluidRow(
+          style = "margin-left: 20px;",
+          column(3, img(src = "BB.png", width = "100%"), tags$p("")),
+          column(3, img(src = "GG-crossed.png", width = "75%"), 
+                 tags$p("is crossed out because there should be atleast one boy!")),
+          column(3, img(src = "Bg.png", width = "100%"), tags$p("")),
+          column(3, img(src = "Gb.png", width = "65%"), tags$p(""))
+        )
+      } else if (option == question2) {
+        fluidRow(
+          style = "margin-left: 20px;",
+          column(3, img(src = "BB.png", width = "100%"), tags$p("")),
+          column(3, img(src = "GG-crossed.png", width = "75%"),
+                 tags$p("is crossed out because the oldest child should be a boy!")),
+          column(3, img(src = "Bg.png", width = "100%"), tags$p("")),
+          column(3, img(src = "Gb-crossed.png", width = "65%"), 
+                 tags$p("is crossed out because the oldest child should be a boy!"))
+        )
       }
     })
+    output$gif_ui <- renderUI({
+      if (input$show_gif) {
+        img(src = "tuesdayboy.gif", width = "90%")
+      } else {
+        img(src = "tuesdayboy.JPG", width = "90%")
+      }
+    })
+    # observeEvent(input$dropdown_menu, {
+    #   option <- input$dropdown_menu
+    #   if (!is.null(option) && !is.na(option)) {
+    #     if (option == "(zumindest) eines der") {
+    #       print("Option 1 was selected.")
+    #       # Perform action for option 1
+    #     } else if (option == "das älteste") {
+    #       print("Option 2 was selected.")
+    #       # Perform action for option 2
+    #     } else if (option == "Problem 3") {
+    #       print("Option 3 was selected.")
+    #       # Perform action for option 3
+    #     }
+    #   }
+    # })
 
     observeEvent(input$show_answer, {
       # Display the answer based on the selected option
@@ -361,10 +386,11 @@ app3Server <- function(id) {
         if (option == question1) {
           showModal(modalDialog(
             title = "Answer",
-            p("1/3 => but why?? now in the visualization you can see the
+            p(HTML("1/3 <br> 
+            but why?? now in the visualization you can see the
             valid combinations of two children. we have in total three
             valid combinations, of which we want only one combination ->
-              giving us a probability of 1/3. "),
+              giving us a probability of 1/3. ")),
             p("but wait a lot of people have argued that the probability
             is actually 1/2. if we assume that the phrase 'atleast
               one of them is a boy' hints that during our conversation, we have
@@ -382,7 +408,8 @@ app3Server <- function(id) {
         } else if (option == question2) {
           showModal(modalDialog(
             title = "Answer",
-            p("1/2 => but why?? now in the visualization you can see the valid
+            p(HTML("1/2 <br> 
+            but why?? now in the visualization you can see the valid
             combinations of two children. we have in total two
             valid combinations, of which we want only one combination -> giving
               us a probability of 1/2"),
@@ -391,7 +418,7 @@ app3Server <- function(id) {
             them is a boy, well then the other one is a girl! obviously if the
             other one was a boy as well then they would have simply said that
               'they have two boys' from the get go. So therefor the probability
-              that Mr.Jones has two boys is zero!!")
+              that Mr.Jones has two boys is zero!!"))
           ))
         }
       }
@@ -409,12 +436,12 @@ app3Server <- function(id) {
           ((guess %in% answer_two) && option == question2)) {
           showModal(modalDialog(
             title = "Result",
-            "Yes, correct!"
+            "Yup, you got it!"
           ))
         } else {
           showModal(modalDialog(
             title = "Result",
-            "No, try again!"
+            "not quite right, try again!"
           ))
         }
       } else {
