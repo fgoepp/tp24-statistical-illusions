@@ -395,7 +395,7 @@ app3Server <- function(id) {
           ))
         }
       }
-    })
+    }) 
 
     observeEvent(input$submit_guess, {
       # Check if the guessed probability matches the answer
