@@ -1,0 +1,9 @@
+On September 9th 1713 the renowned mathematician Nikolaus I Bernoulli made a spectacular discovery. When rolling a standard six-sided dice until the six-eyed-side lands upwards he thought that any kind of exponential growth in wins per round could lead to something "most curious". 
+
+His friend, Pierre Rémond de Montmort replied on November 15th of the same year that he was not convinced. To him the problem had an easy solution and for every series of numbers a convergent form could be found. Unfortunately, he never tried to proof it mathematically.
+
+Bernoulli explained to Montmort for a second time on February 20th 1714 that the player of the game would receive an potentially infinite amount of money. Nevertheless, he never presented any proof for his (correct) intuition. 
+
+Fortunately for Nikolaus Bernoulli a contemporary mathematician called Cramér came up with the simple yet effective alternative problem we refer to as the St. Petersburg Paradox here in 1728. Instead of a dice one might take a simple coin and flip it until heads comes up. Additionally, you double the win with every round. That way the expected value rises to infinity. He concluded that at some point the monetary increase would not matter to one anymore since the maximum amount of joy a financial win could bring would be reached already. At his time that was no less of a hottake than it is today 
+
+Approximately ten years later a descendant of Nikolaus Bernoulli, Daniel Bernoulli, published an article about the phenomenon in a journal from St. Petersburg. Yes, that's where the name comes from. In his paper Daniel Bernoulli pretty much replicates Cramérs approach although he insisted that he independently came to the same conclusions.
