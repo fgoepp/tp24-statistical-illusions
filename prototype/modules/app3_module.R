@@ -286,25 +286,25 @@ app3Server <- function(id) {
       if (option == question1) {
         fluidRow(
           style = "margin-left: 20px;",
-          column(3, img(src = "BB.png", width = "100%"), tags$p("")),
+          column(3, img(src = "/two_children/BB.png", width = "100%"), tags$p("")),
           column(
-            3, img(src = "GG-crossed.png", width = "75%"),
+            3, img(src = "/two_children/GG-crossed.png", width = "75%"),
             tags$p("is crossed out because there should be atleast one boy!")
           ),
-          column(3, img(src = "Bg.png", width = "100%"), tags$p("")),
-          column(3, img(src = "Gb.png", width = "65%"), tags$p(""))
+          column(3, img(src = "/two_children/Bg.png", width = "100%"), tags$p("")),
+          column(3, img(src = "/two_children/Gb.png", width = "65%"), tags$p(""))
         )
       } else if (option == question2) {
         fluidRow(
           style = "margin-left: 20px;",
-          column(3, img(src = "BB.png", width = "100%"), tags$p("")),
+          column(3, img(src = "/two_children/BB.png", width = "100%"), tags$p("")),
           column(
-            3, img(src = "GG-crossed.png", width = "75%"),
+            3, img(src = "/two_children/GG-crossed.png", width = "75%"),
             tags$p("is crossed out because the oldest child should be a boy!")
           ),
-          column(3, img(src = "Bg.png", width = "100%"), tags$p("")),
+          column(3, img(src = "/two_children/Bg.png", width = "100%"), tags$p("")),
           column(
-            3, img(src = "Gb-crossed.png", width = "65%"),
+            3, img(src = "/two_children/Gb-crossed.png", width = "65%"),
             tags$p("is crossed out because the oldest child should be a boy!")
           )
         )
@@ -312,9 +312,9 @@ app3Server <- function(id) {
     })
     output$gif_ui <- renderUI({
       if (input$show_gif) {
-        img(src = "tuesdayboy.gif", width = "90%")
+        img(src = "/two_children/tuesdayboy.gif", width = "90%")
       } else {
-        img(src = "tuesdayboy.JPG", width = "90%")
+        img(src = "/two_children/tuesdayboy.JPG", width = "90%")
       }
     })
     # observeEvent(input$dropdown_menu, {
