@@ -14,7 +14,7 @@ app3UI <- function(id) {
   ns <- NS(id)
   tagList(
     withMathJax(),
-    h1("the Two Children Problem"),
+    h1("The Two Children Problem"),
     p(
       "The Two Children Problem is a classic puzzle in probability theory that
         shows how tricky statistical thinking can be. It usually comes as a set
@@ -39,7 +39,7 @@ app3UI <- function(id) {
     fluidRow(
       box(
         width = 12, title = "The classic variation", status = "primary", collapsible = TRUE,
-        solidHeader = TRUE, collapsed = TRUE,
+        solidHeader = TRUE, collapsed = FALSE,
         fluidRow(
           column(12, selectInput(
             inputId = ns("dropdown_menu"),
@@ -317,21 +317,7 @@ app3Server <- function(id) {
         img(src = "/two_children/tuesdayboy.JPG", width = "90%")
       }
     })
-    # observeEvent(input$dropdown_menu, {
-    #   option <- input$dropdown_menu
-    #   if (!is.null(option) && !is.na(option)) {
-    #     if (option == "(zumindest) eines der") {
-    #       print("Option 1 was selected.")
-    #       # Perform action for option 1
-    #     } else if (option == "das älteste") {
-    #       print("Option 2 was selected.")
-    #       # Perform action for option 2
-    #     } else if (option == "Problem 3") {
-    #       print("Option 3 was selected.")
-    #       # Perform action for option 3
-    #     }
-    #   }
-    # })
+
     
     observeEvent(input$show_answer, {
       # Display the answer based on the selected option
