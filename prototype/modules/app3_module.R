@@ -50,9 +50,13 @@ app3UI <- function(id) {
             ),
             selected = question1
           )),
-          column(12, "Now these two questions seem easy enough! but ofcourse the
-                 devil is in the details. try and solve the questions yourself",
+          column(7, "Now these two questions seem easy enough! but ofcourse the
+                 devil is in the details. try and solve the questions yourself.",
                  style = "margin-bottom: 20px;"
+          ),
+          column(2,
+                 checkboxInput( ns("show_hint"), "show visual hint", FALSE),
+                 style = "margin-top: -9px; margin-right: -20px;"
           ),
           column(12, uiOutput(ns("classic_images"))),
           fluidRow(
@@ -282,27 +286,28 @@ app3Server <- function(id) {
     ns <- session$ns
     
     output$classic_images <- renderUI({
+      hint   <- input$show_hint
       option <- input$dropdown_menu
-      if (option == question1) {
+      if (option == question1 && hint) {
         fluidRow(
           style = "margin-left: 20px;",
-          column(3, img(src = "/two_children/BB.png", width = "100%"), tags$p("")),
+          column(3, img(src = "/two_children/BB.png", width = "100%")),
           column(
             3, img(src = "/two_children/GG-crossed.png", width = "75%"),
             tags$p("is crossed out because there should be atleast one boy!")
           ),
-          column(3, img(src = "/two_children/Bg.png", width = "100%"), tags$p("")),
-          column(3, img(src = "/two_children/Gb.png", width = "65%"), tags$p(""))
+          column(3, img(src = "/two_children/Bg.png", width = "100%")),
+          column(3, img(src = "/two_children/Gb.png", width = "65%"))
         )
-      } else if (option == question2) {
+      } else if (option == question2 && hint) {
         fluidRow(
           style = "margin-left: 20px;",
-          column(3, img(src = "/two_children/BB.png", width = "100%"), tags$p("")),
+          column(3, img(src = "/two_children/BB.png", width = "100%")),
           column(
             3, img(src = "/two_children/GG-crossed.png", width = "75%"),
             tags$p("is crossed out because the oldest child should be a boy!")
           ),
-          column(3, img(src = "/two_children/Bg.png", width = "100%"), tags$p("")),
+          column(3, img(src = "/two_children/Bg.png", width = "100%")),
           column(
             3, img(src = "/two_children/Gb-crossed.png", width = "65%"),
             tags$p("is crossed out because the oldest child should be a boy!")
