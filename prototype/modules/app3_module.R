@@ -14,7 +14,7 @@ app3UI <- function(id) {
   ns <- NS(id)
   tagList(
     withMathJax(),
-    h1("the Two Children Problem"),
+    h1("The Two Children Problem"),
     p(
       "The Two Children Problem is a classic puzzle in probability theory that
         shows how tricky statistical thinking can be. It usually comes as a set
@@ -25,9 +25,8 @@ app3UI <- function(id) {
     ),
     "The problem is as follows:",
     p(
-      "Imagine youre speaking with someone.
-        They tell you that they that they have
-        two children. The two questions then are the following:"
+      "Imagine you're speaking with someone who tells you they have two children.
+      The two questions then are the following:"
     ),
     p(
       HTML("*if least one of the two children is a boy. What is the probability
@@ -39,7 +38,7 @@ app3UI <- function(id) {
     fluidRow(
       box(
         width = 12, title = "The classic variation", status = "primary", collapsible = TRUE,
-        solidHeader = TRUE, collapsed = TRUE,
+        solidHeader = TRUE, collapsed = FALSE,
         fluidRow(
           column(12, selectInput(
             inputId = ns("dropdown_menu"),
@@ -50,9 +49,13 @@ app3UI <- function(id) {
             ),
             selected = question1
           )),
-          column(12, "Now these two questions seem easy enough! but ofcourse the
-                 devil is in the details. try and solve the questions yourself",
-                 style = "margin-bottom: 20px;"
+          column(7, "Now these two questions seem easy enough! but ofcourse the
+                 devil is in the details. try and solve the questions yourself.",
+            style = "margin-bottom: 20px;"
+          ),
+          column(2,
+            checkboxInput(ns("show_hint"), "show visual hint", FALSE),
+            style = "margin-top: -9px; margin-right: -20px;"
           ),
           column(12, uiOutput(ns("classic_images"))),
           fluidRow(
@@ -71,17 +74,17 @@ app3UI <- function(id) {
             column(
               12,
               p("
-              Hopefully you have already clicked on the 'show_answer' answer
-              button and seen the conflicting views
-              regarding the two questions, and this is exactly the first lesson
-              we can learn from the two children problem.
-              Namely the fact that when formulating a problem, we have to
-              make sure that we are as excat and clear as possible
-              and that the smallest room for interpetaion can lead to the
-              problem having sometimes vastly different answers. This highlights the
+              Hopefully, you've already clicked the 'Show Answer' button and 
+              seen the conflicting views regarding the two questions, 
+              and this is exactly the first lesson we can learn from the 
+              two children problem.Namely the fact that when formulating 
+              a problem, we have to make sure that we are as excat and clear
+              as possible and that the smallest room for interpetaion can lead 
+              to the problem having sometimes vastly different answers. This
+              highlights the
               importance of",
                 tags$span("clarity,  Accuracy and interpretation ",
-                          style = "color: purple; font-weight: bold;"
+                  style = "color: purple; font-weight: bold;"
                 ),
                 "in probabilty and math.",
                 style = "margin-top: 20px; margin-left: 20px;"
@@ -147,7 +150,7 @@ app3UI <- function(id) {
             ),
             p(
               "The more", tags$span("information",
-                                    style = "color: purple; font-weight: bold;"
+                style = "color: purple; font-weight: bold;"
               ), "we give in our QUESTION,
               the higher the chance that our two children are boys. You can see in
               the graph below that probability of two childs being boys is highest
@@ -170,8 +173,8 @@ app3UI <- function(id) {
               and see that the pattern doesn't change!")
           ),
           column(12,
-                 sliderInput(ns("n_children"), "Number of children:", min = 2, max = 10, value = 2, width = "70%"),
-                 style = "margin-left: 180px; margin-top:30px;"
+            sliderInput(ns("n_children"), "Number of children:", min = 2, max = 10, value = 2, width = "70%"),
+            style = "margin-left: 180px; margin-top:30px;"
           ),
           column(12, plotlyOutput(ns("bar_plot"), width = "80%"), style = "margin-left: 100px;")
         )
@@ -245,7 +248,7 @@ app3UI <- function(id) {
         collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
         p(
           tags$p("The two children problem, also known as the boy or girl paradox,
-                 is a well-known issue in probability theory. Its initial formulation
+                 is a well-known problem in probability theory. Its initial formulation
                  dates back to October 1959, when it was published by Martin Gardner
                  in the 'Mathematical Games' column in Scientific American,
                  an American popular science magazine."),
@@ -280,29 +283,31 @@ app3UI <- function(id) {
 app3Server <- function(id) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
-    
+
+    # toggle and show pictures in the BOX NR. 1
     output$classic_images <- renderUI({
+      hint <- input$show_hint
       option <- input$dropdown_menu
-      if (option == question1) {
+      if (option == question1 && hint) {
         fluidRow(
           style = "margin-left: 20px;",
-          column(3, img(src = "/two_children/BB.png", width = "100%"), tags$p("")),
+          column(3, img(src = "/two_children/BB.png", width = "100%")),
           column(
             3, img(src = "/two_children/GG-crossed.png", width = "75%"),
             tags$p("is crossed out because there should be atleast one boy!")
           ),
-          column(3, img(src = "/two_children/Bg.png", width = "100%"), tags$p("")),
-          column(3, img(src = "/two_children/Gb.png", width = "65%"), tags$p(""))
+          column(3, img(src = "/two_children/Bg.png", width = "100%")),
+          column(3, img(src = "/two_children/Gb.png", width = "65%"))
         )
-      } else if (option == question2) {
+      } else if (option == question2 && hint) {
         fluidRow(
           style = "margin-left: 20px;",
-          column(3, img(src = "/two_children/BB.png", width = "100%"), tags$p("")),
+          column(3, img(src = "/two_children/BB.png", width = "100%")),
           column(
             3, img(src = "/two_children/GG-crossed.png", width = "75%"),
             tags$p("is crossed out because the oldest child should be a boy!")
           ),
-          column(3, img(src = "/two_children/Bg.png", width = "100%"), tags$p("")),
+          column(3, img(src = "/two_children/Bg.png", width = "100%")),
           column(
             3, img(src = "/two_children/Gb-crossed.png", width = "65%"),
             tags$p("is crossed out because the oldest child should be a boy!")
@@ -317,24 +322,9 @@ app3Server <- function(id) {
         img(src = "/two_children/tuesdayboy.JPG", width = "90%")
       }
     })
-    # observeEvent(input$dropdown_menu, {
-    #   option <- input$dropdown_menu
-    #   if (!is.null(option) && !is.na(option)) {
-    #     if (option == "(zumindest) eines der") {
-    #       print("Option 1 was selected.")
-    #       # Perform action for option 1
-    #     } else if (option == "das älteste") {
-    #       print("Option 2 was selected.")
-    #       # Perform action for option 2
-    #     } else if (option == "Problem 3") {
-    #       print("Option 3 was selected.")
-    #       # Perform action for option 3
-    #     }
-    #   }
-    # })
-    
+
+    # Display the answer based on the selected option
     observeEvent(input$show_answer, {
-      # Display the answer based on the selected option
       option <- input$dropdown_menu
       if (!is.null(option) && !is.na(option)) {
         if (option == question1) {
@@ -379,9 +369,9 @@ app3Server <- function(id) {
         }
       }
     })
-    
+
+    # check user answer to the questions
     observeEvent(input$submit_guess, {
-      # Check if the guessed probability matches the answer
       option <- input$dropdown_menu
       answer_one <- list("1/3", "0.33", "0.3", "0.333")
       answer_two <- list("1/2", "0.5")
@@ -389,7 +379,7 @@ app3Server <- function(id) {
       guess <- gsub("\\s+", "", guess)
       if (!is.null(guess) && guess != "" && !is.na(guess)) {
         if (((guess %in% answer_one) && option == question1) ||
-            ((guess %in% answer_two) && option == question2)) {
+          ((guess %in% answer_two) && option == question2)) {
           showModal(modalDialog(
             title = "Result",
             "Yup, you got it!"
@@ -407,7 +397,7 @@ app3Server <- function(id) {
         ))
       }
     })
-    
+
     plot_data <- reactive({
       n <- input$n_children
       data.frame(
@@ -417,7 +407,6 @@ app3Server <- function(id) {
           paste(n, "children, at least one is a boy on a Tuesday"),
           paste(n, "children, the oldest is a boy")
         ),
-        # Probability = c(1 / (2^n), 1 / (2^n - 1), 1 / 2^(n-1) )
         Probability = c(
           round(1 / (2^n), digits = 6),
           round(1 / (2^n - 1), digits = 6),
@@ -426,14 +415,14 @@ app3Server <- function(id) {
         )
       )
     })
-    
+
     output$bar_plot <- renderPlotly({
       colors <- c("green", "blue", "orange", "purple")
       data <- plot_data()
       plot_ly(data,
-              x = ~Case, y = ~Probability, type = "bar", text = ~ paste("Probability:", Probability),
-              hoverinfo = "text",
-              marker = list(color = colors)
+        x = ~Case, y = ~Probability, type = "bar", text = ~ paste("Probability:", Probability),
+        hoverinfo = "text",
+        marker = list(color = colors)
       ) %>%
         layout(
           title = "Bar Plot of Probabilities",
