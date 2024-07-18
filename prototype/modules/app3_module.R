@@ -25,9 +25,8 @@ app3UI <- function(id) {
     ),
     "The problem is as follows:",
     p(
-      "Imagine youre speaking with someone.
-        They tell you that they that they have
-        two children. The two questions then are the following:"
+      "Imagine you're speaking with someone who tells you they have two children.
+      The two questions then are the following:"
     ),
     p(
       HTML("*if least one of the two children is a boy. What is the probability
@@ -75,14 +74,14 @@ app3UI <- function(id) {
             column(
               12,
               p("
-              Hopefully you have already clicked on the 'show_answer' answer
-              button and seen the conflicting views
-              regarding the two questions, and this is exactly the first lesson
-              we can learn from the two children problem.
-              Namely the fact that when formulating a problem, we have to
-              make sure that we are as excat and clear as possible
-              and that the smallest room for interpetaion can lead to the
-              problem having sometimes vastly different answers. This highlights the
+              Hopefully, you've already clicked the 'Show Answer' button and 
+              seen the conflicting views regarding the two questions, 
+              and this is exactly the first lesson we can learn from the 
+              two children problem.Namely the fact that when formulating 
+              a problem, we have to make sure that we are as excat and clear
+              as possible and that the smallest room for interpetaion can lead 
+              to the problem having sometimes vastly different answers. This
+              highlights the
               importance of",
                 tags$span("clarity,  Accuracy and interpretation ",
                   style = "color: purple; font-weight: bold;"
@@ -249,7 +248,7 @@ app3UI <- function(id) {
         collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
         p(
           tags$p("The two children problem, also known as the boy or girl paradox,
-                 is a well-known issue in probability theory. Its initial formulation
+                 is a well-known problem in probability theory. Its initial formulation
                  dates back to October 1959, when it was published by Martin Gardner
                  in the 'Mathematical Games' column in Scientific American,
                  an American popular science magazine."),
