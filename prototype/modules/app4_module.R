@@ -5,55 +5,37 @@ library(shinydashboard)
 app4UI <- function(id) {
   ns <- NS(id)
   tagList(
+    h1("St. Petersburg Paradox"),
     fluidRow(
-      box(
+      column(
         width = 12,
-        title = "Introduction to St. Petersburg",
-        status = "primary",
-        solidHeader = TRUE,
-        htmlOutput(ns("intro"))
+        title = "Hello there",
+        htmlOutput(ns("intro")),
       )
     ),
     fluidRow(
       box(
         width = 12,
-        title = "Basic Implementation",
+        title = "Main Setup: The Basic Game",
         status = "primary",
         solidHeader = TRUE,
-        sliderInput(ns("coin_tosses"),
-          "Number of coin tosses:",
-          min = 1,
-          max = 100,
-          value = 40
+        sliderInput(ns("basic_tosses"),
+                    "Number of coin tosses:",
+                    min = 1,
+                    max = 100,
+                    value = 40
         ),
-        sliderInput(ns("fee"),
-          "Entry fee:",
-          min = 1,
-          max = 100,
-          value = 20
-        )
-      )
-    ),
-    fluidRow(
-      box(
-        width = 12,
-        title = "Basic Plot",
-        status = "primary",
-        solidHeader = TRUE,
+        sliderInput(ns("basic_fee"),
+                    "Entry fee:",
+                    min = 1,
+                    max = 100,
+                    value = 20
+        ),
         plotOutput(ns("basic_plot")),
         textOutput(ns("win"))
       )
     ),
     fluidRow(
-      box(
-        width = 6,
-        title = "Historical Background",
-        status = "primary",
-        solidHeader = TRUE,
-        collapsible = TRUE,
-        collapsed = TRUE,
-        htmlOutput(ns("history"))
-      ),
       box(
         width = 6,
         title = "Mathematical Background",
@@ -63,65 +45,64 @@ app4UI <- function(id) {
         collapsed = TRUE,
         htmlOutput(ns("maths"))
       ),
-    ),
-    fluidRow(
       box(
-        width = 12,
-        title = "Experimental Implementation",
+        width = 6,
+        title = "Historical Background",
         status = "primary",
         solidHeader = TRUE,
         collapsible = TRUE,
         collapsed = TRUE,
-        sliderInput(ns("tosses"),
-          "Number of tosses:",
-          min = 1,
-          max = 100,
-          value = 40
+        htmlOutput(ns("history"))
+      ),
+    ),
+    fluidRow(
+      box(
+        width = 12,
+        title = "Secondary Setup: Free Exploration",
+        status = "primary",
+        solidHeader = TRUE,
+        collapsible = TRUE,
+        collapsed = TRUE,
+        sliderInput(ns("experimental_tosses"),
+                    "Number of tosses:",
+                    min = 1,
+                    max = 100,
+                    value = 40
         ),
-        sliderInput(ns("entry_fee"),
-          "Entry fee:",
-          min = 1,
-          max = 100,
-          value = 20
+        sliderInput(ns("experimental_fee"),
+                    "Entry fee:",
+                    min = 1,
+                    max = 100,
+                    value = 20
         ),
         sliderInput(ns("starting_value"),
-          "Starting prize",
-          min = 1,
-          max = 10,
-          value = 2
+                    "Starting prize",
+                    min = 1,
+                    max = 10,
+                    value = 2
         ),
         selectInput(ns("tossing_object"),
-          label = "Object to be thrown",
-          choices = c(
-            "Coin",
-            "Four-sided dice (D4)",
-            "Six-sided dice (D6)",
-            "Twenty-sided dice (D20)"
-          )
+                    label = "Object to be thrown",
+                    choices = c(
+                      "Coin",
+                      "Four-sided dice (D4)",
+                      "Six-sided dice (D6)",
+                      "Twenty-sided dice (D20)"
+                    )
         ),
         numericInput(ns("factor"),
-          label = "Factor for multiplication of the starting prize each round",
-          min = 1,
-          max = 20,
-          value = 2
-        )
-      )
-    ),
-    fluidRow(
-      box(
-        width = 12,
-        title = "Experimental Plot",
-        status = "primary",
-        solidHeader = TRUE,
-        collapsible = TRUE,
-        collapsed = TRUE,
+                     label = "Factor for multiplication of the starting prize each round",
+                     min = 1,
+                     max = 20,
+                     value = 2
+        ),
         plotOutput(ns("experimental_plot"))
       )
     ),
     fluidRow(
       box(
         width = 12,
-        title = "Literature",
+        title = "References",
         status = "primary",
         solidHeader = TRUE,
         collapsible = TRUE,
@@ -136,68 +117,72 @@ app4UI <- function(id) {
 app4Server <- function(id) {
   moduleServer(id, function(input, output, session) {
     output$intro <- renderText({
-      intro_text <- readLines("./texts/st-petersburg-intro.txt")
+      intro_text <- readLines("./data/st-petersburg_paradox/st-petersburg-intro.txt")
       intro_output <- paste(intro_text, collapse = "<br/>")
       HTML(intro_output)
     })
     
     observe({
-      entry_fee <- input$fee
-      tosses <- input$coin_tosses
+      entry_fee <- input$experimental_fee
+      tosses <- input$experimental_tosses
       starting_value <- input$starting_value
       mult <- entry_fee * starting_value
-
+      
       # updating the slider
       updateSliderInput(
         session,
-        "tosses",
+        "experimental_tosses",
         min = ceiling(mult / 2),
-        max = min(2 * mult, 200),
+        max = 2 * mult + 100,
         value = tosses
       )
-
+      
       output$basic_plot <- renderPlot({
         par(mfrow = c(1, 2), mgp = c(1.7, 0.7, 0))
-
+        
         # Generate bins based on input$tosses from UI
-        n <- 1:input$coin_tosses
+        n <- 1:input$basic_tosses
         p <- 0.5^n
-
+        
         win_per_round <- 2^(n - 1) * 2
-
+        
         # Draw the plot with the specified number of tosses
-        plot(n, p * 100,
-          col = "forestgreen",
-          xlab = "Number of throws",
-          ylab = "Probability to win in this round (in %)",
-          ylim = c(0, 50),
-          type = "h"
-        )
-        mtext("Absolute win in the given round (in billion €)",
-          side = 4,
-          at = 25,
-          line = 1.7
-        )
-
-        par(new = TRUE)
         plot(n, win_per_round / 1e+09,
-          pch = 16,
-          xlab = "",
-          ylab = "",
-          col = "darkblue",
-          axes = FALSE
+             pch = 16,
+             xlab = "",
+             ylab = "",
+             col = "darkblue",
+             type = "h",
+             lwd = 3,
+             axes = FALSE
         )
         axis(4)
-        expected_value <- cumsum(p * win_per_round)
-
-        plot(n, expected_value,
-          xlab = "Number of throws",
-          ylab = "Expected win (in €)",
-          type = "l"
+        mtext("Absolute win in the given round (in billion €)",
+              side = 4,
+              at = 25,
+              line = 1.7
         )
-        abline(h = input$fee, col = "darkred")
+        
+        par(new = TRUE)
+        plot(n, p * 100,
+             col = "forestgreen",
+             xlab = "Number of throws",
+             ylab = "Probability to win in this round (in %)",
+             ylim = c(0, 50),
+             lwd = 3,
+             type = "h"
+        )
+        
+        expected_value <- cumsum(p * win_per_round)
+        
+        plot(n, expected_value,
+             xlab = "Number of throws",
+             ylab = "Expected win (in €)",
+             type = "l"
+        )
+        abline(h = input$basic_fee, col = "darkred")
       })
-
+      
       output$win <- renderText({
         # Helper function to avoid that the function prints p = 0
         calculate_win_prob <- function(win_per_round, entry_fee, prob_dist) {
@@ -207,36 +192,39 @@ app4Server <- function(id) {
             1 - sum(prob_dist[win_per_round <= entry_fee])
           }
         }
-
-        n <- 1:input$tosses
+        
+        n <- 1:input$basic_tosses
         p <- 0.5^n
         win_per_round <- 2^(n - 1) * input$starting_value
-        probability_to_win <- calculate_win_prob(win_per_round, input$fee, p)
-
+        probability_to_win <- calculate_win_prob(win_per_round, input$basic_fee, p)
+        
         paste0(
           "Probability to win at least the entry fee of ",
-          input$fee, "€ in the ", input$tosses, "-th toss: ",
+          input$basic_fee, "€ in the ", input$basic_tosses, "-th toss: ",
           round(probability_to_win * 100, digits = 2), "%"
         )
       })
-
+      
       output$maths <- renderText({
-        math_text <- readLines("./texts/st-petersburg-math.txt")
+        math_text <- readLines("./data/st-petersburg_paradox/st-petersburg-math.txt")
         math_output <- paste0(math_text, collapse = "<br/>")
         HTML(math_output)
       })
       
       output$history <- renderText({
-        history_text <- readLines("./texts/st-petersburg-history.txt")
-        history_output <- paste(history_text, collapse = "<br/>")
+        history_text <- readLines("./data/st-petersburg_paradox/st-petersburg-history.txt")
+        history_output <- paste0(history_text, collapse = "<br/>")
         HTML(history_output)
       })
       
       output$experimental_plot <- renderPlot({
+        
+        # Add second plot introduction 
+        
         par(mfrow = c(1, 2), mgp = c(1.7, 0.7, 0))
-
+        
         # Generate bins based on input$tosses from UI
-        n <- 1:input$tosses
+        n <- 1:input$experimental_tosses
         object <- input$tossing_object
         if (object == "Four-sided dice (D4)") {
           p <- 0.25^n
@@ -247,45 +235,53 @@ app4Server <- function(id) {
         } else {
           p <- 0.5^n
         }
-
-        win_per_round <- input$factor^(n - 1) * input$starting_value
-
+        
+        win_per_round <- input$factor**(n - 1) * input$starting_value
+        
         # Draw the plot with the specified number of tosses
-        plot(n, p * 100,
-          col = "forestgreen",
-          xlab = "Number of throws",
-          ylab = "Probability to win in this round (in %)",
-          ylim = c(0, max(p) * 100),
-          type = "h"
-        )
-        mtext("Absolute win in the given round (in billion €)",
-          side = 4,
-          at = max(p) * 50,
-          line = 1.7
-        )
-
-        par(new = TRUE)
         plot(n, win_per_round / 1e+09,
-          pch = 16,
-          xlab = "",
-          ylab = "",
-          col = "darkblue",
-          axes = FALSE
+             pch = 16,
+             xlab = "",
+             ylab = "",
+             col = "darkblue",
+             type = "h",
+             lwd = 3,
+             axes = FALSE
         )
         axis(4)
+        mtext("Absolute win in the given round (in billion €)",
+              side = 4,
+              at = max(p) * 50,
+              line = 1.7
+        )
+        
+        par(new = TRUE)
+        plot(n, p * 100,
+             col = "forestgreen",
+             xlab = "Number of throws",
+             ylab = "Probability to win in this round (in %)",
+             ylim = c(0, max(p) * 100),
+             lwd = 3,
+             type = "h"
+        )
+        
+        legend("top", "center",
+               legend = c("win probability", "possible win"),
+               col = c("forestgreen", "darkblue"))
+        
         expected_value <- cumsum(p * win_per_round)
-
+        
         plot(n, expected_value,
-          xlab = "Number of throws",
-          ylab = "Expected win (in €)",
-          type = "l"
+             xlab = "Number of throws",
+             ylab = "Expected win (in €)",
+             type = "l"
         )
         abline(h = input$entry_fee, col = "darkred")
       })
       
       output$literature <- renderText({
-        literature <- readLines("./texts/st-petersburg-literature.txt")
-        literature_output <- paste(literature, collapse = "<br/>")
+        literature <- readLines("./data/st-petersburg_paradox/st-petersburg-literature.txt")
+        literature_output <- paste0(literature, collapse = "<br/>")
         HTML(literature_output)
       })
     })
