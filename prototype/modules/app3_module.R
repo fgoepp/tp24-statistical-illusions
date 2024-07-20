@@ -4,7 +4,7 @@ library(plotly)
 library(shinyBS)
 
 
-question1 <- "QUESTION1: At least one of the two children is a boy. 
+question1 <- "QUESTION1: At least one of the two children is a boy.
 What is the probability that both children are boys?"
 question2 <- "QUESTION2: The older child is a boy. What is the probability that
 both children are boys?"
@@ -26,7 +26,8 @@ app3UI <- function(id) {
     "The problem is as follows:",
     p(
       "Imagine you're speaking with someone who tells you they have two children.
-      The two questions then are the following:"
+      The two questions then are the following 
+      (assume that boys and girls are equally likely):"
     ),
     p(
       HTML("*if (at least) one of the two children is a boy. What is the probability
@@ -37,21 +38,25 @@ app3UI <- function(id) {
     # =========== BOX NR. 1 ===========
     fluidRow(
       box(
-        width = 12, title = "The classic variation", status = "primary", 
+        width = 12, title = "The classic variation", status = "primary",
         solidHeader = TRUE,
         fluidRow(
-          column(12, selectInput(
-            inputId = ns("dropdown_menu"),
-            label = NULL,
-            choices = list(
-              question1,
-              question2
-            ),
-            selected = question1
-          )),
-          column(7, "Now, these two questions seem easy enough, but of course, 
-                 the devil is in the details. Try and solve the questions
-                 yourself:",
+          column(12,
+            style = "margin-left: 3px;",
+            selectInput(
+              inputId = ns("dropdown_menu"),
+              label = NULL,
+              choices = list(
+                question1,
+                question2
+              ),
+              selected = question1
+            )
+          ),
+          column(7,
+            style = "margin-left: 5px;",
+            "Now, these two questions seem easy enough, but of course, the devil
+            is in the details. Try and solve the questions yourself:",
             style = "margin-bottom: 20px;"
           ),
           column(2,
@@ -60,43 +65,53 @@ app3UI <- function(id) {
           ),
           column(12, uiOutput(ns("classic_images"))),
           fluidRow(
-            column(
-              8,
-              style = "margin-left: 10px;",
-              actionButton(inputId = ns("show_answer"), label = "Show Answer"),
-              textInput(
-                inputId = ns("guess_probability"), label = "Guess the Probability",
-                placeholder = "Enter a number"
+            fluidRow(
+              column(
+                5,
+                style = "margin-left: 34px;",
+                textInput(
+                  inputId = ns("guess_probability"), label = "Guess the Probability",
+                  placeholder = "Enter a number"
+                )
               ),
-              actionButton(inputId = ns("submit_guess"), label = "Submit")
+              column(
+                6,
+                style = "margin-top: 25.5px;",
+                actionButton(inputId = ns("submit_guess"), label = "Submit")
+              )
+            ),
+            column(
+              12,
+              style = "margin-left: 20px;",
+              actionButton(inputId = ns("show_answer"), label = "Show Answer")
             )
           ),
           fluidRow(
             column(
               12,
               p("
-              Hopefully, you've already clicked the 'Show Answer' button and 
-              seen the conflicting views regarding the two questions, 
-              and this is exactly the first lesson we can learn from the 
-              two children problem.Namely the fact that when formulating 
-              a problem, we have to make sure that we are as excat and clear
-              as possible and that the smallest room for interpetaion can lead 
-              to the problem having sometimes vastly different answers. This
-              highlights the
-              importance of",
-                tags$span("clarity,  Accuracy and interpretation ",
+                Hopefully, you've already clicked the 'Show Answer' button and 
+                seen the conflicting views regarding the two questions. This is 
+                exactly the first lesson we can learn from the Two Children Problem: 
+                the fact that when formulating a problem, we have to make sure that
+                we are as exact and clear as possible. Even the smallest room for 
+                interpretation can lead to the problem having vastly different answers.
+                This highlights the importance of ",
+                tags$span("clarity, accuracy, and interpretation ",
                   style = "color: purple; font-weight: bold;"
                 ),
-                "in probabilty and math.",
+                "in probability and math.",
                 style = "margin-top: 20px; margin-left: 20px;"
               ),
               p(
-                "Now just to be clear ;) we assume the pure mathematical meaning
-              of the phrase 'one of them'. meaning that the expression equals to
-              'atleast one of them' and also again using our mathematical approach,
-               because it isn't explicitly mentioned in QUESTION1 that we have
-               seen the child that is a boy,
-                we assume that truly is by chance atleast one of them a boy.",
+                "Now, just to be clear, we assume the pure mathematical meaning
+                of the phrase 'one of them,' meaning that the expression equals 
+                'at least one of them.' and consider the probability of a child 
+                being born a male or a female to be equally likely. Additionally
+                , using our mathematical approach, because it isn't explicitly
+                mentioned in Question 1 that we have seen the child who is a boy,
+                we assume that it truly is by chance that at least one of them
+                is a boy.",
                 style = "margin-left: 20px;"
               )
             )
