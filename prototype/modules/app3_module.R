@@ -71,7 +71,7 @@ app3UI <- function(id) {
                 style = "margin-left: 34px;",
                 textInput(
                   inputId = ns("guess_probability"), label = "Guess the Probability",
-                  placeholder = "Enter a number (fraction)"
+                  placeholder = "Enter a fraction (e.g., 5/8)"
                 )
               ),
               column(
@@ -158,32 +158,25 @@ app3UI <- function(id) {
           column(
             12,
             p(
-              "in this section we will see another side of the two children
-              problem, namely a peculiar pattern which arises from the level of",
-              tags$span("obscurity", style = "color: purple; font-weight: bold;"),
-              "and",
-              tags$span("certainty ", style = "color: purple; font-weight: bold;"),
-              "of our expresion."
+              "In this section we will look at the previous three question plus 
+              an additional new question but this time not just for 2 children but
+              rather ",
+              tags$span("n children ", style = "color: purple; font-weight: bold;"),
+              "and plot each probability."
             ),
             p(
-              "The more", tags$span("information",
-                style = "color: purple; font-weight: bold;"
-              ), "we give in our QUESTION,
-              the higher the chance that our two children are boys. You can see in
-              the graph below that probability of two childs being boys is highest
-              when we have the most amount of information, namely in QUESTION2
-              (we KNOW which child is the boy, namely the oldest. It
-              is almost like we know one of the children completely). In the case
-              of QUESTION1 we lost a bit of information by stating 'atleast one of'
-              and that decreases our probability. In the case of the variant we see
-              that Tuesday boy varient add a bit more information on top of QUESTION1 by
-              stating that the boy is born on a tuesday. this is reflected in the graph
-              and we see that we have a higher probability than Question1 but
-              seeing as we are still not as certain as QUESTION2, our probabilty
-              is inbetween the two. Finally the worst case scenario is when we have
-              no information at all which is colored green where we simply
-              calculate the probabilty of two children being boys without
-              any additional information."
+              HTML
+              ("The questions are again listed here (the first one is the newly
+              added variation) : <br> <i>
+              _ Mr. Jones has n children. What's the probability that all n children 
+              are boys? <br>
+              _ Mr. Jones has n children and at least one of them is a boy. What's
+              the probability that all n children are boys? (Question 1)<br>
+              _ Mr. Jones has n children and at least one of them is a boy born 
+              on a tuesday. What's the probability that all n children are boys? 
+              (Tuesdayboy)<br>
+              _ Mr. Jones has n children and the oldest child is a boy. What's
+              the probability that all n children are boys? (Question 2) </i>")
             ),
             p("now you can use the slider to change the number of children we
               have (and still calculate the probabilty of ALL of children being boys!)
@@ -193,7 +186,9 @@ app3UI <- function(id) {
             sliderInput(ns("n_children"), "Number of children:", min = 2, max = 10, value = 2, width = "70%"),
             style = "margin-left: 180px; margin-top:30px;"
           ),
-          column(12, plotlyOutput(ns("bar_plot"), width = "80%"), style = "margin-left: 100px;")
+          fluidRow(
+            column(12, plotlyOutput(ns("bar_plot"), width = "80%"), style = "margin-left: 100px;")
+          )
         )
       )
     ),
