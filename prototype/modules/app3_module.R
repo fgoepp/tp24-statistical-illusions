@@ -26,8 +26,7 @@ app3UI <- function(id) {
     "The problem is as follows:",
     p(
       "Imagine you're having a nice conversation with your neighbor Mr. Jones. he
-      tells you that he has two children.The two questions then are the following 
-      (assume that the probability of being born a boy or girl is equal):"
+      tells you that he has two children.The two questions then are the following:"
     ),
     p(
       HTML("<i>_ if (at least) one of the two children is a boy. What is the probability
@@ -36,8 +35,10 @@ app3UI <- function(id) {
            children are boys?</i>")
     ),
     p(
-      "In the following section, you can try solving these problems yourself, 
-      view visual representations, and learn their solutions."
+      "In the following section, you can try solving these problems yourself,
+      view visual representations, and learn their solutions. Throughtout this
+      app you can assume that the sex of the two children is independent of one
+      another and equally likely a boy or a girl."
     ),
     # =========== BOX NR. 1 ===========
     fluidRow(
@@ -94,11 +95,11 @@ app3UI <- function(id) {
             column(
               12,
               p("
-                Hopefully, you've already clicked the 'Show Answer' button and 
-                seen the conflicting views regarding the two questions. This is 
-                exactly the first lesson we can learn from the Two Children Problem: 
+                Hopefully, you've already clicked the 'Show Answer' button and
+                seen the conflicting views regarding the two questions. This is
+                exactly the first lesson we can learn from the Two Children Problem:
                 the fact that when formulating a problem, we have to make sure that
-                we are as exact and clear as possible. Even the smallest room for 
+                we are as exact and clear as possible. Even the smallest room for
                 interpretation can lead to the problem having vastly different answers.
                 This highlights the importance of ",
                 tags$span("clarity, accuracy, and interpretation ",
@@ -109,8 +110,8 @@ app3UI <- function(id) {
               ),
               p(
                 "Now, just to be clear, we assume the pure mathematical meaning
-                of the phrase 'one of them,' meaning that the expression equals 
-                'at least one of them.' and consider the probability of a child 
+                of the phrase 'one of them,' meaning that the expression equals
+                'at least one of them.' and consider the probability of a child
                 being born a male or a female to be equally likely. Additionally
                 , using our mathematical approach, because it isn't explicitly
                 mentioned in Question 1 that we have seen the child who is a boy,
@@ -126,65 +127,156 @@ app3UI <- function(id) {
     # =========== BOX NR. 2 ===========
     fluidRow(
       box(
-        width = 6, title = "Mathematical Background", status = "primary",
+        width = 8, title = "Mathematical Background", status = "primary",
         collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
         p("In this section we will take a look at the math behind the two chidlren
           problem and its variation and how the probabilities were calculated in
-          the 'The graphs and plots' section."),
-        p(HTML("In the upper section we took a look at four different question: <br>
-               if a family has n children: <br>
+          the 'Graphs And Plots' section (please look at the other sections first
+          to famaliarize yourself with all the questions mentioned. This section
+          should be visited last as it relies on the other ones)."),
+        p(HTML
+        ("The four questions are listed and are the following: <br>
+               <i>
+                <b style='color:red;'>*</b>
+                If a family has N children, what is the probability that
+                all children are boys? <br>
 
-               1- and at least one of them is a boy. What is the probability
-               that all children are boys? <br>
-               2- and the older child is a boy. What is the probability that
-               all children are boys? <br>
-               3- and at least one of them is a boy born on tuesday. What is the
-               probability that all children are boys? <br>
-               4- What is the probability that all children are boys? <br> <br> <br>
+                <b style='color:green;'>**</b> If a family has N children 
+                and at least one of them is a boy,  What is the probability
+                that all children are boys? <br>
 
-               1- now normally for n children we have \\(\\ 2^n\\) combinations
-               (2 becausewe are concidering a child being either a boy or a girl) but in
-               addition we know that atleast one child is a boy, which eliminates
-               the combination where all children are girls which gives us
-               \\(\\ 2^n - 1\\) combinations. seeing as we're looking for the
-               case that all children are boys, and that leaves us with only one
-               case then the probability is:
-               $$\\frac{1}{2^n - 1} $$ <br>
+                <b style='color:brown;'>***</b> If a family has N children and
+                the oldest child is a boy, What is the probability that
+                all children are boys? <br>
 
-               2- now because the OLDEST child is a boy, it is determined that the
-               oldest child has 1 possibility (being a boy) which leaves the other
-               n-1 children to be either girls or boys giving us \\(\\ 2^{n-1}\\)
-               combinations and with again one desired combination (where all children
-               are boys) we get the probability of: $$\\frac{1}{2^{n - 1}} $$<br>
+                <b style='color:violet;'>****</b> If a family has N children and 
+                at least one of them is a boy born on tuesday, What is the
+                probability that all children are boys?
+              </i> <br>
 
-               3- in this case we treat (gender + 7 days of the week) as a one entity
-               in order to easier solve this problem. first let's take a look at our
-               sought out combinations: <br>
-               'all children being boys and atleast one born on tuesday' which
-               we can calculate via its compliment:
-               all boys - all boys and no boy born on a tuesday = \\(\\ 7^n - 6^n\\).
-               in the first term we have 7 because we're looing for 1 gender (boy)
-               and 7 days:\\(\\ 1\\cdot7\\) and in the second one we have 1
-               gender and 6 days (no tuesday):\\(\\ 1\\cdot6\\).<br>
+               <h4 style='color:blue;'> When N = 2: </h4>
 
-               now lets take a look at all combinations which is n children with
-               atleast one boy on a tuesday. again let's use the compliment:
-               everyone - everyone except boys on tuesday = \\(\\ 14^n - 13^n\\).
-               in the first term we have 14 because we're concidering two genders
-               and 7 days: \\(\\ 2\\cdot7\\). in the second term we have 13 because
-               we're concidering no boys on tuesdays meaning that girls and 7 days
-               (7 possibilities) and boys and 6 days (6 possibilities) and together:
-               \\(\\ 1\\cdot7 + 1\\cdot6 = 13\\). in total the desired combination over
-               the entire combinations gives us the probability of:
-               $$\\frac{7^n - 6^n}{14^n - 13^n} $$<br>
+                <b><i style='color:red;'>#</i></b> In this case we have 4 valid 
+                combinations: BB, BG, GB, GG (B = boy and G = girl) and we only
+                want one combination (BB) \\(\\rightarrow \\) \\( P (\\text{2 boys}) 
+                = \\frac{1}{4} = 0.25\\)
+               <br>
 
-               4- and here we are atl last where we have simply \\(\\ 2^n\\) combinations
-               without any restraints and as always one desired outcome. the probability is:
-               $$\\frac{1}{2^n} $$<br>
+                <b><i style='color:green;'>##</i></b> In this case we have 3 valid combinations:
+               BB, BG, GB and we only want one combination (BB) \\(\\rightarrow\\)
+               \\(
+               P (\\text{2 boys} \\mid \\text{at least 1 child is a boy})
+               = \\frac{1}{3} \\approx 0.33 \\)
+               <br>
+
+                <b><i style='color:brown;'>###</i></b> In this case we have 2 valid combinations:
+               BB, BG and we only want one
+               combination (BB) \\(\\rightarrow \\) \\( P (\\text{2 boys} \\mid
+               \\text{oldest child is a boy}) =
+               \\frac{1}{2} = 0.5 \\)
+               <br>
+
+                <b><i style='color:violet;'>####</i></b> We are going do things a bit differently and
+               calculate an even more general form of this case. Suppose that
+               the chance of being born on any given day of the week is
+               \\(\\frac{1}{7} \\). From Bayes' Theorem that the probability of
+               two boys \\(BB\\), given that one boy was born on a Tuesday
+               (\\(B_T\\)) is given by: <br>
+               \\( P (BB \\mid B_T) = \\frac{P (BB \\mid B_T) \\cdot P(BB)}{P(B_T)}
+               \\) <br>
+               Assume that the probability of being born on a Tuesday is \\(
+               \\varepsilon = \\frac{1}{7}\\) which will be set after arriving 
+               at the general solution. The second factor in the numerator is simply
+               \\(\\frac{1}{4}\\), the probability of having two boys. The first 
+               term in the numerator is the probability of at least one boy born 
+               on Tuesday, given that the family has two boys, or 
+               \\(1 - (1-\\varepsilon)^2\\) (one minus the probability that 
+               neither boy is born on Tuesday). For the denominator, let us 
+               decompose: \\(P(B_{T})=P(B_{T}\\mid BB)P(BB)+P(B_{T}\\mid BG)P(BG)+
+               P(B_{T}\\mid GB)P(GB)+P(B_{T}\\mid GG)P(GG)\\). Each term is 
+               weighted with probability \\(\\frac{1}{4}\\). The first term is 
+               already known by the previous remark, the last term is 0 (there 
+               are no boys). The term \\(P(B_{T} \\mid BG)\\) and 
+               \\(P(B_{T} \\mid GB)\\) is \\(\\varepsilon\\), there is one and 
+               only one boy, thus he has \\(\\varepsilon\\) chance of being born
+               on Tuesday. Therefore, the full equation is: <br>
+               \\(P(BB \\mid B_{T}) = \\frac{\\left(1 - 
+               (1 - \\varepsilon)^{2}\\right) \\times \\frac{1}{4}}{0 + 
+               \\frac{1}{4} \\varepsilon + \\frac{1}{4} \\varepsilon + 
+               \\frac{1}{4} \\left(\\varepsilon + \\varepsilon - 
+               \\varepsilon^{2}\\right)} = \\frac{1 - (1 - \\varepsilon)^{2}}{4 
+               \\varepsilon - \\varepsilon^{2}}\\). <br>
+               For \\(\\varepsilon > 0\\), this reduces to \\(P(BB \\mid B_{T}) 
+               = \\frac{2 - \\varepsilon}{4 - \\varepsilon}\\). If \\(\\varepsilon\\) 
+               is now set to \\(\\frac{1}{7}\\), the probability becomes 
+               \\(\\frac{13}{27}\\), or about 0.48. In fact, as \\(\\varepsilon\\)
+               approaches 0, the total probability goes to \\(\\frac{1}{2}\\), 
+               which is the answer expected when one child is sampled 
+               (e.g., the oldest child is a boy) and is thus removed from the 
+               pool of possible children. In other words, as more and more 
+               details about the boy child are given (for instance: born on 
+               January 1), the chance that the other child is a girl approaches
+               one half.
+               <br>
+
+               <h4 style='color:blue;' > When N = n \\(\\geq\\) 2: </h4>
+
+                <b><i style='color:red;'>#</i></b> In this case we have n children which all have 2
+               possibilities (being a girl or a boy), which gives us a total
+               \\(\\ 2^n \\) valid combinations of which we only need 1 (all boys)
+               \\(\\rightarrow \\) \\( P (\\text{n boys}) =
+               \\frac{1}{2^n}\\)
+               <br>
+
+                <b><i style='color:green;'>##</i></b> In this case we would have also had
+               \\(\\ 2^n \\) combinations but because we know that at least one
+               of the n children is a boy our valid combinations are \\(\\ 2^n - 1\\)
+              (the 1 is the case where all children are girls). From these combinations
+              we only need 1 (all boys) \\(\\rightarrow \\) \\( P (\\text{n boys}
+               \\mid \\text{at least one child is a boy}) = \\frac{1}{2^n - 1}\\)
+               <br>
+
+                <b><i style='color:brown;'>###</i></b> In this case because 
+                we know that the oldest
+                child is a boy our valid combinations are \\(\\ 2^{n-1}\\)
+                (the n-1 is because n-1 children can be either a boy or a girl but
+                1 child, which is the oldest child is a boy). From these combinations
+                we only need 1 (all boys) \\(\\rightarrow \\) \\( P (\\text{n boys}
+                \\mid \\text{the oldest child is a boy}) = \\frac{1}{2^{n - 1}}
+                \\)
+               <br>
+
+                <b><i style='color:violet;'>####</i></b> In this case, we treat 
+                (gender + 7 days of 
+                the week) as one entity in order to make it easier to solve this 
+                problem. First, let's take a look at our sought-out combinations:<br> 
+                \\( n(\\text{all children being boys} \\mid \\text{at least one boy
+                born on Tuesday}) \\) which 
+                we can calculate via its complement: 
+                \\(n(\\text{all children being boys}) - n(\\text{all children being boys} 
+                \\mid \\text{no boy born on Tuesday})\\) = \\(7^n - 6^n\\). 
+                In the first term, we have 7 because we're looking for 1 gender (boy)
+                and 7 days: \\(1 \\cdot 7\\). In the second term, we have 1 gender
+                and 6 days (no Tuesday): \\(1 \\cdot 6\\).<br>
+                Now, let's take a look at all combinations where there is at 
+                least one boy born on a Tuesday. Again, let's use the complement:
+                n(\\text{all children})- \\(n(\\text{all children} \\mid \\text{no boy is born a tuesday})\\) 
+                = \\(14^n - 13^n\\).
+                In the first term, we have 14 because we're considering two 
+                genders and 7 days: \\(2 \\cdot 7\\). In the second term, 
+                we have 13 because we're considering no boys born on Tuesday,
+                meaning that girls and 7 days (7 possibilities) and boys and 6 days
+                (6 possibilities) together: \\(1 \\cdot 7 + 1 \\cdot 6 = 13\\). 
+                In total, the desired combination over the entire combinations 
+                gives us the probability of:
+                \\(P(\\text{n boys} \\mid 
+                \\text{at least one child is a boy born on a tuesday}) 
+                = \\frac{7^n - 6^n}{14^n - 13^n}\\)<br>
+
                "))
       ),
       box(
-        width = 6, title = "Historical background", status = "primary",
+        width = 4, title = "Historical background", status = "primary",
         collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
         p(
           tags$p("The two children problem, also known as the boy or girl paradox,
@@ -211,10 +303,10 @@ app3UI <- function(id) {
       box(
         width = 12, title = "Secondary Setup: The Tuesdayboy Variation", status = "primary",
         collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
-        p(HTML("The Tuesday Boy Problem is an intriguing variation and extension 
-        of the classic Two Children Problem. It introduces a third question to 
+        p(HTML("The Tuesday Boy Problem is an intriguing variation and extension
+        of the classic Two Children Problem. It introduces a third question to
         our setup, which is: <br>
-        Just like before, you are speaking with Mr. Jones, who tells you he has 
+        Just like before, you are speaking with Mr. Jones, who tells you he has
         two children. The new question is: <br> <br>
         <i>if least one of the two children is a boy and born on a tuesday,
         What is the probability that both children are boys?</i> <br>")),
@@ -222,14 +314,17 @@ app3UI <- function(id) {
         uiOutput(ns("gif_ui")),
         column(
           12,
-          p("The illustration helps showcase the possible valid combinations 
-            (where at least one boy is born on a Tuesday) using blue squares. 
-            Among these, the combinations we are interested in (where both children 
-            are boys) are highlighted with green squares.", style = "margin-top: 10px;"),
+          p("The illustration helps showcase the possible valid combinations
+            (where at least one boy is born on a Tuesday) using blue squares (27).
+            Among these, the combinations we are interested in (where both children
+            are boys) are highlighted with green squares (13). This gives us
+            a probability of 13/27 pr \\(\\approx 0.48\\)",
+            style = "margin-top: 10px;"
+          ),
           p(
             "This example once again underscores the importance of being",
             tags$span("accurate and precise", style = "color: purple; font-weight: bold;"),
-            "accurate and precise. Adding seemingly small details, such as the 
+            "accurate and precise. Adding seemingly small details, such as the
             day of birth, can significantly alter the probability and make this
             question different from the very similar Question 1."
           )
@@ -239,7 +334,8 @@ app3UI <- function(id) {
     # =========== BOX NR. 4 ===========
     fluidRow(
       box(
-        width = 12, title = "The graphs and plots", status = "primary", collapsible = TRUE, collapsed = TRUE,
+        width = 12, title = "Graphs And Plots", status = "primary",
+        collapsible = TRUE, collapsed = TRUE,
         solidHeader = TRUE,
         fluidRow(
           column(
@@ -255,12 +351,12 @@ app3UI <- function(id) {
               HTML
               ("The questions are listed again below (with the first being the
               newly added variation): <br> <i>
-              _ Mr. Jones has n children. What's the probability that all n children 
+              _ Mr. Jones has n children. What's the probability that all n children
               are boys? <br>
               _ Mr. Jones has n children, and at least one of them is a boy. What's
               the probability that all n children are boys? (Question 1)<br>
-              _ Mr. Jones has n children, and at least one of them is a boy born 
-              on a tuesday. What's the probability that all n children are boys? 
+              _ Mr. Jones has n children, and at least one of them is a boy born
+              on a tuesday. What's the probability that all n children are boys?
               (Tuesday boy)<br>
               _ Mr. Jones has n children, and the oldest child is a boy. What's
               the probability that all n children are boys? (Question 2) </i>")
@@ -331,7 +427,7 @@ app3Server <- function(id) {
         )
       }
     })
-    
+
     # toggle GIF
     output$gif_ui <- renderUI({
       if (input$show_gif) {
@@ -348,9 +444,10 @@ app3Server <- function(id) {
         if (option == question1) {
           showModal(modalDialog(
             title = "Answer",
-            p(HTML("<h2> 1/3 </h2> <br>
+            p(HTML("<h2> 1/3 (&#8776; 0.33)</h2> <br>
             But why? Now, if you used the visual hint, you saw the valid combinations
-                   for two children. We have, in total, three valid combinations (BB, BG, GB), 
+                   for two children. We have, in total, three valid combinations:
+                   BB, BG, GB (B = boy and G = girl),
                    of which we want only one combination (BB), giving us a probability
                    of 1/3.")),
             p("but wait a lot of people have argued that the probability
@@ -371,9 +468,10 @@ app3Server <- function(id) {
           showModal(modalDialog(
             title = "Answer",
             p(
-              HTML("<h2> 1/2 </h2> <br>
+              HTML("<h2> 1/2 (0.5)</h2> <br>
               But why? if you used the visual hint, you saw the valid combinations
-                   for two children. We have, in total, two valid combinations (BB, BG), 
+                   for two children. We have, in total, two valid combinations:
+                   BB, BG (B = boy and G = girl),
                    of which we want only one combination (BB), giving us a probability
                    of 1/2."),
               p("but wait in this case some people could say that in a day to day
