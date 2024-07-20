@@ -4,12 +4,12 @@ library(plotly)
 library(shinyBS)
 
 
-question1 <- "QUESTION1: At least one of them is a boy. What is the probability
-that both children are boys?"
+question1 <- "QUESTION1: At least one of the two children is a boy. 
+What is the probability that both children are boys?"
 question2 <- "QUESTION2: The older child is a boy. What is the probability that
 both children are boys?"
-question3 <- "QUESTION3: At least one of them is a boy and born on a tuesday.
-What is the probability that both children are boys?"
+question3 <- "QUESTION3: At least one of the two children is a boy and born on
+a tuesday. What is the probability that both children are boys?"
 app3UI <- function(id) {
   ns <- NS(id)
   tagList(
@@ -17,9 +17,9 @@ app3UI <- function(id) {
     h1("The Two Children Problem"),
     p(
       "The Two Children Problem is a classic puzzle in probability theory that
-        shows how tricky statistical thinking can be. It usually comes as a set
+        demonstrates how tricky statistical thinking can be. It usually comes as a set
         of two simple questions that, despite their simplicity, challenge our everyday
-        intuition and reveal how complex probability can be. By looking at the relationship
+        intuition and reveal how complex probability can be. By examining the relationship
         between what we know and the possible outcomes, the Two Children Problem becomes
         a fascinating exercise in logical thinking and understanding statistics."
     ),
@@ -29,7 +29,7 @@ app3UI <- function(id) {
       The two questions then are the following:"
     ),
     p(
-      HTML("*if least one of the two children is a boy. What is the probability
+      HTML("*if (at least) one of the two children is a boy. What is the probability
       that both children are boys?* <br>
            *if the older child is a boy. What is the probability that both
            children are boys?*")
@@ -49,8 +49,9 @@ app3UI <- function(id) {
             ),
             selected = question1
           )),
-          column(7, "Now these two questions seem easy enough! but ofcourse the
-                 devil is in the details. try and solve the questions yourself.",
+          column(7, "Now, these two questions seem easy enough, but of course, 
+                 the devil is in the details. Try and solve the questions
+                 yourself:",
             style = "margin-bottom: 20px;"
           ),
           column(2,
