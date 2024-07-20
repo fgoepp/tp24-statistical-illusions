@@ -30,10 +30,14 @@ app3UI <- function(id) {
       (assume that the probability of being born a boy or girl is equal):"
     ),
     p(
-      HTML("<i>if (at least) one of the two children is a boy. What is the probability
+      HTML("<i>_ if (at least) one of the two children is a boy. What is the probability
       that both children are boys?</i> <br>
-           <i>if the older child is a boy. What is the probability that both
+           <i>_ if the older child is a boy. What is the probability that both
            children are boys?</i>")
+    ),
+    p(
+      "In the following section, you can try solving these problems yourself, 
+      view visual representations, and learn their solutions."
     ),
     # =========== BOX NR. 1 ===========
     fluidRow(
@@ -122,80 +126,7 @@ app3UI <- function(id) {
     # =========== BOX NR. 2 ===========
     fluidRow(
       box(
-        width = 12, title = "Secondary Setup: The Tuesdayboy Variation", status = "primary",
-        collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
-        p(HTML("The Tuesday Boy Problem is an intriguing variation and extension 
-        of the classic Two Children Problem. It introduces a third question to 
-        our setup, which is: <br>
-        Just like before, you are speaking with Mr. Jones, who tells you he has 
-        two children. The new question is: <br> <br>
-        <i>if least one of the two children is a boy and born on a tuesday,
-        What is the probability that both children are boys?</i> <br>")),
-        checkboxInput(ns("show_gif"), "show GIF (uncheck to see still image)", TRUE),
-        uiOutput(ns("gif_ui")),
-        column(
-          12,
-          p("The illustration helps showcase the possible valid combinations 
-            (where at least one boy is born on a Tuesday) using blue squares. 
-            Among these, the combinations we are interested in (where both children 
-            are boys) are highlighted with green squares.", style = "margin-top: 10px;"),
-          p(
-            "This example once again underscores the importance of being",
-            tags$span("accurate and precise", style = "color: purple; font-weight: bold;"),
-            "accurate and precise. Adding seemingly small details, such as the 
-            day of birth, can significantly alter the probability and make this
-            question different from the very similar Question 1."
-          )
-        )
-      )
-    ),
-    # =========== BOX NR. 3 ===========
-    fluidRow(
-      box(
-        width = 12, title = "The graphs and plots", status = "primary", collapsible = TRUE, collapsed = TRUE,
-        solidHeader = TRUE,
-        fluidRow(
-          column(
-            12,
-            p(
-              "In this section, we will examine the previous three questions, plus
-              an additional new question, but this time not just for 2 children but
-              rather for ",
-              tags$span("n children", style = "color: purple; font-weight: bold;"),
-              ". We will plot the probability for each scenario."
-            ),
-            p(
-              HTML
-              ("The questions are listed again below (with the first being the
-              newly added variation): <br> <i>
-              _ Mr. Jones has n children. What's the probability that all n children 
-              are boys? <br>
-              _ Mr. Jones has n children, and at least one of them is a boy. What's
-              the probability that all n children are boys? (Question 1)<br>
-              _ Mr. Jones has n children, and at least one of them is a boy born 
-              on a tuesday. What's the probability that all n children are boys? 
-              (Tuesday boy)<br>
-              _ Mr. Jones has n children, and the oldest child is a boy. What's
-              the probability that all n children are boys? (Question 2) </i>")
-            ),
-            p("now you can use the slider to change the number of children we
-              have (and still calculate the probabilty of ALL of children being boys!)
-              and see that the pattern doesn't change!")
-          ),
-          column(12,
-            sliderInput(ns("n_children"), "Number of children:", min = 2, max = 10, value = 2, width = "70%"),
-            style = "margin-left: 180px; margin-top:30px;"
-          ),
-          fluidRow(
-            column(12, plotlyOutput(ns("bar_plot"), width = "80%"), style = "margin-left: 100px;")
-          )
-        )
-      )
-    ),
-    # =========== BOX NR. 4 ===========
-    fluidRow(
-      box(
-        width = 12, title = "Mathematical Background ", status = "primary",
+        width = 6, title = "Mathematical Background", status = "primary",
         collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
         p("In this section we will take a look at the math behind the two chidlren
           problem and its variation and how the probabilities were calculated in
@@ -251,10 +182,7 @@ app3UI <- function(id) {
                without any restraints and as always one desired outcome. the probability is:
                $$\\frac{1}{2^n} $$<br>
                "))
-      )
-    ),
-    # =========== BOX NR. 5 ===========
-    fluidRow(
+      ),
       box(
         width = 6, title = "Historical background", status = "primary",
         collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
@@ -263,7 +191,7 @@ app3UI <- function(id) {
                  is a well-known problem in probability theory. Its initial formulation
                  dates back to October 1959, when it was published by Martin Gardner
                  in the 'Mathematical Games' column in Scientific American,
-                 an American popular science magazine."),
+                 a popular American science magazine."),
           tags$p("Martin Gardner was an American writer known for his work in
                  popular mathematics and science, as well as his interests in
                  magic and scientific skepticism. The problem consists of two
@@ -276,7 +204,83 @@ app3UI <- function(id) {
                  mathematics, statistics, and, to some extent, our own
                  cognitive processes.")
         )
-      ),
+      )
+    ),
+    # =========== BOX NR. 3 ===========
+    fluidRow(
+      box(
+        width = 12, title = "Secondary Setup: The Tuesdayboy Variation", status = "primary",
+        collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
+        p(HTML("The Tuesday Boy Problem is an intriguing variation and extension 
+        of the classic Two Children Problem. It introduces a third question to 
+        our setup, which is: <br>
+        Just like before, you are speaking with Mr. Jones, who tells you he has 
+        two children. The new question is: <br> <br>
+        <i>if least one of the two children is a boy and born on a tuesday,
+        What is the probability that both children are boys?</i> <br>")),
+        checkboxInput(ns("show_gif"), "show GIF (uncheck to see still image)", TRUE),
+        uiOutput(ns("gif_ui")),
+        column(
+          12,
+          p("The illustration helps showcase the possible valid combinations 
+            (where at least one boy is born on a Tuesday) using blue squares. 
+            Among these, the combinations we are interested in (where both children 
+            are boys) are highlighted with green squares.", style = "margin-top: 10px;"),
+          p(
+            "This example once again underscores the importance of being",
+            tags$span("accurate and precise", style = "color: purple; font-weight: bold;"),
+            "accurate and precise. Adding seemingly small details, such as the 
+            day of birth, can significantly alter the probability and make this
+            question different from the very similar Question 1."
+          )
+        )
+      )
+    ),
+    # =========== BOX NR. 4 ===========
+    fluidRow(
+      box(
+        width = 12, title = "The graphs and plots", status = "primary", collapsible = TRUE, collapsed = TRUE,
+        solidHeader = TRUE,
+        fluidRow(
+          column(
+            12,
+            p(
+              "In this section, we will examine the previous three questions, plus
+              an additional new question, but this time not just for 2 children but
+              rather for ",
+              tags$span("n children", style = "color: purple; font-weight: bold;"),
+              ". We will plot the probability for each scenario."
+            ),
+            p(
+              HTML
+              ("The questions are listed again below (with the first being the
+              newly added variation): <br> <i>
+              _ Mr. Jones has n children. What's the probability that all n children 
+              are boys? <br>
+              _ Mr. Jones has n children, and at least one of them is a boy. What's
+              the probability that all n children are boys? (Question 1)<br>
+              _ Mr. Jones has n children, and at least one of them is a boy born 
+              on a tuesday. What's the probability that all n children are boys? 
+              (Tuesday boy)<br>
+              _ Mr. Jones has n children, and the oldest child is a boy. What's
+              the probability that all n children are boys? (Question 2) </i>")
+            ),
+            p("now you can use the slider to change the number of children we
+              have (and still calculate the probabilty of ALL of children being boys!)
+              and see that the pattern doesn't change!")
+          ),
+          column(12,
+            sliderInput(ns("n_children"), "Number of children:", min = 2, max = 10, value = 2, width = "70%"),
+            style = "margin-left: 180px; margin-top:30px;"
+          ),
+          fluidRow(
+            column(12, plotlyOutput(ns("bar_plot"), width = "80%"), style = "margin-left: 100px;")
+          )
+        )
+      )
+    ),
+    # =========== BOX NR. 5 ===========
+    fluidRow(
       box(
         width = 6, title = "References", status = "primary",
         collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
