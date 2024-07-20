@@ -25,8 +25,8 @@ app3UI <- function(id) {
     ),
     "The problem is as follows:",
     p(
-      "Imagine you're speaking with someone who tells you they have two children.
-      The two questions then are the following 
+      "Imagine you're having a nice conversation with your neighbor Mr. Jones. Mr. Jones
+      tells you that they have two children.The two questions then are the following 
       (assume that boys and girls are equally likely):"
     ),
     p(
@@ -339,18 +339,18 @@ app3Server <- function(id) {
       }
     })
 
-    # Display the answer based on the selected option
+    # =========== DISPLAY ANSWERS ===========
     observeEvent(input$show_answer, {
       option <- input$dropdown_menu
       if (!is.null(option) && !is.na(option)) {
         if (option == question1) {
           showModal(modalDialog(
             title = "Answer",
-            p(HTML("1/3 <br>
-            but why?? now in the visualization you can see the
-            valid combinations of two children. we have in total three
-            valid combinations, of which we want only one combination ->
-              giving us a probability of 1/3. ")),
+            p(HTML("<h2> 1/3 </h2> <br>
+            But why? Now, if you used the visual hint, you saw the valid combinations
+                   for two children. We have, in total, three valid combinations (BB, BG, GB), 
+                   of which we want only one combination (BB), giving us a probability
+                   of 1/3.")),
             p("but wait a lot of people have argued that the probability
             is actually 1/2. if we assume that the phrase 'atleast
               one of them is a boy' hints that during our conversation, we have
@@ -369,24 +369,24 @@ app3Server <- function(id) {
           showModal(modalDialog(
             title = "Answer",
             p(
-              HTML("1/2 <br>
-            but why?? now in the visualization you can see the valid
-            combinations of two children. we have in total two
-            valid combinations, of which we want only one combination -> giving
-              us a probability of 1/2"),
+              HTML("<h2> 1/2 </h2> <br>
+              But why? if you used the visual hint, you saw the valid combinations
+                   for two children. We have, in total, two valid combinations (BB, BG), 
+                   of which we want only one combination (BB), giving us a probability
+                   of 1/2."),
               p("but wait in this case some people could say that in a day to day
             conversation, if we are told that Mr. Jones has two kids and one of
             them is a boy, well then the other one is a girl! obviously if the
             other one was a boy as well then they would have simply said that
               'they have two boys' from the get go. So therefor the probability
-              that Mr.Jones has two boys is zero!!")
+              that Mr. Jones has two boys is zero!!")
             )
           ))
         }
       }
     })
 
-    # =========== CHECKING ANSWERS ===========
+    # =========== CHECK ANSWERS ===========
     observeEvent(input$submit_guess, {
       option <- input$dropdown_menu
       answer_one <- list("1/3", "0.33", "0.3", "0.333")
