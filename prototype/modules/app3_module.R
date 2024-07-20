@@ -37,8 +37,8 @@ app3UI <- function(id) {
     # =========== BOX NR. 1 ===========
     fluidRow(
       box(
-        width = 12, title = "The classic variation", status = "primary", collapsible = TRUE,
-        solidHeader = TRUE, collapsed = FALSE,
+        width = 12, title = "The classic variation", status = "primary", 
+        solidHeader = TRUE,
         fluidRow(
           column(12, selectInput(
             inputId = ns("dropdown_menu"),
