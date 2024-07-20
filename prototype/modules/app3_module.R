@@ -25,15 +25,15 @@ app3UI <- function(id) {
     ),
     "The problem is as follows:",
     p(
-      "Imagine you're having a nice conversation with your neighbor Mr. Jones. Mr. Jones
-      tells you that they have two children.The two questions then are the following 
-      (assume that boys and girls are equally likely):"
+      "Imagine you're having a nice conversation with your neighbor Mr. Jones. he
+      tells you that he has two children.The two questions then are the following 
+      (assume that the probability of being born a boy or girl is equal):"
     ),
     p(
-      HTML("*if (at least) one of the two children is a boy. What is the probability
-      that both children are boys?* <br>
-           *if the older child is a boy. What is the probability that both
-           children are boys?*")
+      HTML("<i>if (at least) one of the two children is a boy. What is the probability
+      that both children are boys?</i> <br>
+           <i>if the older child is a boy. What is the probability that both
+           children are boys?</i>")
     ),
     # =========== BOX NR. 1 ===========
     fluidRow(
@@ -71,7 +71,7 @@ app3UI <- function(id) {
                 style = "margin-left: 34px;",
                 textInput(
                   inputId = ns("guess_probability"), label = "Guess the Probability",
-                  placeholder = "Enter a number"
+                  placeholder = "Enter a number (fraction)"
                 )
               ),
               column(
@@ -120,30 +120,31 @@ app3UI <- function(id) {
       )
     ),
     # =========== BOX NR. 2 ===========
-    h2("Secondary Setup: The Tuesdayboy Variation", style = "margin-top: -10px;"),
-    p(HTML("The Tuesdayboy Problem is an interesting variation and extention of the
-    classic problem. It introduces a third question to our setup namely:<br>
-    Just like before a person has two children then <br>
-    *if least one of the two children is a boy. What is the probability
-           that both children are boys?*")),
     fluidRow(
       box(
-        width = 12, title = "The Tuesdayboy variation", status = "primary",
+        width = 12, title = "Secondary Setup: The Tuesdayboy Variation", status = "primary",
         collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
+        p(HTML("The Tuesday Boy Problem is an intriguing variation and extension 
+        of the classic Two Children Problem. It introduces a third question to 
+        our setup, which is: <br>
+        Just like before, you are speaking with Mr. Jones, who tells you he has 
+        two children. The new question is: <br> <br>
+        <i>if least one of the two children is a boy and born on a tuesday,
+        What is the probability that both children are boys?</i> <br>")),
         checkboxInput(ns("show_gif"), "show GIF (uncheck to see still image)", TRUE),
         uiOutput(ns("gif_ui")),
         column(
           12,
-          p("The illustration helps showcase the possible valid combinations
-            (atleast one boy born on a tuesday) with blue squares and from those
-            the combinations we're looking for (all n children being boys) with
-            green squares.", style = "margin-top: 10px;"),
+          p("The illustration helps showcase the possible valid combinations 
+            (where at least one boy is born on a Tuesday) using blue squares. 
+            Among these, the combinations we are interested in (where both children 
+            are boys) are highlighted with green squares.", style = "margin-top: 10px;"),
           p(
-            "The importance of being",
-            tags$span("accurate and exact", style = "color: purple; font-weight: bold;"),
-            "is ever so present seeing as adding a bit more information such as being
-            born on a tuesday can change the probability and make this question
-            different from the very similar QUESTION1."
+            "This example once again underscores the importance of being",
+            tags$span("accurate and precise", style = "color: purple; font-weight: bold;"),
+            "accurate and precise. Adding seemingly small details, such as the 
+            day of birth, can significantly alter the probability and make this
+            question different from the very similar Question 1."
           )
         )
       )
