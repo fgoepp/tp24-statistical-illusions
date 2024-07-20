@@ -38,7 +38,7 @@ app3UI <- function(id) {
     # =========== BOX NR. 1 ===========
     fluidRow(
       box(
-        width = 12, title = "The classic variation", status = "primary",
+        width = 12, title = "Main Setup: The Classic Variation", status = "primary",
         solidHeader = TRUE,
         fluidRow(
           column(12,
@@ -120,7 +120,7 @@ app3UI <- function(id) {
       )
     ),
     # =========== BOX NR. 2 ===========
-    h2("The Tuesdayboy variation", style = "margin-top: -10px;"),
+    h2("Secondary Setup: The Tuesdayboy Variation", style = "margin-top: -10px;"),
     p(HTML("The Tuesdayboy Problem is an interesting variation and extention of the
     classic problem. It introduces a third question to our setup namely:<br>
     Just like before a person has two children then <br>
@@ -130,7 +130,7 @@ app3UI <- function(id) {
       box(
         width = 12, title = "The Tuesdayboy variation", status = "primary",
         collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
-        checkboxInput(ns("show_gif"), "show Gif (uncheck to see still image)", TRUE),
+        checkboxInput(ns("show_gif"), "show GIF (uncheck to see still image)", TRUE),
         uiOutput(ns("gif_ui")),
         column(
           12,
@@ -199,7 +199,7 @@ app3UI <- function(id) {
     # =========== BOX NR. 4 ===========
     fluidRow(
       box(
-        width = 12, title = "Mathematical Equation", status = "primary",
+        width = 12, title = "Mathematical Background ", status = "primary",
         collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
         p("In this section we will take a look at the math behind the two chidlren
           problem and its variation and how the probabilities were calculated in
@@ -282,7 +282,7 @@ app3UI <- function(id) {
         )
       ),
       box(
-        width = 6, title = "Refrences and material", status = "primary",
+        width = 6, title = "References", status = "primary",
         collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
         fluidRow(column(
           10,
@@ -331,6 +331,8 @@ app3Server <- function(id) {
         )
       }
     })
+    
+    # toggle GIF
     output$gif_ui <- renderUI({
       if (input$show_gif) {
         img(src = "/two_children/tuesdayboy.gif", width = "90%")
