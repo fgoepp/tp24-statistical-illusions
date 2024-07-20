@@ -158,24 +158,24 @@ app3UI <- function(id) {
           column(
             12,
             p(
-              "In this section we will look at the previous three question plus 
-              an additional new question but this time not just for 2 children but
-              rather ",
-              tags$span("n children ", style = "color: purple; font-weight: bold;"),
-              "and plot each probability."
+              "In this section, we will examine the previous three questions, plus
+              an additional new question, but this time not just for 2 children but
+              rather for ",
+              tags$span("n children", style = "color: purple; font-weight: bold;"),
+              ". We will plot the probability for each scenario."
             ),
             p(
               HTML
-              ("The questions are again listed here (the first one is the newly
-              added variation) : <br> <i>
+              ("The questions are listed again below (with the first being the
+              newly added variation): <br> <i>
               _ Mr. Jones has n children. What's the probability that all n children 
               are boys? <br>
-              _ Mr. Jones has n children and at least one of them is a boy. What's
+              _ Mr. Jones has n children, and at least one of them is a boy. What's
               the probability that all n children are boys? (Question 1)<br>
-              _ Mr. Jones has n children and at least one of them is a boy born 
+              _ Mr. Jones has n children, and at least one of them is a boy born 
               on a tuesday. What's the probability that all n children are boys? 
-              (Tuesdayboy)<br>
-              _ Mr. Jones has n children and the oldest child is a boy. What's
+              (Tuesday boy)<br>
+              _ Mr. Jones has n children, and the oldest child is a boy. What's
               the probability that all n children are boys? (Question 2) </i>")
             ),
             p("now you can use the slider to change the number of children we
