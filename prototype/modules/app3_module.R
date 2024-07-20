@@ -386,7 +386,7 @@ app3Server <- function(id) {
       }
     })
 
-    # check user answer to the questions
+    # =========== CHECKING ANSWERS ===========
     observeEvent(input$submit_guess, {
       option <- input$dropdown_menu
       answer_one <- list("1/3", "0.33", "0.3", "0.333")
@@ -397,13 +397,13 @@ app3Server <- function(id) {
         if (((guess %in% answer_one) && option == question1) ||
           ((guess %in% answer_two) && option == question2)) {
           showModal(modalDialog(
-            title = "Result",
+            title = "Correct",
             "Yup, you got it!"
           ))
         } else {
           showModal(modalDialog(
-            title = "Result",
-            "not quite right, try again!"
+            title = "Incorrect",
+            "Not quite right, try again!"
           ))
         }
       } else {
