@@ -9,7 +9,7 @@ What is the probability that both children are boys?"
 question2 <- "QUESTION2: The older child is a boy. What is the probability that
 both children are boys?"
 question3 <- "QUESTION3: At least one of the two children is a boy and born on
-a tuesday. What is the probability that both children are boys?"
+a Tuesday. What is the probability that both children are boys?"
 app3UI <- function(id) {
   ns <- NS(id)
   tagList(
@@ -25,20 +25,20 @@ app3UI <- function(id) {
     ),
     "The problem is as follows:",
     p(
-      "Imagine you're having a nice conversation with your neighbor Mr. Jones. he
-      tells you that he has two children.The two questions then are the following:"
+      "Imagine you're having a nice conversation with your neighbor Mr. Smith. He
+      tells you that he has two children. The two questions then are the following:"
     ),
     p(
-      HTML("<i>_ if (at least) one of the two children is a boy. What is the probability
+      HTML("<i>1. if (at least) one of the two children is a boy. What is the probability
       that both children are boys?</i> <br>
-           <i>_ if the older child is a boy. What is the probability that both
+           <i>2. if the older child is a boy. What is the probability that both
            children are boys?</i>")
     ),
     p(
       "In the following section, you can try solving these problems yourself,
-      view visual representations, and learn their solutions. Throughtout this
-      app you can assume that the sex of the two children is independent of one
-      another and equally likely a boy or a girl."
+      view visual representations, and learn their solutions. Throughout this
+      app, you can assume that the sex of the two children is independent of one
+      another and equally likely to be a boy or a girl."
     ),
     # =========== BOX NR. 1 ===========
     fluidRow(
@@ -61,7 +61,7 @@ app3UI <- function(id) {
           column(7,
             style = "margin-left: 5px;",
             "Now, these two questions seem easy enough, but of course, the devil
-            is in the details. Try and solve the questions yourself:",
+            is in the details. You can try solving the questions yourself:",
             style = "margin-bottom: 20px;"
           ),
           column(2,
@@ -129,13 +129,14 @@ app3UI <- function(id) {
       box(
         width = 8, title = "Mathematical Background", status = "primary",
         collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
-        p("In this section we will take a look at the math behind the two chidlren
-          problem and its variation and how the probabilities were calculated in
-          the 'Graphs And Plots' section (please look at the other sections first
-          to famaliarize yourself with all the questions mentioned. This section
+        p("In this section we will take a look at the math behind the two-children
+          problem and its variation and how their probabilities can be derived. 
+          These derived formulas will also be used in
+          the 'Graphs And Plots' section to plot everything(please look at the other sections first
+          to familiarize yourself with all the questions mentioned. This section
           should be visited last as it relies on the other ones)."),
         p(HTML
-        ("The four questions are listed and are the following: <br>
+        ("The four questions are listed below: <br>
                <i>
                 <b style='color:red;'>*</b>
                 If a family has N children, what is the probability that
@@ -150,7 +151,7 @@ app3UI <- function(id) {
                 all children are boys? <br>
 
                 <b style='color:violet;'>****</b> If a family has N children and 
-                at least one of them is a boy born on tuesday, What is the
+                at least one of them is a boy born on Tuesday, What is the
                 probability that all children are boys?
               </i> <br>
 
@@ -176,7 +177,7 @@ app3UI <- function(id) {
                \\frac{1}{2} = 0.5 \\)
                <br>
 
-                <b><i style='color:violet;'>####</i></b> We are going do things a bit differently and
+                <b><i style='color:violet;'>####</i></b> We are going to do things a bit differently and
                calculate an even more general form of this case. Suppose that
                the chance of being born on any given day of the week is
                \\(\\frac{1}{7} \\). From Bayes' Theorem that the probability of
@@ -260,7 +261,7 @@ app3UI <- function(id) {
                 and 6 days (no Tuesday): \\(1 \\cdot 6\\).<br>
                 Now, let's take a look at all combinations where there is at 
                 least one boy born on a Tuesday. Again, let's use the complement:
-                n(\\text{all children})- \\(n(\\text{all children} \\mid \\text{no boy is born a tuesday})\\) 
+                \\(n(\\text{all children})- n(\\text{all children} \\mid \\text{no boy is born a Tuesday})\\) 
                 = \\(14^n - 13^n\\).
                 In the first term, we have 14 because we're considering two 
                 genders and 7 days: \\(2 \\cdot 7\\). In the second term, 
@@ -270,7 +271,7 @@ app3UI <- function(id) {
                 In total, the desired combination over the entire combinations 
                 gives us the probability of:
                 \\(P(\\text{n boys} \\mid 
-                \\text{at least one child is a boy born on a tuesday}) 
+                \\text{at least one child is a boy born on a Tuesday}) 
                 = \\frac{7^n - 6^n}{14^n - 13^n}\\)<br>
 
                "))
@@ -306,15 +307,15 @@ app3UI <- function(id) {
         p(HTML("The Tuesday Boy Problem is an intriguing variation and extension
         of the classic Two Children Problem. It introduces a third question to
         our setup, which is: <br>
-        Just like before, you are speaking with Mr. Jones, who tells you he has
+        Just like before, you are speaking with Mr. Smith, who tells you he has
         two children. The new question is: <br> <br>
-        <i>if least one of the two children is a boy and born on a tuesday,
+        <i>if at least one of the two children is a boy and born on a Tuesday,
         What is the probability that both children are boys?</i> <br>")),
         checkboxInput(ns("show_gif"), "show GIF (uncheck to see still image)", TRUE),
         uiOutput(ns("gif_ui")),
         column(
           12,
-          p("The illustration helps showcase the possible valid combinations
+          p("The illustration above helps showcase the possible valid combinations
             (where at least one boy is born on a Tuesday) using blue squares (27).
             Among these, the combinations we are interested in (where both children
             are boys) are highlighted with green squares (13). This gives us
@@ -351,19 +352,22 @@ app3UI <- function(id) {
               HTML
               ("The questions are listed again below (with the first being the
               newly added variation): <br> <i>
-              _ Mr. Jones has n children. What's the probability that all n children
+              _ Mr. Smith has n children. What's the probability that all n children
               are boys? <br>
-              _ Mr. Jones has n children, and at least one of them is a boy. What's
+              _ Mr. Smith has n children, and at least one of them is a boy. What's
               the probability that all n children are boys? (Question 1)<br>
-              _ Mr. Jones has n children, and at least one of them is a boy born
-              on a tuesday. What's the probability that all n children are boys?
+              _ Mr. Smith has n children, and at least one of them is a boy born
+              on a Tuesday. What's the probability that all n children are boys?
               (Tuesday boy)<br>
-              _ Mr. Jones has n children, and the oldest child is a boy. What's
+              _ Mr. Smith has n children, and the oldest child is a boy. What's
               the probability that all n children are boys? (Question 2) </i>")
             ),
-            p("now you can use the slider to change the number of children we
-              have (and still calculate the probabilty of ALL of children being boys!)
-              and see that the pattern doesn't change!")
+            p("Use the slider to change the number of children we
+              have and play around with the probabilities. Notice that 
+              that there's an increase of probability among the four question 
+              (from the question with least information to the question with most 
+              information about the children)
+              which doesn't change with the number of children!")
           ),
           column(12,
             sliderInput(ns("n_children"), "Number of children:", min = 2, max = 10, value = 2, width = "70%"),
@@ -383,7 +387,7 @@ app3UI <- function(id) {
         fluidRow(column(
           10,
           p("Boy or girl paradox - Wikipedia"),
-          p("Youtube channels:"),
+          p("YouTube channels:"),
           p("Kevin Olding - Mathsaurus | The Tuesday Boy Problem"),
           p("ThePuzzlr | The Boy Or Girl Paradox")
         ))
@@ -451,18 +455,26 @@ app3Server <- function(id) {
                    of which we want only one combination (BB), giving us a probability
                    of 1/3.")),
             p("but wait a lot of people have argued that the probability
-            is actually 1/2. if we assume that the phrase 'atleast
+            is actually 1/2. if we assume that the phrase 'at least
               one of them is a boy' hints that during our conversation, we have
-              actually seen or atleast know which of the two children is a boy,
+              actually seen or at least know which of the two children is a boy,
               then the change of the other child being a boy is coin toss or 1/2!
-              in some variations this first question is phrased as '(atleast) one
+              in some variations this first question is phrased as '(at least) one
               of them is a boy. What is the probability that both children are boys?'
               in which case some could even say that in a day to day conversation,
-              if we are told that Mr. Jones has two kids and one of them is a boy,
+              if we are told that Mr. Smith has two kids and one of them is a boy,
               well then the other one is a girl! obviously if the other one was a boy
               as well then they would have simply said that 'they have two boys'
-              from the get go. So therefor the probability that Mr.Jones has
-              two boys is zero!!")
+              from the get go. So therefor the probability that Mr.Smith has
+              two boys is zero!!"),
+            p("This highlights an important lesson from the Two Children Problem: 
+              the importance of being exact and clear in problem formulation. 
+              Even minor ambiguities can lead to vastly different answers, 
+              emphasizing the need for clarity and accuracy in probability
+              and math. In this question we assume 'one of them' means 
+              'at least one of them' and since it's not explicitly stated that 
+              we have seen the boy, we assume it is by chance that at least 
+              one child is a boy.")
           ))
         } else if (option == question2) {
           showModal(modalDialog(
@@ -475,11 +487,17 @@ app3Server <- function(id) {
                    of which we want only one combination (BB), giving us a probability
                    of 1/2."),
               p("but wait in this case some people could say that in a day to day
-            conversation, if we are told that Mr. Jones has two kids and one of
+            conversation, if we are told that Mr. Smith has two kids and one of
             them is a boy, well then the other one is a girl! obviously if the
             other one was a boy as well then they would have simply said that
               'they have two boys' from the get go. So therefor the probability
-              that Mr. Jones has two boys is zero!!")
+              that Mr. Smith has two boys is zero!!"),
+              p("This highlights an important lesson from the Two Children Problem: 
+              the importance of being exact and clear in problem formulation. 
+              Even minor ambiguities can lead to vastly different answers, 
+              emphasizing the need for clarity and accuracy in probability
+              and math.")
+              
             )
           ))
         }
