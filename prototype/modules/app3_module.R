@@ -90,37 +90,37 @@ app3UI <- function(id) {
               style = "margin-left: 20px;",
               actionButton(inputId = ns("show_answer"), label = "Show Answer")
             )
-          ),
-          fluidRow(
-            column(
-              12,
-              p("
-                Hopefully, you've already clicked the 'Show Answer' button and
-                seen the conflicting views regarding the two questions. This is
-                exactly the first lesson we can learn from the Two Children Problem:
-                the fact that when formulating a problem, we have to make sure that
-                we are as exact and clear as possible. Even the smallest room for
-                interpretation can lead to the problem having vastly different answers.
-                This highlights the importance of ",
-                tags$span("clarity, accuracy, and interpretation ",
-                  style = "color: purple; font-weight: bold;"
-                ),
-                "in probability and math.",
-                style = "margin-top: 20px; margin-left: 20px;"
-              ),
-              p(
-                "Now, just to be clear, we assume the pure mathematical meaning
-                of the phrase 'one of them,' meaning that the expression equals
-                'at least one of them.' and consider the probability of a child
-                being born a male or a female to be equally likely. Additionally
-                , using our mathematical approach, because it isn't explicitly
-                mentioned in Question 1 that we have seen the child who is a boy,
-                we assume that it truly is by chance that at least one of them
-                is a boy.",
-                style = "margin-left: 20px;"
-              )
-            )
           )
+          # fluidRow(
+          #   column(
+          #     12,
+          #     p("
+          #       Hopefully, you've already clicked the 'Show Answer' button and
+          #       seen the conflicting views regarding the two questions. This is
+          #       exactly the first lesson we can learn from the Two Children Problem:
+          #       the fact that when formulating a problem, we have to make sure that
+          #       we are as exact and clear as possible. Even the smallest room for
+          #       interpretation can lead to the problem having vastly different answers.
+          #       This highlights the importance of ",
+          #       tags$span("clarity, accuracy, and interpretation ",
+          #         style = "color: purple; font-weight: bold;"
+          #       ),
+          #       "in probability and math.",
+          #       style = "margin-top: 20px; margin-left: 20px;"
+          #     ),
+          #     p(
+          #       "Now, just to be clear, we assume the pure mathematical meaning
+          #       of the phrase 'one of them,' meaning that the expression equals
+          #       'at least one of them.' and consider the probability of a child
+          #       being born a male or a female to be equally likely. Additionally
+          #       , using our mathematical approach, because it isn't explicitly
+          #       mentioned in Question 1 that we have seen the child who is a boy,
+          #       we assume that it truly is by chance that at least one of them
+          #       is a boy.",
+          #       style = "margin-left: 20px;"
+          #     )
+          #   )
+          # )
         )
       )
     ),
