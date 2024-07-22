@@ -136,7 +136,7 @@ app3UI <- function(id) {
           to familiarize yourself with all the questions mentioned. This section
           should be visited last as it relies on the other ones)."),
         p(HTML
-          ("The four questions are listed below: <br>
+        ("The four questions are listed below: <br>
                <i>
                 <b style='color:red;'>*</b>
                 If a family has N children, what is the probability that
@@ -342,11 +342,12 @@ app3UI <- function(id) {
           column(
             12,
             p(
-              "In this section, we will examine the previous three questions, plus
-              an additional new question, but this time not just for 2 children but
-              rather for ",
+              "In this section, in the left plot, we will examine the previous
+              three questions, plus an additional new question, but this time
+              not just for 2 children but rather for ",
               tags$span("n children", style = "color: purple; font-weight: bold;"),
-              ". We will plot the probability for each scenario."
+              ". In the right plot We will be generalizing the Tuesday
+              boy problem for 2 children."
             ),
             p(HTML
             ("The questions are listed again below (with the first being the
@@ -355,28 +356,74 @@ app3UI <- function(id) {
               are boys? <br>
               _ Mr. Smith has n children, and at least one of them is a boy. What's
               the probability that all n children are boys? (Question 1)<br>
-              _ Mr. Smith has n children, and at least one of them is a boy born
-              on a Tuesday. What's the probability that all n children are boys?
-              (Tuesday boy)<br>
+              _ Mr. Smith has n children, and at least one of them is a boy and
+              born on a Tuesday. What's the probability that all n children
+              are boys? (Tuesday boy)<br>
               _ Mr. Smith has n children, and the oldest child is a boy. What's
-              the probability that all n children are boys? (Question 2) </i>")
-            ),
-            p("Use the slider to change the number of children we
-              have and play around with the probabilities. Notice that
+              the probability that all n children are boys? (Question 2) </i><br>
+              The more generalized version of the Tuesday boy problem (look at
+              'Mathematical Background' for more in-depth explanation):<br><i>
+              _ Mr. Smith has 2 children, and at least one of them is a boy and
+              <span style='color:red; font-weight:bold;'>
+              [some condition/information]</span>.
+              What's the probability that all 2 children are boys?</i>")),
+            column(8,
+              p("Use the slider to change the number of children we
+              have and play around with the probabilities.<br> Notice that
               that there's an increase of probability among the four question
               (from the question with least information to the question with most
               information about the children)
-              which doesn't change with the number of children!")
-          ),
-          column(12,
-            sliderInput(ns("n_children"), "Number of children:", min = 2,
-                        max = 10, value = 2, width = "70%"),
-            style = "margin-left: 180px; margin-top:30px;"
-          ),
-          fluidRow(
-            column(12, plotlyOutput(ns("bar_plot"), width = "80%"),
-              style = "margin-left: 100px;"
+              which doesn't change with the number of children!"),
+              style = "margin-top:30px;"
+            ),
+            column(4,
+              p(
+                "Come up with your own extra", tags$span("[condition/information]",
+                  style = "color:red; font-weight:bold;"
+                ), "for
+            the generalized version of the Tuesday boy problem! for example
+            'is born on 1. January' in user-input one and its corresponding
+            probability '1/365' in input two. A few more examples:",
+                tags$span("['is born in chrismas', 2/365], 
+                          ['is born on a Tuesday, 1/7'], 
+                          ['is Getting audited by the IRS', 0.2]", 
+                          style = "color:red;"
+                ),
+                "(according to Google)"
+              ),
+              style = "margin-top:30px;"
             )
+          ),
+          column(
+            12,
+            column(9,
+              sliderInput(ns("n_children"), "Number of children:",
+                min = 2,
+                max = 10, value = 2
+              ),
+              style = " margin-top:15px;"
+            ),
+            column(3,
+              textInput(
+                inputId = ns("arbitrary_discription"),
+                label = "Enter your additional condition/information",
+                placeholder = "Enter a text string"
+              ),
+              textInput(
+                inputId = ns("arbitrary_probability"),
+                label = "Enter the probability of your condition/information",
+                placeholder = "Enter a fraction or decimal number"
+              ),
+              style = "margin-top:30px;"
+            )
+          ),
+          column(
+            12,
+            column(
+              9, plotlyOutput(ns("bar_plot")) # , width = "80%"
+              # style = "margin-left: 10px;"
+            ),
+            column(3, plotlyOutput(ns("single_bar_plot"), width = 250))
           )
         )
       )
@@ -388,23 +435,33 @@ app3UI <- function(id) {
         collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
         fluidRow(column(
           10,
-          p("Boy or girl paradox. (n.d.). In Wikipedia. ", 
-            a("https://en.wikipedia.org/wiki/Boy_or_girl_paradox", 
-              href = "https://en.wikipedia.org/wiki/Boy_or_girl_paradox")),
-          p("Kevin Olding - Mathsaurus. (2023, August 22). ", 
-            a("This Probability Puzzle Will Break Your Intuition | 
-              The Tuesday Boy Problem", 
-              href = "https://www.youtube.com/watch?v=90tEko9VFfU"), 
-            ". YouTube."),
-          p("ThePuzzlr. (2020, July 26). ", 
-            a("The Boy Or Girl Paradox", 
-              href = "https://www.youtube.com/watch?v=YtK4R66_YAk"), 
-            ". YouTube."),
-          p("OpenAI. (2024). (ChatGPT v3.5 & v4). "
-            , a("https://www.openai.com/chatgpt", 
-                href = "https://www.openai.com/chatgpt"))
-          
-          
+          p(
+            "Boy or girl paradox. (n.d.). In Wikipedia. ",
+            a("https://en.wikipedia.org/wiki/Boy_or_girl_paradox",
+              href = "https://en.wikipedia.org/wiki/Boy_or_girl_paradox"
+            )
+          ),
+          p(
+            "Kevin Olding - Mathsaurus. (2023, August 22). ",
+            a("This Probability Puzzle Will Break Your Intuition |
+              The Tuesday Boy Problem",
+              href = "https://www.youtube.com/watch?v=90tEko9VFfU"
+            ),
+            ". YouTube."
+          ),
+          p(
+            "ThePuzzlr. (2020, July 26). ",
+            a("The Boy Or Girl Paradox",
+              href = "https://www.youtube.com/watch?v=YtK4R66_YAk"
+            ),
+            ". YouTube."
+          ),
+          p(
+            "OpenAI. (2024). (ChatGPT v3.5 & v4). ",
+            a("https://www.openai.com/chatgpt",
+              href = "https://www.openai.com/chatgpt"
+            )
+          )
         ))
       )
     )
@@ -456,7 +513,7 @@ app3Server <- function(id) {
       }
     })
 
-    # =========== DISPLAY ANSWERS ===========
+    # =========== display answers ===========
     observeEvent(input$show_answer, {
       option <- input$dropdown_menu
       if (!is.null(option) && !is.na(option)) {
@@ -518,16 +575,16 @@ app3Server <- function(id) {
       }
     })
 
-    # =========== CHECK ANSWERS ===========
+    # =========== check answers ===========
     observeEvent(input$submit_guess, {
       option <- input$dropdown_menu
       answer_one <- list("1/3", "0.33", "0.3", "0.333")
       answer_two <- list("1/2", "0.5")
       guess <- input$guess_probability
-      guess <- gsub("\\s+", "", guess)
+      guess <- gsub("\\s+", "", guess) # remove white spaces
       if (!is.null(guess) && guess != "" && !is.na(guess)) {
-        if (((guess %in% answer_one) && option == question1) || 
-            ((guess %in% answer_two) && option == question2)) {
+        if (((guess %in% answer_one) && option == question1) ||
+          ((guess %in% answer_two) && option == question2)) {
           showModal(modalDialog(
             title = "Correct",
             "Yup, you got it!"
@@ -546,6 +603,7 @@ app3Server <- function(id) {
       }
     })
 
+    # =========== bar_plot ===========
     plot_data <- reactive({
       n <- input$n_children
       data.frame(
@@ -576,6 +634,82 @@ app3Server <- function(id) {
           title = "Bar Plot of Probabilities",
           xaxis = list(title = "Obscurity of information"),
           yaxis = list(title = "Probability")
+        ) %>%
+        config(displayModeBar = FALSE)
+    })
+
+    # =========== single_bar_plot ===========
+
+    plot_data_single <- reactive({
+      d <- input$arbitrary_discription
+      p <- input$arbitrary_probability
+      p <- gsub("\\s+", "", p) # remove white spaces
+
+      prob <- tryCatch(
+        { # evaluate probability into numeric
+          eval(parse(text = p))
+        },
+        error = function(e) {
+          0 # Return 0 if there is an error in evaluation
+        }
+      )
+
+      if (!is.numeric(prob) || is.na(prob) || prob < 0 || prob > 1) {
+        prob <- 0
+      } else {
+        # Calculate and round the adjusted probability
+        prob <- tryCatch({
+          # Ensure the denominator is not zero
+          round((2 - prob) / (4 - prob), 6)
+        }, 
+        error = function(e) {
+          0
+        })
+      }
+      
+
+      data.frame(
+        Case = d,
+        Probability = prob
+      )
+    })
+
+
+    output$single_bar_plot <- renderPlotly({
+      data <- plot_data_single()
+
+      # Generate a vertical bar plot
+      plot_ly(data,
+        x = ~ paste("at least one of them is boy and...<br>", Case),
+        y = ~Probability,
+        type = "bar",
+        orientation = "v", # Vertical bar
+        marker = list(color = "darkblue"),
+        text = ~ paste("Probability:<br>", Probability),
+        hovertext = ~ paste("Probability:", Probability),
+        hoverinfo = "text",
+        showlegend = FALSE
+      ) %>%
+        layout(
+          yaxis = list(
+            title = "Probability",
+            range = c(0, 1),
+            tickvals = c(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+            ticktext = c("0", "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1"),
+            zeroline = FALSE,
+            titlefont = list(size = 16),
+            tickfont = list(size = 14)
+          ),
+          xaxis = list(
+            title = "2 children",
+            zeroline = FALSE,
+            showgrid = FALSE,
+            showticklabels = TRUE
+          ),
+          paper_bgcolor = "white",
+          plot_bgcolor = "white",
+          bargap = 0.5,
+          transition = list(duration = 500, easing = "cubic-in-out")
         ) %>%
         config(displayModeBar = FALSE)
     })
