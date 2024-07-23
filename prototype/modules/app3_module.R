@@ -450,16 +450,17 @@ app3UI <- function(id) {
           ),
           p(
             "Kevin Olding - Mathsaurus. (2023, August 22). ",
-            a("This Probability Puzzle Will Break Your Intuition |
-              The Tuesday Boy Problem",
-              href = "https://www.youtube.com/watch?v=90tEko9VFfU"
+            a("This Probability Puzzle Will Break Your Intuition | The Tuesday Boy Problem",
+              href = "https://www.youtube.com/watch?v=90tEko9VFfU",
+              target = "_blank"
             ),
             ". YouTube."
           ),
           p(
             "ThePuzzlr. (2020, July 26). ",
             a("The Boy Or Girl Paradox",
-              href = "https://www.youtube.com/watch?v=YtK4R66_YAk"
+              href = "https://www.youtube.com/watch?v=YtK4R66_YAk",
+              target = "_blank"
             ),
             ". YouTube."
           ),
@@ -471,6 +472,7 @@ app3UI <- function(id) {
           )
         ))
       )
+      
     )
   )
 }
