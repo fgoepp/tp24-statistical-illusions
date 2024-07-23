@@ -11,7 +11,7 @@ app1UI <- function(id) {
     fluidRow(
       column(
         12,
-        h1("Simpson's Paradox - when facts aren't facts"),
+        h1("Simpson's Paradox"),
         p("Simpson's Paradox is a statistical phenomenon where groups
                 of data show a particular trend, but this trend is reversed
                 when the groups are combined together. Understanding and
