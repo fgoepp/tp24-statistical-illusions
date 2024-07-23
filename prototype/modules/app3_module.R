@@ -319,7 +319,7 @@ app3UI <- function(id) {
             (where at least one boy is born on a Tuesday) using blue squares (27).
             Among these, the combinations we are interested in (where both children
             are boys) are highlighted with green squares (13). This gives us
-            a probability of 13/27 pr \\(\\approx 0.48\\)",
+            a probability of 13/27 \\(\\approx 0.48\\)",
             style = "margin-top: 10px;"
           ),
           p(
@@ -380,10 +380,9 @@ app3UI <- function(id) {
               p(
                 "Come up with your own extra", tags$span("[condition/information]",
                   style = "color:red; font-weight:bold;"
-                ), "for
-            the generalized version of the Tuesday boy problem! for example
-            'is born on 1. January' in the first input and its corresponding
-            probability '1/365' in the second one.",
+                ), "for the generalized version of the Tuesday boy problem! 
+                for example 'is born on 1. January' in the first input and 
+                its corresponding probability '1/365' in the second one.",
                 tags$span(
                   "Hover over for a few more examples",
                   `data-toggle` = "tooltip",
