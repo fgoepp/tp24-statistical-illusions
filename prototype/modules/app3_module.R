@@ -367,31 +367,40 @@ app3UI <- function(id) {
               <span style='color:red; font-weight:bold;'>
               [some condition/information]</span>.
               What's the probability that all 2 children are boys?</i>")),
-            column(8,
-              p("Use the slider to change the number of children we
+            column(9,
+              p(HTML("Use the slider to change the number of children we
               have and play around with the probabilities.<br> Notice that
               that there's an increase of probability among the four question
               (from the question with least information to the question with most
               information about the children)
-              which doesn't change with the number of children!"),
+              which doesn't change with the number of children!")),
               style = "margin-top:30px;"
             ),
-            column(4,
+            column(3,
               p(
                 "Come up with your own extra", tags$span("[condition/information]",
                   style = "color:red; font-weight:bold;"
                 ), "for
             the generalized version of the Tuesday boy problem! for example
-            'is born on 1. January' in user-input one and its corresponding
-            probability '1/365' in input two. A few more examples:",
-                tags$span("['is born in chrismas', 2/365], 
-                          ['is born on a Tuesday, 1/7'], 
-                          ['is Getting audited by the IRS', 0.2]", 
-                          style = "color:red;"
-                ),
-                "(according to Google)"
+            'is born on 1. January' in the first input and its corresponding
+            probability '1/365' in the second one.",
+                tags$span(
+                  "Hover over for a few more examples",
+                  `data-toggle` = "tooltip",
+                  `data-placement` = "top",
+                  title = HTML("Examples:<br>
+              - 'is born on Christmas', 2/365<br>
+              - 'is born on a Tuesday', 1/7<br>
+              - 'is Getting audited by the IRS', 0.2 (according to Google)"),
+                  style = "color:red; cursor: pointer;"
+                )
               ),
-              style = "margin-top:30px;"
+              style = "margin-top:30px;",
+              tags$script(HTML(
+                "$(function () {
+                $('[data-toggle=\"tooltip\"]').tooltip({ html: true });});"
+                )
+              )
             )
           ),
           column(
@@ -406,12 +415,12 @@ app3UI <- function(id) {
             column(3,
               textInput(
                 inputId = ns("arbitrary_discription"),
-                label = "Enter your additional condition/information",
+                label = "Enter your additional condition/info.",
                 placeholder = "Enter a text string"
               ),
               textInput(
                 inputId = ns("arbitrary_probability"),
-                label = "Enter the probability of your condition/information",
+                label = "Enter the probability of your condition/info.",
                 placeholder = "Enter a fraction or decimal number"
               ),
               style = "margin-top:30px;"
@@ -420,8 +429,7 @@ app3UI <- function(id) {
           column(
             12,
             column(
-              9, plotlyOutput(ns("bar_plot")) # , width = "80%"
-              # style = "margin-left: 10px;"
+              9, plotlyOutput(ns("bar_plot"))
             ),
             column(3, plotlyOutput(ns("single_bar_plot"), width = 250))
           )
@@ -658,15 +666,17 @@ app3Server <- function(id) {
         prob <- 0
       } else {
         # Calculate and round the adjusted probability
-        prob <- tryCatch({
-          # Ensure the denominator is not zero
-          round((2 - prob) / (4 - prob), 6)
-        }, 
-        error = function(e) {
-          0
-        })
+        prob <- tryCatch(
+          {
+            # Ensure the denominator is not zero
+            round((2 - prob) / (4 - prob), 6)
+          },
+          error = function(e) {
+            0
+          }
+        )
       }
-      
+
 
       data.frame(
         Case = d,
