@@ -49,6 +49,11 @@ https://github.com/fgoepp/tp24-statistical-illusions/wiki/Add-your-own-illusion
 │       ├── department_admissions.csv
 │       ├── exercise_data.csv
 │       └── total_admissions.csv
+│   └── st-petersburg_paradox
+│       ├── st-petersburg-intro.html
+│       ├── st-petersburg-math.html
+│       ├── st-petersburg-history.html
+│       └── st-petersburg-references.html
 ├── modules
 │   ├── app1_module.R
 │   ├── app2_module.R
