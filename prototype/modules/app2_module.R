@@ -11,21 +11,21 @@ app2UI <- function(id) {
       column(
         12,
         p("The Monty Hall problem is a classic probability puzzle that
-          challenges our intuition. Traditionally, it involves a game show where
-          a contestant must choose one of three doors, behind one of which is a
-          car (the prize) and behind the others are goats (non-prizes). After
-          the contestant picks a door, the host, Monty Hall, who knows what's
-          behind each door, opens one of the remaining doors to reveal a goat.
-          The contestant is then given the option to switch to the other
-          unopened door or stay with their initial choice. Surprisingly,
-          switching doors increases the contestant's chances of winning the car
-          from 1/3 to 2/3."),
+          challenges our intuition. Traditionally, it involves a game show 
+          where a contestant must choose one of three doors, behind one of which
+          is a car (the prize) and behind the others are goats (non-prizes).
+          After the contestant picks a door, the host, Monty Hall, who knows
+          what's behind each door, opens one of the remaining doors to reveal
+          a goat. The contestant is then given the option to switch to the other
+          unopened door or stay with their initial choice."),
+        p("Which option do you think will perform the best: staying or switching?"),
         p("In this variation of the Monty Hall problem, we extend the scenario
           to include a variable number of total doors while still maintaining
           only one car door. This generalization allows us to gain a deeper
           understanding of the underlying probability. By adjusting the number
-          of doors, we can see how the advantage of switching grows even more
-          pronounced as the number of doors increases.")
+          of doors, we can explore how the probabilities change and observe any
+          emerging patterns."),
+        p("Can you discover a pattern for \\(N\\) doors in general?")
       ),
       # first "diagram"
       box(
