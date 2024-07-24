@@ -201,12 +201,12 @@ app3UI <- function(id) {
                \\(P(B_{T} \\mid GB)\\) is \\(\\varepsilon\\), there is one and
                only one boy, thus he has \\(\\varepsilon\\) chance of being born
                on Tuesday. Therefore, the full equation is: <br>
-               \\(P(BB \\mid B_{T}) = \\frac{\\left(1 -
+               \\[P(BB \\mid B_{T}) = \\frac{\\left(1 -
                (1 - \\varepsilon)^{2}\\right) \\times \\frac{1}{4}}{0 +
                \\frac{1}{4} \\varepsilon + \\frac{1}{4} \\varepsilon +
                \\frac{1}{4} \\left(\\varepsilon + \\varepsilon -
                \\varepsilon^{2}\\right)} = \\frac{1 - (1 - \\varepsilon)^{2}}{4
-               \\varepsilon - \\varepsilon^{2}}\\). <br>
+               \\varepsilon - \\varepsilon^{2}}\\]
                For \\(\\varepsilon > 0\\), this reduces to \\(P(BB \\mid B_{T})
                = \\frac{2 - \\varepsilon}{4 - \\varepsilon}\\). If \\(\\varepsilon\\)
                is now set to \\(\\frac{1}{7}\\), the probability becomes
