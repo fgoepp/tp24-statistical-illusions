@@ -5,7 +5,7 @@ app2UI <- function(id) {
   ns <- NS(id)
   tagList(
     withMathJax(),
-    h2("Monty Hall Problem"),
+    h1("Monty Hall Problem"),
     fluidRow(
       # introduction
       column(
@@ -29,7 +29,7 @@ app2UI <- function(id) {
       ),
       # first "diagram"
       box(
-        title = "First Variation",
+        title = "Main Setup",
         status = "primary",
         solidHeader = TRUE,
         width = 12,
@@ -70,7 +70,7 @@ app2UI <- function(id) {
       ),
       # second "diagram"
       box(
-        title = "Second Variation",
+        title = "Secondary Setup",
         status = "primary",
         solidHeader = TRUE,
         width = 12,
@@ -133,13 +133,12 @@ app2UI <- function(id) {
       ),
       # References
       box(
-        title = "References",
+        title = "References: Sources and further material",
         status = "primary",
         solidHeader = TRUE,
         collapsible = TRUE,
         collapsed = TRUE,
         width = 12,
-        p("Sources and further material:"),
         p(HTML("<a href = https://youtu.be/4Lb-6rxZxx0> Numberphile </a>")),
         p(HTML("<a href = https://www.untrammeledmind.com/2018/11/monty-hall-problem-and-variations-intuitive-solutions/> Untrammeled Mind </a>")),
         p(HTML("<a href = https://www.businessinsider.com/the-monty-hall-problem-2013-3#-20> Business Insider </a>")),
