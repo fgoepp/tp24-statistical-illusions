@@ -6,12 +6,12 @@ app2UI <- function(id) {
   tagList(
     withMathJax(),
     h1("Monty Hall Problem"),
+    # introduction
     fluidRow(
-      # introduction
       column(
         12,
         p("The Monty Hall problem is a classic probability puzzle that
-          challenges our intuition. Traditionally, it involves a game show 
+          challenges our intuition. Traditionally, it involves a game show
           where a contestant must choose one of three doors, behind one of which
           is a car (the prize) and behind the others are goats (non-prizes).
           After the contestant picks a door, the host, Monty Hall, who knows
@@ -27,7 +27,7 @@ app2UI <- function(id) {
           emerging patterns."),
         p("Can you discover a pattern for \\(N\\) doors in general?")
       ),
-      # first "diagram"
+      # Main Setup
       box(
         title = "Main Setup",
         status = "primary",
@@ -41,6 +41,10 @@ app2UI <- function(id) {
           ticks = TRUE
         ),
         uiOutput(ns("door_selection")),
+        radioButtons(ns("switch_or_stay"), "Switch or Stay:",
+          choices = c("Switch", "Stay"),
+          selected = "Switch"
+        ),
         actionButton(ns("run_single_simulation"), "Run single Simulation"),
         actionButton(ns("run_multiple_simulations"), "Run 100 Simulations"),
         verbatimTextOutput(ns("result"))
@@ -65,10 +69,10 @@ app2UI <- function(id) {
         p("- Staying: If the contestant stays with their initial choice, the probability of winning the car remains \\( \\frac{1}{N} \\)."),
         p("- Switching: If the contestant switches to the other unopened door, the probability of winning the car is \\( \\frac{N - 1}{N} \\)."),
         p("This switching probability is higher because if the initial choice was incorrect (which happens with probability \\( \\frac{N - 1}{N} \\)),
-          switching will always lead to the car. On the other Hand, if the initial choice was correct (which happens with probability \\( \\frac{1}{N} \\)),
+          switching will always lead to the car. On the other hand, if the initial choice was correct (which happens with probability \\( \\frac{1}{N} \\)),
           switching will lead to a goat.")
       ),
-      # second "diagram"
+      # Secondary Setup
       box(
         title = "Secondary Setup",
         status = "primary",
@@ -162,58 +166,70 @@ app2Server <- function(id) {
       )
     })
 
-    run_simulation <- function(num_doors, chosen_door) {
+    run_simulation <- function(num_doors, chosen_door, switch) {
       car_door <- sample(seq_len(num_doors), 1)
-      free_doors <- setdiff(seq_len(num_doors), c(car_door, chosen_door))
 
-      if (length(free_doors) <= 1) {
-        open_doors <- free_doors
+      # Monty opens all doors with goats except for the chosen one and one other door
+      goat_doors <- setdiff(seq_len(num_doors), car_door)
+      goat_doors <- setdiff(goat_doors, chosen_door)
+
+      if (length(goat_doors) > 1) {
+        open_doors <- sample(goat_doors, (num_doors - 2))
       } else {
-        open_doors <- sample(free_doors, (num_doors - 2))
+        open_doors <- goat_doors
       }
+      open_doors <- sort(open_doors)
 
-      switch_door <- setdiff(seq_len(num_doors), c(chosen_door, open_doors))
+      remaining_doors <- setdiff(seq_len(num_doors), c(open_doors, chosen_door))
+      switch_door <- remaining_doors[remaining_doors != chosen_door]
 
-      win_stay <- chosen_door == car_door
-      win_switch <- switch_door == car_door
+      final_choice <- if (switch) switch_door else chosen_door
+      win <- final_choice == car_door
 
       list(
         car_door = car_door,
-        chosen_door = chosen_door,
+        initial_chosen_door = chosen_door,
         open_doors = open_doors,
         switch_door = switch_door,
-        win_stay = win_stay,
-        win_switch = win_switch
+        chosen_door = final_choice,
+        win = win
       )
     }
 
     observeEvent(input$run_single_simulation, {
       num_doors <- input$num_doors
       chosen_door <- as.numeric(input$initial_choice)
-      result <- run_simulation(num_doors, chosen_door)
+      switch <- input$switch_or_stay == "Switch"
+      result <- run_simulation(num_doors, chosen_door, switch)
 
       output$result <- renderPrint({
-        cat("The car was behind door:", result$car_door, "\n")
-        cat("You chose door", result$chosen_door, "\n")
-        cat("Monty opened doors:", paste(result$open_doors, collapse = ", "), "\n\n")
-        cat("Switch to door:", result$switch_door, "\n")
-        cat("Win by staying with your choice:", result$win_stay, "\n")
-        cat("Win by switching your choice:", result$win_switch, "\n")
+        cat("The car is behind door:", result$car_door, "\n")
+        cat("You chose door:", result$initial_chosen_door, "\n")
+        cat("Monty then opened doors:", paste(result$open_doors, collapse = ", "), "\n")
+        if (switch) {
+          cat("You switched to door:", result$switch_door, "\n", "\n")
+        } else {
+          cat("You stayed with your initial choice.", "\n", "\n")
+        }
+        if (result$win){
+          cat("You WON and recieved a car", "\n")
+        } else {
+          cat("You LOST and recieved a goat", "\n")
+        }
       })
     })
 
     observeEvent(input$run_multiple_simulations, {
       num_doors <- input$num_doors
       chosen_door <- as.numeric(input$initial_choice)
-      results <- replicate(100, run_simulation(num_doors, chosen_door), simplify = FALSE)
+      switch <- input$switch_or_stay == "Switch"
+      results <- replicate(100, run_simulation(num_doors, chosen_door, switch), simplify = FALSE)
 
-      win_stay_count <- sum(sapply(results, function(result) result$win_stay))
-      win_switch_count <- sum(sapply(results, function(result) result$win_switch))
+      win_count <- sum(sapply(results, function(result) result$win))
 
       output$result <- renderPrint({
         cat("Results of 100 simulations:\n")
-        cat("Wins by staying with initial choice:", win_stay_count, "\n")
-        cat("Wins by switching choice:", win_switch_count, "\n")
+        cat("Wins:", win_count, "\n")
       })
     })
 
@@ -291,3 +307,5 @@ app2Server <- function(id) {
     })
   })
 }
+
+shinyApp(ui = app2UI, server = app2Server)
