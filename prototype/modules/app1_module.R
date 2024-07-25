@@ -332,7 +332,8 @@ app1Server <- function(id) {
         fill = Gender
       )) +
         geom_bar(stat = "identity", position = "dodge", width = 0.7) +
-        geom_text(aes(label = Admitted), vjust = -0.5, position = position_dodge(width = 0.7)) +
+        geom_text(aes(label = Admitted), vjust = -0.5, position =
+                    position_dodge(width = 0.7)) +
         scale_fill_manual(values = c("red", "blue")) +
         labs(
           title = "Admissions By Gender In Departments", x = "Department",
