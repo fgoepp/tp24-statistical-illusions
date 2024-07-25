@@ -422,7 +422,7 @@ app3UI <- function(id) {
           ),
           p(
             "Kevin Olding - Mathsaurus. (2023, August 22). ",
-            a("This Probability Puzzle Will Break Your Intuition | The tuesday Boy Problem",
+            a("This Probability Puzzle Will Break Your Intuition | The Tuesday Boy Problem",
               href = "https://www.youtube.com/watch?v=90tEko9VFfU",
               target = "_blank"
             ),
