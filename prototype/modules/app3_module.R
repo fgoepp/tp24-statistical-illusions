@@ -9,18 +9,18 @@ What is the probability that both children are boys?"
 question2 <- "QUESTION2: The older child is a boy. What is the probability that
 both children are boys?"
 question3 <- "QUESTION3: At least one of the two children is a boy and born on
-a Tuesday. What is the probability that both children are boys?"
+a tuesday. What is the probability that both children are boys?"
 app3UI <- function(id) {
   ns <- NS(id)
   tagList(
     withMathJax(),
     h1("The Two Children Problem"),
     p(
-      "The Two Children Problem is a classic puzzle in probability theory that
+      "The two children problem is a classic puzzle in probability theory that
         demonstrates how tricky statistical thinking can be. It usually comes as a set
         of two simple questions that, despite their simplicity, challenge our everyday
         intuition and reveal how complex probability can be. By examining the relationship
-        between what we know and the possible outcomes, the Two Children Problem becomes
+        between what we know and the possible outcomes, the two children problem becomes
         a fascinating exercise in logical thinking and understanding statistics."
     ),
     "The problem is as follows:",
@@ -29,14 +29,14 @@ app3UI <- function(id) {
       tells you that he has two children. The two questions then are the following:"
     ),
     p(
-      HTML("<i>1. if (at least) one of the two children is a boy. What is the probability
+      HTML("<i>1. if (at least) one of the two children is a boy, what is the probability
       that both children are boys?</i> <br>
-           <i>2. if the older child is a boy. What is the probability that both
+           <i>2. if the older child is a boy, what is the probability that both
            children are boys?</i>")
     ),
     p(
       "In the following section, you can try solving these problems yourself,
-      view visual representations, and learn their solutions. Throughout this
+      view visual representations and learn the correct solutions. Throughout this
       app, you can assume that the sex of the two children is independent of one
       another and equally likely to be a boy or a girl."
     ),
@@ -91,36 +91,6 @@ app3UI <- function(id) {
               actionButton(inputId = ns("show_answer"), label = "Show Answer")
             )
           )
-          # fluidRow(
-          #   column(
-          #     12,
-          #     p("
-          #       Hopefully, you've already clicked the 'Show Answer' button and
-          #       seen the conflicting views regarding the two questions. This is
-          #       exactly the first lesson we can learn from the Two Children Problem:
-          #       the fact that when formulating a problem, we have to make sure that
-          #       we are as exact and clear as possible. Even the smallest room for
-          #       interpretation can lead to the problem having vastly different answers.
-          #       This highlights the importance of ",
-          #       tags$span("clarity, accuracy, and interpretation ",
-          #         style = "color: purple; font-weight: bold;"
-          #       ),
-          #       "in probability and math.",
-          #       style = "margin-top: 20px; margin-left: 20px;"
-          #     ),
-          #     p(
-          #       "Now, just to be clear, we assume the pure mathematical meaning
-          #       of the phrase 'one of them,' meaning that the expression equals
-          #       'at least one of them.' and consider the probability of a child
-          #       being born a male or a female to be equally likely. Additionally
-          #       , using our mathematical approach, because it isn't explicitly
-          #       mentioned in Question 1 that we have seen the child who is a boy,
-          #       we assume that it truly is by chance that at least one of them
-          #       is a boy.",
-          #       style = "margin-left: 20px;"
-          #     )
-          #   )
-          # )
         )
       )
     ),
@@ -129,12 +99,13 @@ app3UI <- function(id) {
       box(
         width = 8, title = "Mathematical Background", status = "primary",
         collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
-        p("In this section we will take a look at the math behind the two-children
+        p("In this section we will take a look at the math behind the two children
           problem and its variation and how their probabilities can be derived.
           These derived formulas will also be used in
-          the 'Graphs And Plots' section to plot everything(please look at the other sections first
-          to familiarize yourself with all the questions mentioned. This section
-          should be visited last as it relies on the other ones)."),
+          the 'Additional Setup: Variable number of children 
+          / Additional information' section to plot everything 
+          (please first look at the other sections in order 
+          to familiarize yourself with all the questions discussed in here.)."),
         p(HTML
         ("The four questions are listed below: <br>
                <i>
@@ -151,7 +122,7 @@ app3UI <- function(id) {
                 all children are boys? <br>
 
                 <b style='color:violet;'>****</b> If a family has N children and
-                at least one of them is a boy born on Tuesday, What is the
+                at least one of them is a boy born on tuesday, What is the
                 probability that all children are boys?
               </i> <br>
 
@@ -181,18 +152,18 @@ app3UI <- function(id) {
                calculate an even more general form of this case. Suppose that
                the chance of being born on any given day of the week is
                \\(\\frac{1}{7} \\). From Bayes' Theorem that the probability of
-               two boys \\(BB\\), given that one boy was born on a Tuesday
+               two boys \\(BB\\), given that one boy was born on a tuesday
                (\\(B_T\\)) is given by: <br>
                \\( P (BB \\mid B_T) = \\frac{P (BB \\mid B_T) \\cdot P(BB)}{P(B_T)}
                \\) <br>
-               Assume that the probability of being born on a Tuesday is \\(
+               Assume that the probability of being born on a tuesday is \\(
                \\varepsilon = \\frac{1}{7}\\) which will be set after arriving
                at the general solution. The second factor in the numerator is simply
                \\(\\frac{1}{4}\\), the probability of having two boys. The first
                term in the numerator is the probability of at least one boy born
-               on Tuesday, given that the family has two boys, or
+               on tuesday, given that the family has two boys, or
                \\(1 - (1-\\varepsilon)^2\\) (one minus the probability that
-               neither boy is born on Tuesday). For the denominator, let us
+               neither boy is born on tuesday). For the denominator, let us
                decompose: \\(P(B_{T})=P(B_{T}\\mid BB)P(BB)+P(B_{T}\\mid BG)P(BG)+
                P(B_{T}\\mid GB)P(GB)+P(B_{T}\\mid GG)P(GG)\\). Each term is
                weighted with probability \\(\\frac{1}{4}\\). The first term is
@@ -200,7 +171,7 @@ app3UI <- function(id) {
                are no boys). The term \\(P(B_{T} \\mid BG)\\) and
                \\(P(B_{T} \\mid GB)\\) is \\(\\varepsilon\\), there is one and
                only one boy, thus he has \\(\\varepsilon\\) chance of being born
-               on Tuesday. Therefore, the full equation is: <br>
+               on tuesday. Therefore, the full equation is: <br>
                \\[P(BB \\mid B_{T}) = \\frac{\\left(1 -
                (1 - \\varepsilon)^{2}\\right) \\times \\frac{1}{4}}{0 +
                \\frac{1}{4} \\varepsilon + \\frac{1}{4} \\varepsilon +
@@ -252,26 +223,26 @@ app3UI <- function(id) {
                 the week) as one entity in order to make it easier to solve this
                 problem. First, let's take a look at our sought-out combinations:<br>
                 \\( n(\\text{all children being boys} \\mid \\text{at least one boy
-                born on Tuesday}) \\) which
+                born on tuesday}) \\) which
                 we can calculate via its complement:
                 \\(n(\\text{all children being boys}) - n(\\text{all children being boys}
-                \\mid \\text{no boy born on Tuesday})\\) = \\(7^n - 6^n\\).
+                \\mid \\text{no boy born on tuesday})\\) = \\(7^n - 6^n\\).
                 In the first term, we have 7 because we're looking for 1 gender (boy)
                 and 7 days: \\(1 \\cdot 7\\). In the second term, we have 1 gender
-                and 6 days (no Tuesday): \\(1 \\cdot 6\\).<br>
+                and 6 days (no tuesday): \\(1 \\cdot 6\\).<br>
                 Now, let's take a look at all combinations where there is at
-                least one boy born on a Tuesday. Again, let's use the complement:
-                \\(n(\\text{all children})- n(\\text{all children} \\mid \\text{no boy is born a Tuesday})\\)
+                least one boy born on a tuesday. Again, let's use the complement:
+                \\(n(\\text{all children})- n(\\text{all children} \\mid \\text{no boy is born a tuesday})\\)
                 = \\(14^n - 13^n\\).
                 In the first term, we have 14 because we're considering two
                 genders and 7 days: \\(2 \\cdot 7\\). In the second term,
-                we have 13 because we're considering no boys born on Tuesday,
+                we have 13 because we're considering no boys born on tuesday,
                 meaning that girls and 7 days (7 possibilities) and boys and 6 days
                 (6 possibilities) together: \\(1 \\cdot 7 + 1 \\cdot 6 = 13\\).
                 In total, the desired combination over the entire combinations
                 gives us the probability of:
                 \\(P(\\text{n boys} \\mid
-                \\text{at least one child is a boy born on a Tuesday})
+                \\text{at least one child is a boy born on a tuesday})
                 = \\frac{7^n - 6^n}{14^n - 13^n}\\)<br>
 
                "))
@@ -304,19 +275,19 @@ app3UI <- function(id) {
       box(
         width = 12, title = "Secondary Setup: The Tuesdayboy Variation", status = "primary",
         collapsible = TRUE, collapsed = TRUE, solidHeader = TRUE,
-        p(HTML("The Tuesday Boy Problem is an intriguing variation and extension
-        of the classic Two Children Problem. It introduces a third question to
+        p(HTML("The tuesday boy problem is an intriguing variation and extension
+        of the classic two children problem. It introduces a third question to
         our setup, which is: <br>
         Just like before, you are speaking with Mr. Smith, who tells you he has
         two children. The new question is: <br> <br>
-        <i>if at least one of the two children is a boy and born on a Tuesday,
+        <i>if at least one of the two children is a boy and born on a tuesday,
         What is the probability that both children are boys?</i> <br>")),
         checkboxInput(ns("show_gif"), "show GIF (uncheck to see still image)", TRUE),
         uiOutput(ns("gif_ui")),
         column(
           12,
           p("The illustration above helps showcase the possible valid combinations
-            (where at least one boy is born on a Tuesday) using blue squares (27).
+            (where at least one boy is born on a tuesday) using blue squares (27).
             Among these, the combinations we are interested in (where both children
             are boys) are highlighted with green squares (13). This gives us
             a probability of 13/27 \\(\\approx 0.48\\)",
@@ -327,7 +298,7 @@ app3UI <- function(id) {
             tags$span("accurate and precise", style = "color: purple; font-weight: bold;"),
             "accurate and precise. Adding seemingly small details, such as the
             day of birth, can significantly alter the probability and make this
-            question different from the very similar Question 1."
+            question different from the very similar question 1."
           )
         )
       )
@@ -335,7 +306,8 @@ app3UI <- function(id) {
     # =========== BOX NR. 4 ===========
     fluidRow(
       box(
-        width = 12, title = "Graphs And Plots", status = "primary",
+        width = 12, title = "Additional Setup: Variable number of children 
+        / Additional information", status = "primary",
         collapsible = TRUE, collapsed = TRUE,
         solidHeader = TRUE,
         fluidRow(
@@ -346,7 +318,7 @@ app3UI <- function(id) {
               three questions, plus an additional new question, but this time
               not just for 2 children but rather for ",
               tags$span("n children", style = "color: purple; font-weight: bold;"),
-              ". In the right plot We will be generalizing the Tuesday
+              ". In the right plot We will be generalizing the tuesday
               boy problem for 2 children."
             ),
             p(HTML
@@ -354,16 +326,16 @@ app3UI <- function(id) {
               newly added variation): <br> <i>
               _ Mr. Smith has n children. What's the probability that all n children
               are boys? <br>
-              _ Mr. Smith has n children, and at least one of them is a boy. What's
+              _ Mr. Smith has n children and at least one of them is a boy. What's
               the probability that all n children are boys? (Question 1)<br>
-              _ Mr. Smith has n children, and at least one of them is a boy and
-              born on a Tuesday. What's the probability that all n children
-              are boys? (Tuesday boy)<br>
-              _ Mr. Smith has n children, and the oldest child is a boy. What's
+              _ Mr. Smith has n children and at least one of them is a boy and
+              born on a tuesday. What's the probability that all n children
+              are boys? (tuesday boy)<br>
+              _ Mr. Smith has n children and the oldest child is a boy. What's
               the probability that all n children are boys? (Question 2) </i><br>
-              The more generalized version of the Tuesday boy problem (look at
+              The more generalized version of the tuesday boy problem (refer to
               'Mathematical Background' for more in-depth explanation):<br><i>
-              _ Mr. Smith has 2 children, and at least one of them is a boy and
+              _ Mr. Smith has 2 children and at least one of them is a boy and
               <span style='color:red; font-weight:bold;'>
               [some condition/information]</span>.
               What's the probability that all 2 children are boys?</i>")),
@@ -380,16 +352,16 @@ app3UI <- function(id) {
               p(
                 "Come up with your own extra", tags$span("[condition/information]",
                   style = "color:red; font-weight:bold;"
-                ), "for the generalized version of the Tuesday boy problem! 
-                for example 'is born on 1. January' in the first input and 
-                its corresponding probability '1/365' in the second one.",
+                ), "for the generalized version of the tuesday boy problem! 
+                For example 'is born on 1. January' (would be the first input) and 
+                its corresponding probability '1/365' (would be the second input).",
                 tags$span(
                   "Hover over for a few more examples",
                   `data-toggle` = "tooltip",
                   `data-placement` = "top",
                   title = HTML("Examples:<br>
               - 'is born on Christmas', 2/365<br>
-              - 'is born on a Tuesday', 1/7<br>
+              - 'is born on a tuesday', 1/7<br>
               - 'is Getting audited by the IRS', 0.2 (according to Google)"),
                   style = "color:red; cursor: pointer;"
                 )
@@ -450,7 +422,7 @@ app3UI <- function(id) {
           ),
           p(
             "Kevin Olding - Mathsaurus. (2023, August 22). ",
-            a("This Probability Puzzle Will Break Your Intuition | The Tuesday Boy Problem",
+            a("This Probability Puzzle Will Break Your Intuition | The tuesday Boy Problem",
               href = "https://www.youtube.com/watch?v=90tEko9VFfU",
               target = "_blank"
             ),
@@ -619,7 +591,7 @@ app3Server <- function(id) {
         Case = c(
           paste(n, "children"),
           paste(n, "children, at least one is a boy"),
-          paste(n, "children, at least one is a boy on a Tuesday"),
+          paste(n, "children, at least one is a boy on a tuesday"),
           paste(n, "children, the oldest is a boy")
         ),
         Probability = c(
