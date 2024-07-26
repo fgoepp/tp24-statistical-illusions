@@ -110,23 +110,23 @@ app3UI <- function(id) {
         ("The four questions are listed below: <br>
                <i>
                 <b style='color:red;'>*</b>
-                If a family has N children, what is the probability that
+                If a family has n children, what is the probability that
                 all children are boys? <br>
 
-                <b style='color:green;'>**</b> If a family has N children
+                <b style='color:green;'>**</b> If a family has n children
                 and at least one of them is a boy,  What is the probability
                 that all children are boys? <br>
 
-                <b style='color:brown;'>***</b> If a family has N children and
+                <b style='color:brown;'>***</b> If a family has n children and
                 the oldest child is a boy, What is the probability that
                 all children are boys? <br>
 
-                <b style='color:violet;'>****</b> If a family has N children and
+                <b style='color:violet;'>****</b> If a family has n children and
                 at least one of them is a boy born on tuesday, What is the
                 probability that all children are boys?
               </i> <br>
 
-               <h4 style='color:blue;'> When N = 2: </h4>
+               <h4 style='color:blue;'> When n = 2: </h4>
 
                 <b><i style='color:red;'>#</i></b> In this case we have 4 valid
                 combinations: BB, BG, GB, GG (B = boy and G = girl) and we only
@@ -191,7 +191,7 @@ app3UI <- function(id) {
                one half.
                <br>
 
-               <h4 style='color:blue;' > When N = n \\(\\geq\\) 2: </h4>
+               <h4 style='color:blue;' > When n \\(\\geq\\) 2: </h4>
 
                 <b><i style='color:red;'>#</i></b> In this case we have n children which all have 2
                possibilities (being a girl or a boy), which gives us a total
@@ -679,7 +679,7 @@ app3Server <- function(id) {
             range = c(0, 1),
             tickvals = c(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
             ticktext = c("0", "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1"),
-            zeroline = FALSE,
+            zeroline = TRUE,
             titlefont = list(size = 16),
             tickfont = list(size = 14)
           ),
