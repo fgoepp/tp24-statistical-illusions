@@ -45,24 +45,26 @@ https://github.com/fgoepp/tp24-statistical-illusions/wiki/Add-your-own-illusion
 .
 ├── app.R
 ├── data
-│   └── simpsons_paradox
-│       ├── department_admissions.csv
-│       ├── exercise_data.csv
-│       └── total_admissions.csv
-│   └── st-petersburg_paradox
-│       ├── st-petersburg-intro.html
-│       ├── st-petersburg-math.html
-│       ├── st-petersburg-history.html
-│       └── st-petersburg-references.html
+│   ├── simpsons_paradox
+│   │   ├── department_admissions.csv
+│   │   ├── exercise_data.csv
+│   │   └── total_admissions.csv
+│   └── st-petersburg_paradox
+│       ├── st-petersburg-history.html
+│       ├── st-petersburg-intro.html
+│       ├── st-petersburg-math.html
+│       └── st-petersburg-references.html
 ├── modules
 │   ├── app1_module.R
 │   ├── app2_module.R
 │   ├── app3_module.R
 │   ├── app4_module.R
-│   ├── home_module.R
-│   ├── monty_hall_module.R
-│   └── two_child_module.R
+│   └── home_module.R
 └── www
+    ├── monty_hall
+    │   └── desiciontree.png
+    ├── simpsons_paradox
+    │   └── vector_interpretation.png
     └── two_children
         ├── BB.png
         ├── Bg.png
