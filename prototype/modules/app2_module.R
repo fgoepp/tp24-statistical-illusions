@@ -60,8 +60,27 @@ app2UI <- function(id) {
             collapsible = TRUE,
             collapsed = TRUE,
             width = 12,
-            p("In this variation of the Monty Hall problem, there are \\( N \\) doors, with one door hiding a car (the prize)
-          and the remaining \\( N - 1 \\) doors hiding goats (non-prizes)."),
+            p("In the classic Monty Hall problem, there are 3 doors. Behind one of these doors is a car (the prize), and behind the other two doors are goats (non-prizes). Here's how the problem plays out with \\(N = 3\\):"),
+            p(tags$b("Initial Choice:"), "The contestant picks one of the 3 doors. Let's say they pick door 1."),
+            p("- The probability that door 1 has the car is \\( \\frac{1}{3} \\)."),
+            p("- The probability that door 1 has a goat is \\( \\frac{2}{3} \\)."),
+            p(tags$b("Monty Opens Doors:")),
+            p("Monty Hall, who knows what's behind each door, opens one of the other two doors, revealing a goat. Suppose he opens door 3."),
+            p("This leaves doors 1 and 2 unopened."),
+            p(tags$b("Switching or Staying:")),
+            p("- Staying: If the contestant stays with door 1, the probability of winning the car is still \\( \\frac{1}{3} \\)."),
+            p("- Switching: If the contestant switches to door 2, the probability of winning the car is \\( \\frac{2}{3} \\)."),
+            p("This switching probability is higher because:"),
+            p("- If the initial choice (door 1) was incorrect (which happens with probability \\( \\frac{2}{3} \\)), switching will lead to the car."),
+            p("- If the initial choice was correct (which happens with probability \\( \\frac{1}{3} \\)), switching will lead to a goat."),
+            p("The decision tree diagram illustrates these probabilities clearly:"),
+            img(src = "monty_hall/desiciontree.png", height = "200px"),
+            p("In the diagram, the upper branch shows the probability of choosing a car door (\\( \\frac{1}{3} \\)), which results in losing if you switch. The lower branch shows the probability of choosing a goat door (\\( \\frac{2}{3} \\)), which results in winning if you switch."),
+            p("The overall probability of winning by switching is calculated as follows:"),
+            p("- The probability of initially choosing a goat door and then switching to the car: \\( \\frac{2}{3} \\times 1 = \\frac{2}{3} \\)."),
+            p(h3("Generalized for any \\(N \\)")),
+            p("Now that we understand the math behind the classic Monty Hall problem, its time to get back to our Main Setup, where there are \\( N \\) doors, with one door hiding a car
+          and the remaining \\( N - 1 \\) doors hiding goats."),
             p(tags$b("Initial Choice:"), "The contestant initially picks one of the \\( N \\) doors."),
             p("- The probability that the chosen door has the car behind it is \\( \\frac{1}{N} \\)."),
             p("- The probability that the chosen door has a goat behind it is \\( \\frac{N - 1}{N} \\)."),
@@ -122,9 +141,8 @@ app2UI <- function(id) {
         collapsible = TRUE,
         collapsed = TRUE,
         p("Now that we understand the math behind the Monty Hall problem, let's look at a new twist.
-          In the second variation, we can also chance the number of car doors.
-          This will help us see how the chances of winning change when we tilt towards more car doors
-          and how switching is only better while the car to goat ratio is below 1."),
+          In this new Secondary Setup, we will also be able to adjust the number of car doors.
+          Dive in to see how this change impacts which strategy to choose. Can you figure out, which value determines the better strategy now?"),
         sliderInput(ns("min_num_doors"),
           "Minimum Number of doors:",
           min = 3,
