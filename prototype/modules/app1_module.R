@@ -111,7 +111,10 @@ app1UI <- function(id) {
             probabilities \\(P(Y|X)\\) and \\(P(Y|\\neg X)\\) are weighted averages 
             of the probabilities within each subset (see Law of total
             probability), \\(P(Y|X, K_i)\\) and 
-            \\(P(Y|\\neg X, K_i)\\), respectively. The distribution of \\(X\\) and 
+            \\(P(Y|\\neg X, K_i)\\), respectively. It is important
+            to keep in mind, that this reversal CAN happen and does not
+            happen every time. If it happens, we have Simpson's
+            Paradox. The distribution of \\(X\\) and 
             \\(\\neg X\\) across the subsets can result in a combined probability 
             that contradicts the trends observed within each subgroup. Interesting
             , isn't it?"),
@@ -149,11 +152,14 @@ app1UI <- function(id) {
             slope than one of the blue vectors (in this case, \\( \\vec{L}_2 \\)
             and \\( \\vec{B}_1 \\)), and these vectors will generally be longer 
             than the alternatively subscripted vectors, because of it dominating 
-            the overall comparison.
+            the overall comparison. The length of a vector corresponds to the 
+            size of a (sub-)group in the UC Berkeley example above.
             
-            But what, if two vectors have the same length? It's simple - then
+            But what, if two vectors have the same length, so the groups
+            are the same size? It's simple - then
             there is no reversal of pattern. This is because the relative 
-            contributions to the combined slopes remain consistent. 
+            contributions to the combined slopes remain consistent, since all
+            groups are of the same size.
             The length of the vectors plays an important role in determining 
             the overall effect. 
             When vectors are of equal length, mathematically speaking, we have:
@@ -217,7 +223,7 @@ app1UI <- function(id) {
       column(
         12,
         box(
-          title = "Second Setup: Exercise vs. Cholesterol - (Motivated by 
+          title = "Secondary Setup: Exercise vs. Cholesterol - (Motivated by 
           Glymour et al.)",
           status = "primary",
           solidHeader = TRUE,
@@ -228,8 +234,8 @@ app1UI <- function(id) {
           Simpson's paradox. Say, you are a doctor, who wants to see how
           cholesterol level and amount of exercice (sports) correlate. 
           Therefore, you examine 1000 patients by checking their cholesterol
-          level and asking how much sports they do (scale e.g. hours per week
-          doesn't matter in this case). You plot the data and see the graph
+          level and asking how much sports they do (e.g. hours per week). 
+          You plot the data and see the graph
           below. Rising cholesterol level, by exercising more? The data is
           correct, but you forgot to consider an important information for
           interpreting the data, that is to consider the age of your patients.
@@ -431,7 +437,12 @@ app1Server <- function(id) {
             y = "Cholesterol Level",
             color = "Age Group"
           ) +
-          theme_minimal()
+          theme(axis.text.x=element_blank(), 
+                axis.ticks.x=element_blank(), 
+                axis.text.y=element_blank(),  
+                axis.ticks.y=element_blank() 
+          )
+        
       } else {
         ggplot(exercise_data, aes(x = Exercise, y = Cholesterol)) +
           geom_point(color = "black") +
@@ -444,7 +455,12 @@ app1Server <- function(id) {
             x = "Exercise",
             y = "Cholesterol Level"
           ) +
-          theme_minimal()
+          theme(axis.text.x=element_blank(), 
+                axis.ticks.x=element_blank(), 
+                axis.text.y=element_blank(),  
+                axis.ticks.y=element_blank()
+          )
+        
       }
     })
 
