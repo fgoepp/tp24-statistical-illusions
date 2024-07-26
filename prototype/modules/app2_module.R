@@ -50,27 +50,68 @@ app2UI <- function(id) {
         verbatimTextOutput(ns("result"))
       ),
       # Mathematical Background
-      box(
-        title = "Mathematical Background",
-        status = "primary",
-        solidHeader = TRUE,
-        collapsible = TRUE,
-        collapsed = TRUE,
-        width = 12,
-        p("In this variation of the Monty Hall problem, there are \\( N \\) doors, with one door hiding a car (the prize)
+      fluidRow(
+        column(
+          6,
+          box(
+            title = "Mathematical Background",
+            status = "primary",
+            solidHeader = TRUE,
+            collapsible = TRUE,
+            collapsed = TRUE,
+            width = 12,
+            p("In this variation of the Monty Hall problem, there are \\( N \\) doors, with one door hiding a car (the prize)
           and the remaining \\( N - 1 \\) doors hiding goats (non-prizes)."),
-        p(tags$b("Initial Choice:"), "The contestant initially picks one of the \\( N \\) doors."),
-        p("- The probability that the chosen door has the car behind it is \\( \\frac{1}{N} \\)."),
-        p("- The probability that the chosen door has a goat behind it is \\( \\frac{N - 1}{N} \\)."),
-        p(tags$b("Monty Opens Doors:")),
-        p("Monty Hall, knowing what is behind each door, opens \\( N - 2 \\) doors, all revealing goats,
+            p(tags$b("Initial Choice:"), "The contestant initially picks one of the \\( N \\) doors."),
+            p("- The probability that the chosen door has the car behind it is \\( \\frac{1}{N} \\)."),
+            p("- The probability that the chosen door has a goat behind it is \\( \\frac{N - 1}{N} \\)."),
+            p(tags$b("Monty Opens Doors:")),
+            p("Monty Hall, knowing what is behind each door, opens \\( N - 2 \\) doors, all revealing goats,
           which leaves two doors unopened: the contestant’s initially chosen door and one other door."),
-        p(tags$b("Switching or Staying:")),
-        p("- Staying: If the contestant stays with their initial choice, the probability of winning the car remains \\( \\frac{1}{N} \\)."),
-        p("- Switching: If the contestant switches to the other unopened door, the probability of winning the car is \\( \\frac{N - 1}{N} \\)."),
-        p("This switching probability is higher because if the initial choice was incorrect (which happens with probability \\( \\frac{N - 1}{N} \\)),
+            p(tags$b("Switching or Staying:")),
+            p("- Staying: If the contestant stays with their initial choice, the probability of winning the car remains \\( \\frac{1}{N} \\)."),
+            p("- Switching: If the contestant switches to the other unopened door, the probability of winning the car is \\( \\frac{N - 1}{N} \\)."),
+            p("This switching probability is higher because if the initial choice was incorrect (which happens with probability \\( \\frac{N - 1}{N} \\)),
           switching will always lead to the car. On the other hand, if the initial choice was correct (which happens with probability \\( \\frac{1}{N} \\)),
           switching will lead to a goat.")
+          ),
+        ),
+        column(
+          6,
+          # Historical Background
+          box(
+            title = "Historical Background",
+            status = "primary",
+            solidHeader = TRUE,
+            collapsible = TRUE,
+            collapsed = TRUE,
+            width = 12,
+            p("The Monty Hall problem gained widespread attention in 1990 when
+          Marilyn vos Savant, a columnist for Parade magazine, addressed it in
+          her column Ask Marilyn. Her solution, which recommended always
+          switching doors, sparked controversy and debate among readers,
+          including many mathematicians and statisticians. Despite initial
+          skepticism, vos Savant's explanation was correct and is now a
+          well-known example used to illustrate the counterintuitive nature of
+          probability and conditional probability."),
+            p("The problem is named after Monty Hall, the original host of the American television game show \"Let\'s Make a Deal.\"
+          On the show, contestants were often presented with a choice between three doors, behind one of which was a valuable prize,
+          such as a car, while behind the other two were goats.
+          The game\'s twist, where Monty would reveal a goat behind one of the unchosen doors
+          and then offer the contestant a chance to switch their choice, fascinated viewers and sparked discussions about the best strategy."),
+            p("Vos Savant's column on the Monty Hall problem drew thousands of letters,
+          many of which criticized her solution and insisted that switching doors
+          would not improve the odds of winning the car. This widespread backlash highlighted how counterintuitive the correct answer seemed,
+          even to those well-versed in mathematics and probability theory."),
+            p("As more mathematicians and statisticians analyzed the problem,
+          they confirmed that vos Savant's recommendation to always switch doors was indeed the optimal strategy.
+          This revelation turned the Monty Hall problem into a classic example in probability theory,
+          demonstrating how human intuition can often lead us astray in understanding probabilities and decision-making under uncertainty."),
+            p("Over time, the Monty Hall problem has been used in various educational settings to teach concepts
+          such as conditional probability, Bayesian reasoning, and the importance of revising our beliefs in light of new information.
+          It remains a popular and enduring puzzle that continues to intrigue and educate people about the complexities of probability.")
+          ),
+        ),
       ),
       # Secondary Setup
       box(
@@ -102,39 +143,7 @@ app2UI <- function(id) {
         ),
         plotOutput(ns("win_plot"))
       ),
-      # Historical Background
-      box(
-        title = "Historical Background",
-        status = "primary",
-        solidHeader = TRUE,
-        collapsible = TRUE,
-        collapsed = TRUE,
-        width = 12,
-        p("The Monty Hall problem gained widespread attention in 1990 when
-          Marilyn vos Savant, a columnist for Parade magazine, addressed it in
-          her column Ask Marilyn. Her solution, which recommended always
-          switching doors, sparked controversy and debate among readers,
-          including many mathematicians and statisticians. Despite initial
-          skepticism, vos Savant's explanation was correct and is now a
-          well-known example used to illustrate the counterintuitive nature of
-          probability and conditional probability."),
-        p("The problem is named after Monty Hall, the original host of the American television game show \"Let\'s Make a Deal.\"
-        On the show, contestants were often presented with a choice between three doors, behind one of which was a valuable prize,
-        such as a car, while behind the other two were goats.
-        The game\'s twist, where Monty would reveal a goat behind one of the unchosen doors
-          and then offer the contestant a chance to switch their choice, fascinated viewers and sparked discussions about the best strategy."),
-        p("Vos Savant's column on the Monty Hall problem drew thousands of letters,
-          many of which criticized her solution and insisted that switching doors
-          would not improve the odds of winning the car. This widespread backlash highlighted how counterintuitive the correct answer seemed,
-          even to those well-versed in mathematics and probability theory."),
-        p("As more mathematicians and statisticians analyzed the problem,
-          they confirmed that vos Savant's recommendation to always switch doors was indeed the optimal strategy.
-          This revelation turned the Monty Hall problem into a classic example in probability theory,
-          demonstrating how human intuition can often lead us astray in understanding probabilities and decision-making under uncertainty."),
-        p("Over time, the Monty Hall problem has been used in various educational settings to teach concepts
-          such as conditional probability, Bayesian reasoning, and the importance of revising our beliefs in light of new information.
-          It remains a popular and enduring puzzle that continues to intrigue and educate people about the complexities of probability.")
-      ),
+
       # References
       box(
         title = "References: Sources and further material",
@@ -211,7 +220,7 @@ app2Server <- function(id) {
         } else {
           cat("You stayed with your initial choice.", "\n", "\n")
         }
-        if (result$win){
+        if (result$win) {
           cat("You WON and recieved a car", "\n")
         } else {
           cat("You LOST and recieved a goat", "\n")
