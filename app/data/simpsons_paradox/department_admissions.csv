@@ -1,0 +1,14 @@
+Department,Gender,AdmissionRate,Applicants,Admitted
+A,Male,0.62,825,512
+A,Female,0.82,108,89
+B,Male,0.63,560,353
+B,Female,0.68,25,17
+C,Male,0.37,325,120
+C,Female,0.34,593,202
+D,Male,0.33,417,138
+D,Female,0.35,375,131
+E,Male,0.28,191,53
+E,Female,0.24,393,94
+F,Male,0.06,373,22
+F,Female,0.07,341,24
+

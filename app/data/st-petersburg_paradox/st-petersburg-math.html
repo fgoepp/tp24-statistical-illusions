@@ -1,0 +1,39 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+</head>
+<body>
+<p>
+As you might have seen from the plot above something fascinating happens when playing the 
+St. Petersburg game. In theory one would have to accept literally every single entry fee 
+since the expected win rises to infinity. But how is this possible?
+<br/><br/>
+We have a starting prize \(x = 2\)€ and the probability for winning a specific prize x in 
+the n-th toss of \(p(n) = 0.5^n\). The important thing now is that the prize doubles with 
+every toss, so the potential prize on the n-th toss is equal to \(w(x, n) = x^n\).
+To calculate the expected value we use the formula for the latter which is 
+\(E(X) = \sum_n(w(x, n) \cdot p(n))\) 
+<br/><br/>
+So now we calculate \(E(X) = \sum_n(2^n \cdot 0.5^n) = \sum_n((2 \cdot 0.5)^n) = \sum_n(1^n) 
+= \sum_n(1) = n\) Finally, we found that roughly said the magic causing our paradox is just 
+adding up ones until we reach infinity. Quite fascinating isn't it?
+<br/><br/>
+Knowing that you are expected to win an infinite amount of money no matter how high the entry 
+fee is, would you now play with an entry fee of 100€? 1000€? 1000000€? Probably not. 
+But why not? I mean yes, the chances to win are extremely small from a certain point on but 
+doesn't the potential win increase drastically as well to even it out?
+<br/><br/>
+The explanation for our behaviour is found with a look towards prospect theory by Kahneman and 
+Tversky (1979). According to them the objective win might get larger and larger but the 
+subjective win doesn't follow proportionally. For a person with absolutely no money becoming a 
+millionaire would be a gigantic step that would make an immense difference on that persons life. 
+On the other hand, getting another million when you already are a millionaire makes far less of 
+a difference.
+<br/><br/>
+But what happens if we start changing parameters now? Feel free to try it out on your own by 
+changing the parameters at the experimental playground below.
+</p>
+</body>
