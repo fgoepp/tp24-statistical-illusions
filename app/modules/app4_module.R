@@ -91,6 +91,12 @@ app4UI <- function(id) {
         solidHeader = TRUE,
         collapsible = TRUE,
         collapsed = TRUE,
+        p("Hello again, below you are invited to explore the questions teased
+        in the mathematical background section. Check out what happens when
+        you change the throwing object, factor or the starting value, but 
+        stay cautious since numbers might get so high R isn't able to handle
+        them anymore nicely. Don't panic, just relax and enjoy the sensations
+        of exponential maths"),
         sliderInput(ns("experimental_tosses"),
           "Number of tosses:",
           min = 1,
@@ -127,9 +133,6 @@ app4UI <- function(id) {
           max = 20,
           value = 2
         ),
-        p("Warning: some variations can cause inaccurate results due to float 
-          datatypes, R-internal finite number spaces, etc. Don't panic!"),
-
         # Space for additional input features :D
 
         plotOutput(ns("experimental_plot")),
@@ -173,6 +176,7 @@ app4Server <- function(id) {
           pch = 16,
           xlab = "",
           ylab = "",
+          ylim = c(0, max(win_per_round) / 1e+09),
           col = "#000080",
           type = "h",
           lwd = 3,
@@ -236,7 +240,13 @@ app4Server <- function(id) {
           lwd = 3,
           col = "#F59A33"
         )
+
+        legend("topleft",
+          legend = c("expected value", "entry fee", "intersection"),
+          fill = c("#34F558", "#7C38F5", "#F59A33")
+        )
       })
+
 
       output$basic_win <- renderText({
         # Calculate values again as described above
@@ -272,21 +282,17 @@ app4Server <- function(id) {
 
         # Generate the probability distribution for n coin tosses depending on
         # the chosen object
-        p <- if (object == "Four-sided dice (D4)") {
-          (1 / 4)^n
-        } else if (object == "Six-sided dice (D6)") {
-          (1 / 6)^n
-        } else if (object == "Eight-sided dice (D8)") {
-          (1 / 8)^n
-        } else if (object == "Ten-sided dice (D10)") {
-          (1 / 10)^n
-        } else if (object == "Twelve-sided dice (D12)") {
-          (1 / 12)^n
-        } else if (object == "Twenty-sided dice (D20)") {
-          (1 / 20)^n
-        } else {
-          (1 / 2)^n
-        }
+        sides <- switch(object,
+          "Four-sided dice (D4)" = 4,
+          "Six-sided dice (D6)" = 6,
+          "Eight-sided dice (D8)" = 8,
+          "Ten-sided dice (D10)" = 10,
+          "Twelve-sided dice (D12)" = 12,
+          "Twenty-sided dice (D20)" = 20,
+          2
+        ) # Default is the coin
+
+        p <- (1 / sides)**n
 
         # Calculate the amount of money one would receive after n coin tosses
         # depending on the chosen factor and starting value
@@ -298,6 +304,7 @@ app4Server <- function(id) {
           pch = 16,
           xlab = "",
           ylab = "",
+          ylim = c(0, max(win_per_round) / 1e+09),
           col = "#000080",
           type = "h",
           lwd = 3,
@@ -336,8 +343,7 @@ app4Server <- function(id) {
           "experimental_fee",
           min = win_per_round[2], # The game wouldn't make any sense if you bet
           # the minimal amount you are going to receive
-          max = min(expected_value[input$experimental_tosses], 1e+12
-          )
+          max = min(expected_value[input$experimental_tosses], 1e+12)
         )
 
         # Update the numeric input so that the factor doesn't lead to numbers
@@ -345,34 +351,24 @@ app4Server <- function(id) {
         updateNumericInput(
           session,
           "factor",
-          min = if (object == "Six-sided dice (D6)") {
-            2
-          } else if (object == "Eight-sided dice (D8)") {
-            4
-          } else if (object == "Ten-sided dice (D10)") {
-            6
-          } else if (object == "Twelve-sided dice (D12)") {
-            8
-          } else if (object == "Twenty-sided dice (D20)") {
-            16
-          } else {
+          min = switch(object,
+            "Four-sided dice (D4)" = 1,
+            "Six-sided dice (D6)" = 2,
+            "Eight-sided dice (D8)" = 4,
+            "Ten-sided dice (D10)" = 6,
+            "Twelve-sided dice (D12)" = 8,
+            "Twenty-sided dice (D20)" = 16,
             1
-          },
-          max = if (object == "Four-sided dice (D4)") {
-            8
-          } else if (object == "Six-sided dice (D6)") {
-            10
-          } else if (object == "Eight-sided dice (D8)") {
-            12
-          } else if (object == "Ten-sided dice (D10)") {
-            14
-          } else if (object == "Twelve-sided dice (D12)") {
-            16
-          } else if (object == "Twenty-sided dice (D20)") {
-            24
-          } else {
+          ), # Default is the coin again
+          max = switch(object,
+            "Four-sided dice (D4)" = 8,
+            "Six-sided dice (D6)" = 10,
+            "Eight-sided dice (D8)" = 12,
+            "Ten-sided dice (D10)" = 14,
+            "Twelve-sided dice (D12)" = 16,
+            "Twenty-sided dice (D20)" = 24,
             6
-          }
+          )
         )
 
         # Visualize the expected value
@@ -398,6 +394,11 @@ app4Server <- function(id) {
           lwd = 3,
           col = "#F59A33"
         )
+
+        legend("topleft",
+          legend = c("expected value", "entry fee", "intersection"),
+          fill = c("#34F558", "#7C38F5", "#F59A33")
+        )
       })
 
       output$experimental_win <- renderText({
@@ -406,21 +407,17 @@ app4Server <- function(id) {
 
         object <- input$tossing_object
 
-        p <- if (object == "Four-sided dice (D4)") {
-          (1 / 4)^n
-        } else if (object == "Six-sided dice (D6)") {
-          (1 / 6)^n
-        } else if (object == "Eight-sided dice (D8)") {
-          (1 / 8)^n
-        } else if (object == "Ten-sided dice (D10)") {
-          (1 / 10)^n
-        } else if (object == "Twelve-sided dice (D12)") {
-          (1 / 12)^n
-        } else if (object == "Twenty-sided dice (D20)") {
-          (1 / 20)^n
-        } else {
-          (1 / 2)^n
-        }
+        sides <- switch(object,
+                        "Four-sided dice (D4)" = 4,
+                        "Six-sided dice (D6)" = 6,
+                        "Eight-sided dice (D8)" = 8,
+                        "Ten-sided dice (D10)" = 10,
+                        "Twelve-sided dice (D12)" = 12,
+                        "Twenty-sided dice (D20)" = 20,
+                        2)  # Default is a coin
+        
+        # Generate the probability distribution for n tosses
+        p <- (1 / sides)**n
 
         win_per_round <- input$factor**(n - 1) * input$starting_value
 
@@ -443,8 +440,20 @@ app4Server <- function(id) {
         # For some cases the expected value will grow logarithmically causing
         # the intersection to be far too high. Hence NA values emerge.Those
         # exceptions are taken care of
-        toss_number <- if (is.na(n[intersect_index])) {
-          "not expect to get your money back :C"
+        toss_number <- if(is.na(n[intersect_index]) && (input$factor == sides)){
+          i <- 0
+          while((i * expected_value[1]) != entry_fee){
+            i <- i + 1
+          }
+          winning_toss <- i
+          
+          paste0(
+            " expect to win back your money after ", winning_toss,
+            " tosses"
+          )
+        } else if (is.na(n[intersect_index])) {
+          "not expect to get your money back or the values got too big/ small 
+          for R to handle :C"
         } else {
           paste0(
             " expect to win back your money after ", n[intersect_index],
@@ -452,11 +461,17 @@ app4Server <- function(id) {
           )
         }
 
+        winning_toss <- if(is.na(n[winning_index])){
+          "Oh no, unfortunately the numbers got too high/ low D:"
+        } else{
+          paste0("After ", n[winning_index], " tosses, you would already win
+              at least the entry fee of ", entry_fee, "€ with a probability of ",
+          win_probability, "%. \t")
+        }
+        
         # Add a small paragraph to explain the results visualized above
         paste0(
-          "After ", n[winning_index], " tosses, you would already win
-              at least the entry fee of ", entry_fee, "€ with a probability of ",
-          win_probability, "%. \t",
+          winning_toss,
           "On the long run, you can", toss_number
         )
       })
