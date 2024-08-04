@@ -127,7 +127,7 @@ app4UI <- function(id) {
           max = 20,
           value = 2
         ),
-        p("Warning: some variation can cause inaccurate results due to float 
+        p("Warning: some variations can cause inaccurate results due to float 
           datatypes, R-internal finite number spaces, etc. Don't panic!"),
 
         # Space for additional input features :D
@@ -198,7 +198,7 @@ app4Server <- function(id) {
 
         legend("top", "center",
           legend = c("win probability", "possible win"),
-          col = c("#008000", "#000080")
+          fill = c("#008000", "#000080")
         )
 
         # Calculate the expected value
@@ -323,7 +323,7 @@ app4Server <- function(id) {
 
         legend("top", "center",
           legend = c("win probability", "possible win"),
-          col = c("#008000", "#000080")
+          fill = c("#008000", "#000080")
         )
 
         # Calculate the expected value
