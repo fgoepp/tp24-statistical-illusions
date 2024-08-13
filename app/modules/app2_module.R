@@ -214,17 +214,36 @@ app2UI <- function(id) {
 
       # References
       box(
-        title = "References: Sources and further material",
+        title = "References",
         status = "primary",
         solidHeader = TRUE,
         collapsible = TRUE,
         collapsed = TRUE,
         width = 12,
-        p(HTML("<a href = https://youtu.be/4Lb-6rxZxx0> Numberphile </a>")),
-        p(HTML("<a href = https://www.untrammeledmind.com/2018/11/monty-hall-problem-and-variations-intuitive-solutions/> Untrammeled Mind </a>")),
-        p(HTML("<a href = https://www.businessinsider.com/the-monty-hall-problem-2013-3#-20> Business Insider </a>")),
-        p(HTML("<a href = https://en.wikipedia.org/wiki/Monty_Hall_problem> Wikipedia </a>")),
-        p("Tools used: ChatGPT, DeepL")
+        p(HTML("<a href = https://youtu.be/4Lb-6rxZxx0> 
+               Numberphile. 
+               (2014). 
+               Monty Hall Problem - Numberphile. 
+               YouTube. 
+               </a>")),
+        p(HTML("<a href = https://www.untrammeledmind.com/2018/11/monty-hall-problem-and-variations-intuitive-solutions/> 
+               Untrammeled Mind 
+               </a>")),
+        p(HTML("<a href = https://www.businessinsider.com/the-monty-hall-problem-2013-3> 
+               Walt, H. 
+               (2013). 
+               The 'Monty Hall Problem': Your Guide To The Controversial Math Fact That Drives People Insane. 
+               Business Insider. 
+               </a>")),
+        p(HTML("<a href = https://en.wikipedia.org/wiki/Monty_Hall_problem>
+               Monty Hall problem.
+               (2024, August 13).
+               In Wikipedia.
+               https://en.wikipedia.org/wiki/Monty_Hall_problem
+               </a>")),
+        p("Tools used:",
+          HTML("<a href = https://www.openai.com/chatgpt> ChatGPT(v3.5& v4) </a>,"),
+          HTML("<a href = https://www.deepl.com/de/translator> DeepL </a>"))
       )
     )
   )
