@@ -18,7 +18,8 @@ app2UI <- function(id) {
           what's behind each door, opens one of the remaining doors to reveal
           a goat. The contestant is then given the option to switch to the other
           unopened door or stay with their initial choice."),
-        p("Which option do you think will perform the best: staying or switching?"),
+        p("Which option do you think will perform the best: staying or switching
+          ?"),
         p("In this variation of the Monty Hall problem, we extend the scenario
           to include a variable number of total doors while still maintaining
           only one car door. This generalization allows us to gain a deeper
@@ -29,7 +30,7 @@ app2UI <- function(id) {
       ),
       # Main Setup
       box(
-        title = "Main Setup",
+        title = "Main Setup: The Basic Variation",
         status = "primary",
         solidHeader = TRUE,
         width = 12,
@@ -60,38 +61,73 @@ app2UI <- function(id) {
             collapsible = TRUE,
             collapsed = TRUE,
             width = 12,
-            p("In the classic Monty Hall problem, there are 3 doors. Behind one of these doors is a car (the prize), and behind the other two doors are goats (non-prizes). Here's how the problem plays out with \\(N = 3\\):"),
-            p(tags$b("Initial Choice:"), "The contestant picks one of the 3 doors. Let's say they pick door 1."),
-            p("- The probability that door 1 has the car is \\( \\frac{1}{3} \\)."),
-            p("- The probability that door 1 has a goat is \\( \\frac{2}{3} \\)."),
+            p("In the classic Monty Hall problem, there are 3 doors.
+              Behind one of these doors is a car (the prize), and behind the
+              other two doors are goats (non-prizes). Here's how the problem
+              plays out with \\(N = 3\\):"),
+            p(tags$b("Initial Choice:"), "The contestant picks one of the 3
+              doors. Let's say they pick door 1."),
+            p("- The probability that door 1 has the car is
+              \\( \\frac{1}{3} \\)."),
+            p("- The probability that door 1 has a goat is
+              \\( \\frac{2}{3} \\)."),
             p(tags$b("Monty Opens Doors:")),
-            p("Monty Hall, who knows what's behind each door, opens one of the other two doors, revealing a goat. Suppose he opens door 3."),
+            p("Monty Hall, who knows what's behind each door, opens one of the
+              other two doors, revealing a goat. Suppose he opens door 3."),
             p("This leaves doors 1 and 2 unopened."),
             p(tags$b("Switching or Staying:")),
-            p("- Staying: If the contestant stays with door 1, the probability of winning the car is still \\( \\frac{1}{3} \\)."),
-            p("- Switching: If the contestant switches to door 2, the probability of winning the car is \\( \\frac{2}{3} \\)."),
+            p("- Staying: If the contestant stays with door 1, the probability
+              of winning the car is still \\( \\frac{1}{3} \\)."),
+            p("- Switching: If the contestant switches to door 2, the
+              probability of winning the car is \\( \\frac{2}{3} \\)."),
             p("This switching probability is higher because:"),
-            p("- If the initial choice (door 1) was incorrect (which happens with probability \\( \\frac{2}{3} \\)), switching will lead to the car."),
-            p("- If the initial choice was correct (which happens with probability \\( \\frac{1}{3} \\)), switching will lead to a goat."),
-            p("The decision tree diagram illustrates these probabilities clearly:"),
+            p("- If the initial choice (door 1) was incorrect (which happens
+              with probability \\( \\frac{2}{3} \\)), switching will lead to the
+              car."),
+            p("- If the initial choice was correct (which happens with
+              probability \\( \\frac{1}{3} \\)), switching will lead to a
+              goat."),
+            p("The decision tree diagram illustrates these probabilities
+              clearly:"),
             img(src = "monty_hall/desiciontree.png", height = "200px"),
-            p("In the diagram, the upper branch shows the probability of choosing a car door (\\( \\frac{1}{3} \\)), which results in losing if you switch. The lower branch shows the probability of choosing a goat door (\\( \\frac{2}{3} \\)), which results in winning if you switch."),
-            p("The overall probability of winning by switching is calculated as follows:"),
-            p("- The probability of initially choosing a goat door and then switching to the car: \\( \\frac{2}{3} \\times 1 = \\frac{2}{3} \\)."),
+            p("In the diagram, the upper branch shows the probability of
+              choosing a car door (\\( \\frac{1}{3} \\)), which results in
+              losing if you switch. The lower branch shows the probability
+              of choosing a goat door (\\( \\frac{2}{3} \\)), which results
+              in winning if you switch."),
+            p("The overall probability of winning by switching is calculated
+              as follows:"),
+            p("- The probability of initially choosing a goat door and then
+              switching to the car: \\( \\frac{2}{3} \\times 1 =
+              \\frac{2}{3} \\)."),
             p(h3("Generalized for any \\(N \\)")),
-            p("Now that we understand the math behind the classic Monty Hall problem, its time to get back to our Main Setup, where there are \\( N \\) doors, with one door hiding a car
+            p("Now that we understand the math behind the classic Monty Hall
+            problem, its time to get back to our Main Setup, where there are
+            \\( N \\) doors, with one door hiding a car
           and the remaining \\( N - 1 \\) doors hiding goats."),
-            p(tags$b("Initial Choice:"), "The contestant initially picks one of the \\( N \\) doors."),
-            p("- The probability that the chosen door has the car behind it is \\( \\frac{1}{N} \\)."),
-            p("- The probability that the chosen door has a goat behind it is \\( \\frac{N - 1}{N} \\)."),
+            p(tags$b("Initial Choice:"), "The contestant initially picks one
+              of the \\( N \\) doors."),
+            p("- The probability that the chosen door has the car behind it is
+              \\( \\frac{1}{N} \\)."),
+            p("- The probability that the chosen door has a goat behind it is
+              \\( \\frac{N - 1}{N} \\)."),
             p(tags$b("Monty Opens Doors:")),
-            p("Monty Hall, knowing what is behind each door, opens \\( N - 2 \\) doors, all revealing goats,
-          which leaves two doors unopened: the contestant’s initially chosen door and one other door."),
+            p("Monty Hall, knowing what is behind each door, opens \\( N - 2 \\)
+            doors, all revealing goats,
+          which leaves two doors unopened: the contestant’s initially chosen
+              door and one other door."),
             p(tags$b("Switching or Staying:")),
-            p("- Staying: If the contestant stays with their initial choice, the probability of winning the car remains \\( \\frac{1}{N} \\)."),
-            p("- Switching: If the contestant switches to the other unopened door, the probability of winning the car is \\( \\frac{N - 1}{N} \\)."),
-            p("This switching probability is higher because if the initial choice was incorrect (which happens with probability \\( \\frac{N - 1}{N} \\)),
-          switching will always lead to the car. On the other hand, if the initial choice was correct (which happens with probability \\( \\frac{1}{N} \\)),
+            p("- Staying: If the contestant stays with their initial choice, the
+              probability of winning the car remains \\( \\frac{1}{N} \\)."),
+            p("- Switching: If the contestant switches to the other unopened
+              door, the probability of winning the car is
+              \\( \\frac{N - 1}{N} \\)."),
+            p("This switching probability is higher because if the initial
+            choice was incorrect (which happens with probability
+            \\( \\frac{N - 1}{N} \\)),
+          switching will always lead to the car. On the other hand, if the
+          initial choice was correct (which happens with probability
+          \\( \\frac{1}{N} \\)),
           switching will lead to a goat.")
           ),
         ),
@@ -113,36 +149,50 @@ app2UI <- function(id) {
           skepticism, vos Savant's explanation was correct and is now a
           well-known example used to illustrate the counterintuitive nature of
           probability and conditional probability."),
-            p("The problem is named after Monty Hall, the original host of the American television game show \"Let\'s Make a Deal.\"
-          On the show, contestants were often presented with a choice between three doors, behind one of which was a valuable prize,
+            p("The problem is named after Monty Hall, the original host of the
+            American television game show \"Let\'s Make a Deal.\"
+          On the show, contestants were often presented with a choice between
+          three doors, behind one of which was a valuable prize,
           such as a car, while behind the other two were goats.
-          The game\'s twist, where Monty would reveal a goat behind one of the unchosen doors
-          and then offer the contestant a chance to switch their choice, fascinated viewers and sparked discussions about the best strategy."),
-            p("Vos Savant's column on the Monty Hall problem drew thousands of letters,
-          many of which criticized her solution and insisted that switching doors
-          would not improve the odds of winning the car. This widespread backlash highlighted how counterintuitive the correct answer seemed,
-          even to those well-versed in mathematics and probability theory."),
+          The game\'s twist, where Monty would reveal a goat behind one of the
+          unchosen doors and then offer the contestant a chance to switch their
+              choice, fascinated viewers and sparked discussions about the best
+              strategy."),
+            p("Vos Savant's column on the Monty Hall problem drew thousands
+            of letters, many of which criticized her solution and insisted that
+            switching doors would not improve the odds of winning the car.
+            This widespread backlash highlighted how counterintuitive the
+            correct answer seemed, even to those well-versed in mathematics and
+              probability theory."),
             p("As more mathematicians and statisticians analyzed the problem,
-          they confirmed that vos Savant's recommendation to always switch doors was indeed the optimal strategy.
-          This revelation turned the Monty Hall problem into a classic example in probability theory,
-          demonstrating how human intuition can often lead us astray in understanding probabilities and decision-making under uncertainty."),
-            p("Over time, the Monty Hall problem has been used in various educational settings to teach concepts
-          such as conditional probability, Bayesian reasoning, and the importance of revising our beliefs in light of new information.
-          It remains a popular and enduring puzzle that continues to intrigue and educate people about the complexities of probability.")
+          they confirmed that vos Savant's recommendation to always switch doors
+          was indeed the optimal strategy.This revelation turned the Monty Hall
+          problem into a classic example in probability theory, demonstrating
+              how human intuition can often lead us astray in understanding
+              probabilities and decision-making under uncertainty."),
+            p("Over time, the Monty Hall problem has been used in various
+            educational settings to teach concepts
+          such as conditional probability, Bayesian reasoning, and the
+          importance of revising our beliefs in light of new information.
+          It remains a popular and enduring puzzle that continues to intrigue
+              and educate people about the complexities of probability.")
           ),
         ),
       ),
       # Secondary Setup
       box(
-        title = "Secondary Setup",
+        title = "Secondary Setup: Advanced Variation Exploration",
         status = "primary",
         solidHeader = TRUE,
         width = 12,
         collapsible = TRUE,
         collapsed = TRUE,
-        p("Now that we understand the math behind the Monty Hall problem, let's look at a new twist.
-          In this new Secondary Setup, we will also be able to adjust the number of car doors.
-          Dive in to see how this change impacts which strategy to choose. Can you figure out, which value determines the better strategy now?"),
+        p("Now that we understand the math behind the Monty Hall problem, let's
+        look at a new twist.
+          In this new Secondary Setup, we will also be able to adjust the number
+          of car doors.
+          Dive in to see how this change impacts which strategy to choose. Can
+          you figure out, which value determines the better strategy now?"),
         sliderInput(ns("min_num_doors"),
           "Minimum Number of doors:",
           min = 3,
@@ -164,17 +214,36 @@ app2UI <- function(id) {
 
       # References
       box(
-        title = "References: Sources and further material",
+        title = "References",
         status = "primary",
         solidHeader = TRUE,
         collapsible = TRUE,
         collapsed = TRUE,
         width = 12,
-        p(HTML("<a href = https://youtu.be/4Lb-6rxZxx0> Numberphile </a>")),
-        p(HTML("<a href = https://www.untrammeledmind.com/2018/11/monty-hall-problem-and-variations-intuitive-solutions/> Untrammeled Mind </a>")),
-        p(HTML("<a href = https://www.businessinsider.com/the-monty-hall-problem-2013-3#-20> Business Insider </a>")),
-        p(HTML("<a href = https://en.wikipedia.org/wiki/Monty_Hall_problem> Wikipedia </a>")),
-        p("Tools used: ChatGPT, DeepL")
+        p(HTML("<a href = https://youtu.be/4Lb-6rxZxx0> 
+               Numberphile. 
+               (2014). 
+               Monty Hall Problem - Numberphile. 
+               YouTube. 
+               </a>")),
+        p(HTML("<a href = https://www.untrammeledmind.com/2018/11/monty-hall-problem-and-variations-intuitive-solutions/> 
+               Untrammeled Mind 
+               </a>")),
+        p(HTML("<a href = https://www.businessinsider.com/the-monty-hall-problem-2013-3> 
+               Walt, H. 
+               (2013). 
+               The 'Monty Hall Problem': Your Guide To The Controversial Math Fact That Drives People Insane. 
+               Business Insider. 
+               </a>")),
+        p(HTML("<a href = https://en.wikipedia.org/wiki/Monty_Hall_problem>
+               Monty Hall problem.
+               (2024, August 13).
+               In Wikipedia.
+               https://en.wikipedia.org/wiki/Monty_Hall_problem
+               </a>")),
+        p("Tools used:",
+          HTML("<a href = https://www.openai.com/chatgpt> ChatGPT(v3.5& v4) </a>,"),
+          HTML("<a href = https://www.deepl.com/de/translator> DeepL </a>"))
       )
     )
   )
@@ -196,7 +265,8 @@ app2Server <- function(id) {
     run_simulation <- function(num_doors, chosen_door, switch) {
       car_door <- sample(seq_len(num_doors), 1)
 
-      # Monty opens all doors with goats except for the chosen one and one other door
+      # Monty opens all doors with goats except for
+      # the chosen one and one other door
       goat_doors <- setdiff(seq_len(num_doors), car_door)
       goat_doors <- setdiff(goat_doors, chosen_door)
 
@@ -232,7 +302,10 @@ app2Server <- function(id) {
       output$result <- renderPrint({
         cat("The car is behind door:", result$car_door, "\n")
         cat("You chose door:", result$initial_chosen_door, "\n")
-        cat("Monty then opened doors:", paste(result$open_doors, collapse = ", "), "\n")
+        cat(
+          "Monty then opened doors:",
+          paste(result$open_doors, collapse = ", "), "\n"
+        )
         if (switch) {
           cat("You switched to door:", result$switch_door, "\n", "\n")
         } else {
@@ -250,7 +323,14 @@ app2Server <- function(id) {
       num_doors <- input$num_doors
       chosen_door <- as.numeric(input$initial_choice)
       switch <- input$switch_or_stay == "Switch"
-      results <- replicate(100, run_simulation(num_doors, chosen_door, switch), simplify = FALSE)
+      results <- replicate(100,
+        run_simulation(
+          num_doors,
+          chosen_door,
+          switch
+        ),
+        simplify = FALSE
+      )
 
       win_count <- sum(sapply(results, function(result) result$win))
 
